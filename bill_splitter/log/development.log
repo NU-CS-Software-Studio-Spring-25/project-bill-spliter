@@ -1,0 +1,131 @@
+Started GET "/" for ::1 at 2025-04-27 18:49:11 -0500
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='BillSplitter'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/nisarga/.local/share/mise/installs/ruby/3.4.3/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/nisarga/.local/share/mise/installs/ruby/3.4.3/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 48ms (Views: 4.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='BillSplitter'*/[0m
+  [1m[35m (149.4ms)[0m  [1m[35mCREATE DATABASE "bill_splitter_development" ENCODING = 'unicode' /*application='BillSplitter'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='BillSplitter'*/[0m
+  [1m[35m (52.7ms)[0m  [1m[35mCREATE DATABASE "bill_splitter_test" ENCODING = 'unicode' /*application='BillSplitter'*/[0m
+  [1m[35m (5.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='BillSplitter'*/[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='BillSplitter'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8121164258367177675) /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-04-28 00:02:12.900857', '2025-04-28 00:02:12.900858') RETURNING "key" /*application='BillSplitter'*/[0m
+Migrating to CreateUsers (20250427235500)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[35m (7.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "email" character varying, "password_digest" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250427235500') RETURNING "version" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+Migrating to CreateGroups (20250427235501)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[35m (4.6ms)[0m  [1m[35mCREATE TABLE "groups" ("id" bigserial primary key, "group_name" character varying, "created_by" uuid, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250427235501') RETURNING "version" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+Migrating to CreateGroupMembers (20250427235502)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[35m (7.1ms)[0m  [1m[35mCREATE TABLE "group_members" ("id" bigserial primary key, "group_id" bigint NOT NULL, "user_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e9fdb70ec5"
+FOREIGN KEY ("group_id")
+  REFERENCES "groups" ("id")
+, CONSTRAINT "fk_rails_bb66f6bca8"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='BillSplitter'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE INDEX "index_group_members_on_group_id" ON "group_members" ("group_id") /*application='BillSplitter'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_group_members_on_user_id" ON "group_members" ("user_id") /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250427235502') RETURNING "version" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+Migrating to CreateExpenses (20250427235503)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "expenses" ("id" bigserial primary key, "group_id" bigint NOT NULL, "added_by" uuid, "description" character varying, "total_amount" decimal, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_9c619cf8aa"
+FOREIGN KEY ("group_id")
+  REFERENCES "groups" ("id")
+) /*application='BillSplitter'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE INDEX "index_expenses_on_group_id" ON "expenses" ("group_id") /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250427235503') RETURNING "version" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+Migrating to CreateExpenseSplits (20250427235504)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE TABLE "expense_splits" ("id" bigserial primary key, "expense_id" bigint NOT NULL, "user_id" bigint NOT NULL, "amount" decimal, "paid" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_827e0a22ca"
+FOREIGN KEY ("expense_id")
+  REFERENCES "expenses" ("id")
+, CONSTRAINT "fk_rails_51ea5a8089"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='BillSplitter'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_expense_splits_on_expense_id" ON "expense_splits" ("expense_id") /*application='BillSplitter'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_expense_splits_on_user_id" ON "expense_splits" ("user_id") /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250427235504') RETURNING "version" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(8121164258367177675) /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (5.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$lxA/ZdClPApiMShttp15RuIIAwHnQWpyhZAmXpE6837KZMxqZ6caK', '2025-04-28 00:05:05.424910', '2025-04-28 00:05:05.424910') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Bob', 'bob@example.com', '$2a$12$mhhIe4gfk5sQkeo1nFjNSuXodOpO/SytEqjqI0W3OyOlmxoPt3zPq', '2025-04-28 00:05:05.601742', '2025-04-28 00:05:05.601742') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$EBpthMAUJqN1wwYp0Ib6kuSo1jpFX3BC.isYdsYrMorhvun9uhYFC', '2025-04-28 00:05:27.489419', '2025-04-28 00:05:27.489419') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Bob', 'bob@example.com', '$2a$12$/5k2Q5Psg8QPeBLQCfUp2uukharCJbNsWynUuFv6yi1i5J3Ha6yCi', '2025-04-28 00:05:27.664431', '2025-04-28 00:05:27.664431') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$PYreavzI5CGTSusi5LlBdOCjXLUmvWxXXBjqM5GHC8741pAGTyQ2e', '2025-04-28 00:08:42.518297', '2025-04-28 00:08:42.518297') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$dp7c729L2jTsuhVqE/zH.uT1JE8ja1jkLqfvrBUuM.UNU1hvCB1ha', '2025-04-28 00:09:02.745495', '2025-04-28 00:09:02.745495') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$2KS4J7eQdnNYmWre6STCw.ML/Aawpr2JAOKAP/C6tQFmU1dSS1MT.', '2025-04-28 00:09:20.730807', '2025-04-28 00:09:20.730807') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$Lm32Dvu.b1AfugA373rlUO3eNsBTrNfD5jQAqhctpflBRtD9qPHBG', '2025-04-28 00:09:48.087372', '2025-04-28 00:09:48.087372') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Bob', 'bob@example.com', '$2a$12$o2qn7sas5aZKUdTbxlGlo.IJPYwMOnuURUc66LgneKSqL6xwYK2hK', '2025-04-28 00:09:48.262184', '2025-04-28 00:09:48.262184') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$WBnQrRMfx/e8gjl/vJTD9uWeDQ7uUk8gJl/N3zD/7U8PyHPvOnhLW', '2025-04-28 00:09:56.708158', '2025-04-28 00:09:56.708158') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Bob', 'bob@example.com', '$2a$12$Di7u4IOSYx8KvcAjI54vM.Weqy4wiBvVnPE6f/YM8t1TGgSydH/PK', '2025-04-28 00:09:56.883375', '2025-04-28 00:09:56.883375') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (2.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$Ck96V3vFfxyrlVGBs.cKke7NZ0svhBhHo8H/BdeyzMstjdmnNWJf.', '2025-04-28 00:14:01.177451', '2025-04-28 00:14:01.177451') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Bob', 'bob@example.com', '$2a$12$72am2fSgY/SlqzJrfCpRB.j.zSJkRPEv1pS41lW2VyyFvDXj1mXF6', '2025-04-28 00:14:01.352061', '2025-04-28 00:14:01.352061') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$CZrsHbEUMfhsZ95lz2Up9O5cKjEcnLlXBV.ZUpB8.ca..PEZ79Vx6', '2025-04-28 00:16:08.356108', '2025-04-28 00:16:08.356108') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$fJidqb.t0XNm7glsVRzU0OUL6Es0n2Nwt../L7HM6SPcgoMJnFdOy', '2025-04-28 00:16:13.140252', '2025-04-28 00:16:13.140252') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mUser Load (24.2ms)[0m  [1m[34mSELECT "users".* FROM "users" /* loading for pp */ LIMIT 11 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$scgIuNjzb17.m7Tw6ovgK.ATBzvDn6ZjE.7TGapfiNldZRPQ/dpSC', '2025-04-28 00:17:22.484773', '2025-04-28 00:17:22.484773') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (3.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alice', 'alice@example.com', '$2a$12$engKIpwtPMCH.RodNz8WLuiEFAHPljoVSS4SbuWXTDruwmuVvbeF.', '2025-04-28 00:21:57.470694', '2025-04-28 00:21:57.470694') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m

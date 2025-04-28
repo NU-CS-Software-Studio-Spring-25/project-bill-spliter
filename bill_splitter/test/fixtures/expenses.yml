@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group: one
+  added_by: 
+  description: MyString
+  total_amount: 9.99
+
+two:
+  group: two
+  added_by: 
+  description: MyString
+  total_amount: 9.99

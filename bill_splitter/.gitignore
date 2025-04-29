@@ -1,0 +1,15 @@
+# Ignore Rails temp and log files
+/tmp
+/log
+/storage
+/.bundle
+
+# Ignore system files
+*.swp
+*.bak
+*.tmp
+*.DS_Store
+
+# Ignore credentials if they exist (be careful)
+config/master.key
+config/credentials.yml.enc

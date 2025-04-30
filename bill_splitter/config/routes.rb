@@ -18,4 +18,6 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :create, :destroy]
     end
   end
+  resources :expenses, only: [:index, :new, :create, :destroy, :show]
+  resources :groups, only: [:show]
 end

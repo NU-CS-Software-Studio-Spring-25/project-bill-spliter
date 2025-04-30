@@ -1,0 +1,32 @@
+<h1>Expenses</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Total Amount</th>
+      <th>Group</th>
+      <th>Added By</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @expenses.each do |expense| %>
+      <tr>
+        <td><%= link_to expense.description, expense_path(expense), class: 'btn btn-info' %></td>
+        <td><%= number_to_currency(expense.total_amount) %></td>
+        <td>
+            <% if expense.group %>
+                <%= link_to expense.group.group_name, group_path(expense.group), class: "btn btn-link" %>
+            <% end %>
+        </td>
+        <td><%= expense.added_by_user.name if expense.added_by_user %></td>
+        <td>
+          <%= button_to 'Delete', expense_path(expense), method: :delete, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Add Expense', new_expense_path, class: 'btn btn-primary' %>

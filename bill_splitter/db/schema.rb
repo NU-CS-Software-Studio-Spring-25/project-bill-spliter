@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_29_003704) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_30_180558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_29_003704) do
     t.decimal "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "expense_id", null: false
+    t.index ["expense_id"], name: "index_expense_splits_on_expense_id"
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -48,6 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_29_003704) do
     t.integer "group_ids", default: [], null: false, array: true
   end
 
+  add_foreign_key "expense_splits", "expenses"
   add_foreign_key "expense_splits", "users"
   add_foreign_key "expenses", "groups"
 end

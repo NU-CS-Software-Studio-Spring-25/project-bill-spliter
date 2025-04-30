@@ -1,0 +1,33 @@
+<h1><%= @group.group_name %></h1>
+<h3>Members</h3>
+<ul>
+  <% @members.each do |member| %>
+    <li><%= member.name %></li>
+  <% end %>
+</ul>
+<h2>Expenses</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Total Amount</th>
+      <th>Added By</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @expenses.each do |expense| %>
+      <tr>
+        <td><%= link_to expense.description, expense_path(expense), class: 'btn btn-info' %></td>
+        <td><%= number_to_currency(expense.total_amount) %></td>
+        <td><%= expense.added_by_user&.name || 'Unknown' %></td>
+        <td>
+          <%= button_to 'Delete', expense_path(expense), method: :delete, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to 'Add Expense to This Group', new_expense_path(group_id: @group.id), class: 'btn btn-primary' %> </p
+<p><%= link_to 'Home', expenses_path, class: 'btn btn-secondary' %> </p

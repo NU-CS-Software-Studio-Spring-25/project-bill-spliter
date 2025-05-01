@@ -1,37 +1,63 @@
-<h1>New Expense</h1>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary">New Expense</h1>
+    <%= link_to 'Back to Expenses', expenses_path, class: 'btn btn-outline-secondary' %>
+  </div>
 
-<%= form_with(model: @expense, local: true) do |form| %>
-    <div class="form-group">
-        <%= form.label :description %>
-        <%= form.text_field :description, class: 'form-control' %>
-    </div>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <%= form_with(model: @expense, local: true, html: { class: 'needs-validation', novalidate: true }) do |form| %>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <%= form.text_field :description, class: 'form-control', placeholder: ' ', required: true %>
+              <%= form.label :description, class: 'form-label' %>
+            </div>
+          </div>
 
-    <div class="form-group">
-        <%= form.label :total_amount %>
-        <%= form.number_field :total_amount, class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-        <%= form.label :group_id %>
-        <%= form.collection_select :group_id, @groups, :id, :group_name, prompt: "Select a Group", class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-        <%= form.label :added_by %>
-        <%= form.select :added_by, @users.map { |user| [user.name, user.id] }, { prompt: "Select a User" }, class: 'form-control' %>
-    </div>
-
-    <%= form.submit 'Add Expense', class: 'btn btn-success' %>
-    <% if @expense.errors.any? %>
-        <div class="alert alert-danger">
-            <h4>There were some errors with your form:</h4>
-            <ul>
-                <% @expense.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <%= form.number_field :total_amount, class: 'form-control', placeholder: ' ', step: '0.01', required: true %>
+              <%= form.label :total_amount, class: 'form-label' %>
+            </div>
+          </div>
         </div>
-    <% end %>
-<% end %>
 
-<%= link_to 'Back to Expenses', expenses_path, class: 'btn btn-secondary' %>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <%= form.collection_select :group_id, @groups, :id, :group_name, 
+                  { prompt: "Select a Group" }, 
+                  { class: 'form-select', required: true } %>
+              <%= form.label :group_id, class: 'form-label' %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-floating">
+              <%= form.select :added_by, @users.map { |user| [user.name, user.id] }, 
+                  { prompt: "Select a User" }, 
+                  { class: 'form-select', required: true } %>
+              <%= form.label :added_by, class: 'form-label' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+          <%= form.submit 'Add Expense', class: 'btn btn-primary btn-lg px-4' %>
+        </div>
+
+        <% if @expense.errors.any? %>
+          <div class="alert alert-danger mt-4">
+            <h4 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> There were some errors with your form:</h4>
+            <ul class="mb-0">
+              <% @expense.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@
 /log
 /storage
 /.bundle
+/log/*.log
 
 # Ignore system files
 *.swp

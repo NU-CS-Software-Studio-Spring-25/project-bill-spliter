@@ -1,32 +1,48 @@
-<h1>Expenses</h1>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary mb-0">Expenses</h1>
+    <%= link_to 'Add Expense', new_expense_path, class: 'btn btn-primary' %>
+  </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Description</th>
-      <th>Total Amount</th>
-      <th>Group</th>
-      <th>Added By</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @expenses.each do |expense| %>
-      <tr>
-        <td><%= link_to expense.description, expense_path(expense), class: 'btn btn-info' %></td>
-        <td><%= number_to_currency(expense.total_amount) %></td>
-        <td>
-            <% if expense.group %>
-                <%= link_to expense.group.group_name, group_path(expense.group), class: "btn btn-link" %>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Description</th>
+              <th scope="col">Total Amount</th>
+              <th scope="col">Group</th>
+              <th scope="col">Added By</th>
+              <th scope="col" class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @expenses.each do |expense| %>
+              <tr>
+                <td>
+                  <%= link_to expense.description, expense_path(expense), class: 'text-decoration-none fw-bold' %>
+                </td>
+                <td><%= number_to_currency(expense.total_amount) %></td>
+                <td>
+                  <% if expense.group %>
+                    <%= link_to expense.group.group_name, group_path(expense.group), class: "badge bg-info text-decoration-none" %>
+                  <% end %>
+                </td>
+                <td><span class="badge bg-secondary"><%= expense.added_by_user.name if expense.added_by_user %></span></td>
+                <td class="text-end">
+                  <div class="btn-group" role="group">
+                    <%= link_to 'View', expense_path(expense), class: 'btn btn-sm btn-outline-primary' %>
+                    <%= button_to 'Delete', expense_path(expense), method: :delete, 
+                        class: 'btn btn-sm btn-outline-danger',
+                        data: { turbo_confirm: 'Are you sure?' } %>
+                  </div>
+                </td>
+              </tr>
             <% end %>
-        </td>
-        <td><%= expense.added_by_user.name if expense.added_by_user %></td>
-        <td>
-          <%= button_to 'Delete', expense_path(expense), method: :delete, class: 'btn btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Add Expense', new_expense_path, class: 'btn btn-primary' %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

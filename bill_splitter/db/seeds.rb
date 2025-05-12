@@ -1,122 +1,84 @@
 # db/seeds.rb
-# Clear all existing data first (optional but useful during development)
+require 'faker'
+
+# Clear all existing data first
 Expense.destroy_all
 GroupMembership.destroy_all
 Group.destroy_all
 User.destroy_all
 
-# Create users
-alice = User.create!(name: "Alice", email: "alice@example.com", password: "password123")
-bob = User.create!(name: "Bob", email: "bob@example.com", password: "password123")
-carol = User.create!(name: "Carol", email: "carol@example.com", password: "password123")
-david = User.create!(name: "David", email: "david@example.com", password: "password123")
-emily = User.create!(name: "Emily", email: "emily@example.com", password: "password123")
-frank = User.create!(name: "Frank", email: "frank@example.com", password: "password123")
-puts "✅ Created users: Alice, Bob, Carol, David, Emily, Frank"
+puts "Seeding data..."
 
-# Create groups
-trip = Group.create!(group_name: "Trip to Chicago", creator: alice)
-lunch = Group.create!(group_name: "Group Lunch", creator: bob)
-roommates = Group.create!(group_name: "Roommates", creator: carol)
+# Create 40 users with Faker data
+users = []
+40.times do
+  user = User.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.email,
+    password: "password123"
+  )
+  users << user
+end
+puts "Created #{users.length} users"
 
-puts "✅ Created groups: Trip to Chicago, Group Lunch, Roommates"
+# Create 40 groups with Faker data
+groups = []
+40.times do
+  group = Group.create!(
+    group_name: Faker::Company.name,
+    creator: users.sample
+  )
+  groups << group
+end
+puts "Created #{groups.length} groups"
 
-# Create group memberships
-# Trip to Chicago members
-GroupMembership.create!(group: trip, user: alice, role: "admin")
-GroupMembership.create!(group: trip, user: frank, role: "member")
+# Create group memberships (at least 2 members per group)
+groups.each do |group|
+  # Add creator as admin
+  GroupMembership.create!(
+    group: group,
+    user: group.creator,
+    role: "admin"
+  )
+  
+  # Add 2-5 random members
+  rand(2..5).times do
+    random_user = users.sample
+    next if random_user == group.creator # Skip if it's the creator
+    
+    GroupMembership.create!(
+      group: group,
+      user: random_user,
+      role: ["admin", "member"].sample
+    )
+  end
+end
+puts "Created group memberships"
 
-# Group Lunch members
-GroupMembership.create!(group: lunch, user: bob, role: "admin")
-GroupMembership.create!(group: lunch, user: alice, role: "member")
-GroupMembership.create!(group: lunch, user: carol, role: "member")
-GroupMembership.create!(group: lunch, user: david, role: "member")
+# Create 40 expenses with Faker data
+40.times do
+  group = groups.sample
+  Expense.create!(
+    group: group,
+    added_by_user: group.members.sample,
+    description: Faker::Commerce.product_name,
+    total_amount: Faker::Commerce.price(range: 10.0..1000.0)
+  )
+end
+puts "Created #{Expense.count} expenses"
 
-# Roommates members
-GroupMembership.create!(group: roommates, user: carol, role: "admin")
-GroupMembership.create!(group: roommates, user: alice, role: "member")
-GroupMembership.create!(group: roommates, user: emily, role: "member")
+# Create expense splits for each expense
+Expense.find_each do |expense|
+  # Create splits for 2-5 random members of the group
+  expense.group.members.sample(rand(2..5)).each do |member|
+    ExpenseSplit.create!(
+      expense: expense,
+      user: member,
+      amount: expense.total_amount / expense.group.members.count,
+      paid: [true, false].sample
+    )
+  end
+end
+puts "Created expense splits"
 
-puts "✅ Created group memberships"
-
-# expense for trip group
-Expense.create!(
-  group: trip,
-  added_by_user: alice,
-  description: "Hotel Booking",
-  total_amount: 600.00
-)
-
-Expense.create!(
-  group: trip,
-  added_by_user: alice,
-  description: "Flight Tickets",
-  total_amount: 1200.00
-)
-
-Expense.create!(
-  group: trip,
-  added_by_user: alice,
-  description: "Ventra Tickets",
-  total_amount: 10.00
-)
-
-Expense.create!(
-  group: trip,
-  added_by_user: frank,
-  description: "Fancy Dinner",
-  total_amount: 120.00
-)
-
-Expense.create!(
-  group: trip,
-  added_by_user: frank,
-  description: "Drink at the Bar",
-  total_amount: 50.00
-)
-
-# Expenses for Lunch group
-Expense.create!(
-  group: lunch,
-  added_by_user: david,
-  description: "Pizza Lunch",
-  total_amount: 45.50
-)
-
-Expense.create!(
-  group: lunch,
-  added_by_user: alice,
-  description: "Dessert",
-  total_amount: 20.00
-)
-
-Expense.create!(
-  group: lunch,
-  added_by_user: alice,
-  description: "Coffee",
-  total_amount: 15.00
-)
-
-# Expenses for Roommate Group
-Expense.create!(
-  group: roommates,
-  added_by_user: alice,
-  description: "Sofa",
-  total_amount: 150.00
-)
-
-Expense.create!(
-  group: roommates,
-  added_by_user: emily,
-  description: "Group dinner",
-  total_amount: 55.00
-)
-
-Expense.create!(
-  group: roommates,
-  added_by_user: carol,
-  description: "New Coffee Machine",
-  total_amount: 75.00
-)
-
-puts "✅ Expenses created"
+puts "Seeding completed!"

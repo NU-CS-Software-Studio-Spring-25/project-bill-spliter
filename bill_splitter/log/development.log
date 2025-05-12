@@ -14331,3 +14331,382 @@ FOREIGN KEY ("user_id")
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
   [1m[36mExpense Create (0.4ms)[0m  [1m[32mINSERT INTO "expenses" ("group_id", "added_by", "description", "total_amount", "created_at", "updated_at") VALUES (6, NULL, 'New Coffee Machine', 75.0, '2025-05-12 23:01:44.167392', '2025-05-12 23:01:44.167392') RETURNING "id" /*application='BillSplitter'*/[0m
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+  [1m[36mExpense Load (1.0ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (1.8ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 1 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (0.6ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 2 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (1.4ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 3 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (0.6ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 4 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (2.3ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 5 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (0.5ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 6 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (0.5ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 7 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (0.5ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 8 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (0.5ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 9 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (1.2ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 10 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mExpense Destroy (0.4ms)[0m  [1m[31mDELETE FROM "expenses" WHERE "expenses"."id" = 11 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (0.9ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.5ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 10 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.6ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 11 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.4ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 12 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.5ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 13 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.4ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 14 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.4ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 15 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.5ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 16 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.4ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 17 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Destroy (0.5ms)[0m  [1m[31mDELETE FROM "group_memberships" WHERE "group_memberships"."id" = 18 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mGroup Load (0.6ms)[0m  [1m[34mSELECT "groups".* FROM "groups" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (0.6ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."group_id" = 4 /*application='BillSplitter'*/[0m
+  [1m[36mExpense Load (0.2ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" WHERE "expenses"."group_id" = 4 /*application='BillSplitter'*/[0m
+  [1m[36mGroup Destroy (0.7ms)[0m  [1m[31mDELETE FROM "groups" WHERE "groups"."id" = 4 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (0.5ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."group_id" = 5 /*application='BillSplitter'*/[0m
+  [1m[36mExpense Load (0.1ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" WHERE "expenses"."group_id" = 5 /*application='BillSplitter'*/[0m
+  [1m[36mGroup Destroy (0.3ms)[0m  [1m[31mDELETE FROM "groups" WHERE "groups"."id" = 5 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (0.5ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."group_id" = 6 /*application='BillSplitter'*/[0m
+  [1m[36mExpense Load (0.1ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" WHERE "expenses"."group_id" = 6 /*application='BillSplitter'*/[0m
+  [1m[36mGroup Destroy (0.3ms)[0m  [1m[31mDELETE FROM "groups" WHERE "groups"."id" = 6 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (7.6ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."user_id" = 25 /*application='BillSplitter'*/[0m
+  [1m[36mUser Destroy (0.6ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 25 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (0.5ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."user_id" = 26 /*application='BillSplitter'*/[0m
+  [1m[36mUser Destroy (0.3ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 26 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (1.0ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."user_id" = 27 /*application='BillSplitter'*/[0m
+  [1m[36mUser Destroy (0.3ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 27 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (0.4ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."user_id" = 28 /*application='BillSplitter'*/[0m
+  [1m[36mUser Destroy (0.3ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 28 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (1.1ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."user_id" = 29 /*application='BillSplitter'*/[0m
+  [1m[36mUser Destroy (0.3ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 29 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Load (0.5ms)[0m  [1m[34mSELECT "group_memberships".* FROM "group_memberships" WHERE "group_memberships"."user_id" = 30 /*application='BillSplitter'*/[0m
+  [1m[36mUser Destroy (0.3ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 30 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (2.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Slyvia Wintheiser', 'errol@jaskolski.example', '$2a$12$Wkc2pSUQ2ugKMxTnjdht2ekCxDRIta8HqsHIBFDVNaX/tfaszs3pq', '2025-05-12 23:05:48.249410', '2025-05-12 23:05:48.249410') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Tequila Strosin', 'walker.anderson@halvorson-dickinson.test', '$2a$12$Rh7IKjhwQbx6zsvAgi9Tc.IS6.ZZSkj0hGaTqJkQ30o5dSxy.KJFy', '2025-05-12 23:05:48.435770', '2025-05-12 23:05:48.435770') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Tamara Reichert MD', 'bennett_hoppe@mante-hudson.test', '$2a$12$LJGFVjjmoVIMPq2X84wW9uJ.uLnwb5j.EMyLiKX2UuZ.m8744RzdG', '2025-05-12 23:05:48.613275', '2025-05-12 23:05:48.613275') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Yoshiko Aufderhar', 'garfield_rosenbaum@jakubowski-spencer.test', '$2a$12$WEv9YQnkPlFdB1.UJMeinep5nYynxzePcSh9hqyFk1owy9N5PmocC', '2025-05-12 23:05:48.789027', '2025-05-12 23:05:48.789027') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Billie Pouros', 'terrilyn_brakus@hettinger.test', '$2a$12$aNJU9XFG1a3a8dKZc.ubGuM8OPjw6ew/Tq34r6QDWnEpR972M4z.W', '2025-05-12 23:05:48.964754', '2025-05-12 23:05:48.964754') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Javier Beahan', 'joanne@reinger.test', '$2a$12$aoRtX7ga.uLDorOzeK98VeUAOgNTeoFLHOid6FPiCIMfm72pJF576', '2025-05-12 23:05:49.139526', '2025-05-12 23:05:49.139526') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Gov. France Pfannerstill', 'lakisha@kreiger.test', '$2a$12$NxK/U/oK.S35wHnsyXXpuOKlmS549GrioozvvAxcPDUStRcHd/z7G', '2025-05-12 23:05:49.316816', '2025-05-12 23:05:49.316816') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Tyron Jakubowski', 'trula.hoeger@botsford.example', '$2a$12$eciOhmdKmQWJunzvK7qw8.oPzCCxWvWL7fubm0ylUYIKenmxR23S6', '2025-05-12 23:05:49.493235', '2025-05-12 23:05:49.493235') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Rene O''Keefe DO', 'isaias@kerluke.test', '$2a$12$HsCXoPuhBGNaFEi4SCEC.eE3cFCMFesF0EJXEkbHj/.k0oXAi4eVe', '2025-05-12 23:05:49.666024', '2025-05-12 23:05:49.666024') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Damaris Welch', 'bryon_beier@berge.example', '$2a$12$9Dy3wYvzG7mHtlfKCRfusuR5PKxNDYsB5mMp.ys4eWB1bnAURoT6q', '2025-05-12 23:05:49.839574', '2025-05-12 23:05:49.839574') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Rev. Kristyn Koch', 'hilario_goyette@yost.example', '$2a$12$pfz0zg.EVGnLFDF1E62tn.OFBiiTD1FitxLKyWjaP1.wziFVV..8q', '2025-05-12 23:05:50.011177', '2025-05-12 23:05:50.011177') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Cordell Kuhn', 'edmund.senger@wilkinson.example', '$2a$12$Bpld2YUMnqdFWW1Z5I9R6uz5T/2..V7Rrsv97bc/Yr.Zz3DOMEN5q', '2025-05-12 23:05:50.182298', '2025-05-12 23:05:50.182298') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Christiane Funk', 'karin.stracke@collins-graham.example', '$2a$12$uBmlgni8MG6JVteSITHjz.Y3gizM0TlL./5zaTPQkjBiktlXSZmwK', '2025-05-12 23:05:50.353524', '2025-05-12 23:05:50.353524') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Jere Abshire', 'olivia@gusikowski.test', '$2a$12$pvayNzwxAzEo/usbhjd2vuo8Ph3KtZJqucW3TBbu9UODu2SV8h36y', '2025-05-12 23:05:50.526744', '2025-05-12 23:05:50.526744') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Matha Jacobi DO', 'emmie@larkin.test', '$2a$12$LN3dqmgnJlvYcK5UqHhKQuzOFnEjgsuUx9RpR9l5fWHkOm7oTtxmS', '2025-05-12 23:05:50.699777', '2025-05-12 23:05:50.699777') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Rep. Morris Hermann', 'demetrius@satterfield.example', '$2a$12$vrrONOGgggWEmQMZFtO7M.xa9vOaggS/6ZfQQylWqb6RLAypDm0hK', '2025-05-12 23:05:50.872428', '2025-05-12 23:05:50.872428') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Sidney Jakubowski', 'jere@dietrich.test', '$2a$12$OgMuRw4BQq3otBEVJGlLy.6u2KsffpsjYly3vOrI2UAkIosQOmf.m', '2025-05-12 23:05:51.043893', '2025-05-12 23:05:51.043893') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Harvey Corkery', 'america.morissette@okeefe.example', '$2a$12$0qbl13DWq6Yn6MJc9ic93eEoGi4ir4349gaVcB7ZJ8gafx2juXpMG', '2025-05-12 23:05:51.215064', '2025-05-12 23:05:51.215064') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Yulanda Reichert', 'crissy@gulgowski.test', '$2a$12$nBnDRwhSu8Lic5og66qVxepwoRKChwvkNG62tyNi9/zSfGARgyPSO', '2025-05-12 23:05:51.386436', '2025-05-12 23:05:51.386436') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Harrison O''Kon', 'stephen@torp.test', '$2a$12$IM9DeVn3yUb60svAjbRUG.Lus1ql6rZ3q3hcRx9dpeT9u9J8GcoGa', '2025-05-12 23:05:51.557501', '2025-05-12 23:05:51.557501') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Dorla Streich Jr.', 'don_koch@berge.test', '$2a$12$EmpVMtHC7a6A/pRSf3JyI.X86LiroWLqsUlLUnJkJCMQ.5Ga5SID2', '2025-05-12 23:05:51.746508', '2025-05-12 23:05:51.746508') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Ka Bahringer', 'georgianne.sipes@emmerich.test', '$2a$12$G9XDHvaADSO3hqrgvxfge.rFMV0qbfin6tfwWsYKR4iZhnaWCfoda', '2025-05-12 23:05:51.919905', '2025-05-12 23:05:51.919905') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Joanne Abshire', 'brianna.harber@dibbert.example', '$2a$12$.F0/ubB2izP7dSHrsm72NuIlMgLg7arbJh59JKKH6Lml3LZv/aE5O', '2025-05-12 23:05:52.096235', '2025-05-12 23:05:52.096235') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Mrs. Timika Dibbert', 'tomiko.jacobi@sporer.test', '$2a$12$UjDU.j4N4ZRbr8a7WyV6N.Hj3lD2s.3JtilSbcIkbLuWpsb7/wAUO', '2025-05-12 23:05:52.268542', '2025-05-12 23:05:52.268542') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (2.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Lavone Beahan', 'brittanie.lakin@hoeger.test', '$2a$12$9/JIdvTRjXhHqsT5REAePOLD54qLkzX0VnQ9e8oTo9M1kQbdtjzym', '2025-05-12 23:05:52.441039', '2025-05-12 23:05:52.441039') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Alethea Price', 'michale@prosacco.test', '$2a$12$7e6N9Af4Av7.vkpyaauFneluDSDHqem5HHpXEqmYoQDMEstmNpiRC', '2025-05-12 23:05:52.616971', '2025-05-12 23:05:52.616971') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Spencer D''Amore II', 'dannie@ward-effertz.example', '$2a$12$r0RoX3xUz4QIjlBoCJCd9.w.oLJWHKXURuXglO3B2mnO8rvnVFZWK', '2025-05-12 23:05:52.789662', '2025-05-12 23:05:52.789662') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Stanton Larson', 'arnoldo_boehm@sipes-feeney.example', '$2a$12$iz.gz71aCCIWCm5744RQnuXoznAAoRLgKq5PRxCCCUOyxtfgwc4LK', '2025-05-12 23:05:52.962305', '2025-05-12 23:05:52.962305') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Zane Thompson', 'evelynn@murazik.example', '$2a$12$Syo0/yZn/kE2nO9NYmor.uiTjqDN1L39nO42.D7/K2mnjx93hTKRy', '2025-05-12 23:05:53.135101', '2025-05-12 23:05:53.135101') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Shani Abernathy', 'norman.steuber@cronin.example', '$2a$12$IMhzPSHIsJDWMAHz/XXPBeCywIF.hT.M2FsHF5MZKgPQe7KyL/iEa', '2025-05-12 23:05:53.314220', '2025-05-12 23:05:53.314220') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Paris Bechtelar', 'kim@schaden.example', '$2a$12$cnJnZNlR6bLeGqNBwNO14uq.eWRm2EnKQoj1jN65DGOIeuPInye3G', '2025-05-12 23:05:53.488665', '2025-05-12 23:05:53.488665') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Sue Rutherford', 'charmain@yost.test', '$2a$12$DmtmX/Ge5I1mJvp5va6wWuJgfx2JTshOUkP/YK/32FqKnv7L1HnGO', '2025-05-12 23:05:53.660037', '2025-05-12 23:05:53.660037') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Lawerence Marvin', 'madelaine@abbott.example', '$2a$12$ooATW7ehqNPZJtGmvaXBQu24exVlf3xqu7bEDSrMr5ppL4AXVNy/.', '2025-05-12 23:05:53.831044', '2025-05-12 23:05:53.831044') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Mac Borer', 'judy_franecki@baumbach-flatley.example', '$2a$12$oqyUp9eq1vgDe3jtATE/G.qdSX02GwLJKgPO9IM1nW.K5Q3Ot9saW', '2025-05-12 23:05:54.002928', '2025-05-12 23:05:54.002928') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Augustine Kunze', 'kermit@padberg-stroman.test', '$2a$12$hPzCd0R6Ullla6BOJV5FXuplIE6CvSo/bDdElGIXS2rxcZ9W0syvS', '2025-05-12 23:05:54.174457', '2025-05-12 23:05:54.174457') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Wilber Murphy', 'tracey@collins-hayes.test', '$2a$12$AJYhBzApeqVshQN0pnqsluHMwcWAoYTePWwRSTl3wt5hm138ZTED2', '2025-05-12 23:05:54.346046', '2025-05-12 23:05:54.346046') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Rep. Leo Kassulke', 'filomena@koepp-hammes.test', '$2a$12$yBCSJSKyodX/S.fnqNFYJeSPnlp/SsmLMY/hPURvX7vdYK0R/Erfa', '2025-05-12 23:05:54.517093', '2025-05-12 23:05:54.517093') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Mervin Monahan', 'vickey.hudson@bashirian-murazik.test', '$2a$12$BwIxtGvrYHZGc1UeAnq9eulxM8y2XLrSR1M9NQVD2TXwaE5FoS0.y', '2025-05-12 23:05:54.688501', '2025-05-12 23:05:54.688501') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Trey Russel DDS', 'stacey_lesch@franecki.test', '$2a$12$wTC/5iJZ98ZvbShRlZsLY.Ccx48skdfVV/P3ie0ou3WoFLpEmCzga', '2025-05-12 23:05:54.859535', '2025-05-12 23:05:54.859535') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ('Jasmin Stroman', 'billie@daniel.example', '$2a$12$R6P2s/B5w5MoNZOv3HVs8uNCHRGeFjFbhwhvpWeXOmK09pyGWIbA.', '2025-05-12 23:05:55.030855', '2025-05-12 23:05:55.030855') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.8ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('MacGyver Group', NULL, '2025-05-12 23:05:55.040695', '2025-05-12 23:05:55.040695') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Hermann-Emmerich', NULL, '2025-05-12 23:05:55.045852', '2025-05-12 23:05:55.045852') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Ward Inc', NULL, '2025-05-12 23:05:55.047157', '2025-05-12 23:05:55.047157') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Russel Inc', NULL, '2025-05-12 23:05:55.048319', '2025-05-12 23:05:55.048319') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Keebler-Stamm', NULL, '2025-05-12 23:05:55.049715', '2025-05-12 23:05:55.049715') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Quitzon LLC', NULL, '2025-05-12 23:05:55.051215', '2025-05-12 23:05:55.051215') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Abshire LLC', NULL, '2025-05-12 23:05:55.052637', '2025-05-12 23:05:55.052637') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Keeling and Sons', NULL, '2025-05-12 23:05:55.053822', '2025-05-12 23:05:55.053822') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Krajcik, Ledner and Harber', NULL, '2025-05-12 23:05:55.055005', '2025-05-12 23:05:55.055005') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.6ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Cremin-Weimann', NULL, '2025-05-12 23:05:55.056088', '2025-05-12 23:05:55.056088') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Roob-Gulgowski', NULL, '2025-05-12 23:05:55.057558', '2025-05-12 23:05:55.057558') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Hoppe and Sons', NULL, '2025-05-12 23:05:55.058646', '2025-05-12 23:05:55.058646') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Ward, Block and Ullrich', NULL, '2025-05-12 23:05:55.059814', '2025-05-12 23:05:55.059814') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Konopelski LLC', NULL, '2025-05-12 23:05:55.060887', '2025-05-12 23:05:55.060887') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Dach-Beer', NULL, '2025-05-12 23:05:55.062434', '2025-05-12 23:05:55.062434') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Friesen Group', NULL, '2025-05-12 23:05:55.063685', '2025-05-12 23:05:55.063685') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Wuckert, Stamm and Klocko', NULL, '2025-05-12 23:05:55.064792', '2025-05-12 23:05:55.064792') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Kovacek Inc', NULL, '2025-05-12 23:05:55.067195', '2025-05-12 23:05:55.067195') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Bogisich Group', NULL, '2025-05-12 23:05:55.068375', '2025-05-12 23:05:55.068375') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Rau-Reichert', NULL, '2025-05-12 23:05:55.069420', '2025-05-12 23:05:55.069420') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Hoeger Inc', NULL, '2025-05-12 23:05:55.070494', '2025-05-12 23:05:55.070494') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Haley Group', NULL, '2025-05-12 23:05:55.071563', '2025-05-12 23:05:55.071563') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Daugherty-Bechtelar', NULL, '2025-05-12 23:05:55.072622', '2025-05-12 23:05:55.072622') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Nitzsche Group', NULL, '2025-05-12 23:05:55.073713', '2025-05-12 23:05:55.073713') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Considine Inc', NULL, '2025-05-12 23:05:55.074721', '2025-05-12 23:05:55.074721') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Schowalter and Sons', NULL, '2025-05-12 23:05:55.075832', '2025-05-12 23:05:55.075832') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Torphy, Cruickshank and Klein', NULL, '2025-05-12 23:05:55.076959', '2025-05-12 23:05:55.076959') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Heidenreich-Casper', NULL, '2025-05-12 23:05:55.078002', '2025-05-12 23:05:55.078002') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Goodwin and Sons', NULL, '2025-05-12 23:05:55.079028', '2025-05-12 23:05:55.079028') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Ledner Group', NULL, '2025-05-12 23:05:55.083299', '2025-05-12 23:05:55.083299') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Howell LLC', NULL, '2025-05-12 23:05:55.084439', '2025-05-12 23:05:55.084439') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Tremblay-Hauck', NULL, '2025-05-12 23:05:55.085481', '2025-05-12 23:05:55.085481') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Luettgen Inc', NULL, '2025-05-12 23:05:55.086550', '2025-05-12 23:05:55.086550') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Adams-Ernser', NULL, '2025-05-12 23:05:55.087495', '2025-05-12 23:05:55.087495') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Kilback, Mann and Jenkins', NULL, '2025-05-12 23:05:55.088565', '2025-05-12 23:05:55.088565') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Borer-Feest', NULL, '2025-05-12 23:05:55.089610', '2025-05-12 23:05:55.089610') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.5ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Erdman-Batz', NULL, '2025-05-12 23:05:55.090699', '2025-05-12 23:05:55.090699') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Cummings LLC', NULL, '2025-05-12 23:05:55.091771', '2025-05-12 23:05:55.091771') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Keeling Inc', NULL, '2025-05-12 23:05:55.092787', '2025-05-12 23:05:55.092787') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroup Create (0.4ms)[0m  [1m[32mINSERT INTO "groups" ("group_name", "created_by", "created_at", "updated_at") VALUES ('Lebsack and Sons', NULL, '2025-05-12 23:05:55.093874', '2025-05-12 23:05:55.093874') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 7 AND "group_memberships"."user_id" = 50 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Create (0.4ms)[0m  [1m[32mINSERT INTO "group_memberships" ("group_id", "user_id", "joined_at", "role", "created_at", "updated_at") VALUES (7, 50, NULL, 'admin', '2025-05-12 23:05:55.103159', '2025-05-12 23:05:55.103159') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 7 AND "group_memberships"."user_id" = 53 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Create (0.4ms)[0m  [1m[32mINSERT INTO "group_memberships" ("group_id", "user_id", "joined_at", "role", "created_at", "updated_at") VALUES (7, 53, NULL, 'member', '2025-05-12 23:05:55.109015', '2025-05-12 23:05:55.109015') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 7 AND "group_memberships"."user_id" = 58 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Create (0.3ms)[0m  [1m[32mINSERT INTO "group_memberships" ("group_id", "user_id", "joined_at", "role", "created_at", "updated_at") VALUES (7, 58, NULL, 'admin', '2025-05-12 23:05:55.111109', '2025-05-12 23:05:55.111109') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 7 AND "group_memberships"."user_id" = 51 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Create (0.2ms)[0m  [1m[32mINSERT INTO "group_memberships" ("group_id", "user_id", "joined_at", "role", "created_at", "updated_at") VALUES (7, 51, NULL, 'member', '2025-05-12 23:05:55.112747', '2025-05-12 23:05:55.112747') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 7 AND "group_memberships"."user_id" = 46 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Create (0.3ms)[0m  [1m[32mINSERT INTO "group_memberships" ("group_id", "user_id", "joined_at", "role", "created_at", "updated_at") VALUES (7, 46, NULL, 'member', '2025-05-12 23:05:55.114404', '2025-05-12 23:05:55.114404') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 8 AND "group_memberships"."user_id" = 53 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Create (0.3ms)[0m  [1m[32mINSERT INTO "group_memberships" ("group_id", "user_id", "joined_at", "role", "created_at", "updated_at") VALUES (8, 53, NULL, 'admin', '2025-05-12 23:05:55.116617', '2025-05-12 23:05:55.116617') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 8 AND "group_memberships"."user_id" = 32 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Create (0.2ms)[0m  [1m[32mINSERT INTO "group_memberships" ("group_id", "user_id", "joined_at", "role", "created_at", "updated_at") VALUES (8, 32, NULL, 'admin', '2025-05-12 23:05:55.118335', '2025-05-12 23:05:55.118335') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 8 AND "group_memberships"."user_id" = 64 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Create (0.2ms)[0m  [1m[32mINSERT INTO "group_memberships" ("group_id", "user_id", "joined_at", "role", "created_at", "updated_at") VALUES (8, 64, NULL, 'member', '2025-05-12 23:05:55.121003', '2025-05-12 23:05:55.121003') RETURNING "id" /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BillSplitter'*/[0m
+  [1m[36mGroupMembership Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "group_memberships" WHERE "group_memberships"."group_id" = 8 AND "group_memberships"."user_id" = 64 LIMIT 1 /*application='BillSplitter'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK /*application='BillSplitter'*/[0m

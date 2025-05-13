@@ -3,6 +3,7 @@ class ExpensesController < ApplicationController
 
   def index
     @expenses = Expense.all
+    @user = User.first
   end
 
   def new

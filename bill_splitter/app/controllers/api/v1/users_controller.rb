@@ -7,14 +7,24 @@ class Api::V1::UsersController < ApplicationController
     end
     
     def show
-        user = User.find_by(id: params[:id])
-        
+        user = User.includes(:groups, :expenses).find_by(id: params[:id])
+      
         if user
-            render json: user
+          render json: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            groups: user.groups.as_json(only: [:id, :group_name]),
+            expenses: user.expenses.as_json(
+              only: [:id, :description, :total_amount, :group_id],
+              include: { group: { only: [:id, :group_name] } }
+            )
+          }
         else
-            render json: { error: "User not found" }, status: :not_found
+          render json: { error: "User not found" }, status: :not_found
         end
-    end
+      end
+      
 
     def create
       user = User.new(user_params)

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "expenses#index"
 
+  
   namespace :api do
     namespace :v1 do
       resources :expenses, only: [:index,:create,:destroy]
@@ -22,5 +23,7 @@ Rails.application.routes.draw do
   end
   resources :expenses, only: [:index, :new, :create, :destroy, :show]
   resources :groups, only: [:show]
+  resources :users, only: [:show]
+
 
 end

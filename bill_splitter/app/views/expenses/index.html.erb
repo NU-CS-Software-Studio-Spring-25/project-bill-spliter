@@ -1,48 +1,70 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-primary mb-0">Expenses</h1>
-    <%= link_to 'Add Expense', new_expense_path, class: 'btn btn-primary' %>
+    <h1 class="text-dark mb-0 display-5 fw-bold">
+      <i class="bi bi-speedometer2 text-primary me-2"></i>User Dashboard
+    </h1>
   </div>
 
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-hover table-striped">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">Description</th>
-              <th scope="col">Total Amount</th>
-              <th scope="col">Group</th>
-              <th scope="col">Added By</th>
-              <th scope="col" class="text-end">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @expenses.each do |expense| %>
-              <tr>
-                <td>
-                  <%= link_to expense.description, expense_path(expense), class: 'text-decoration-none fw-bold' %>
-                </td>
-                <td><%= number_to_currency(expense.total_amount) %></td>
-                <td>
-                  <% if expense.group %>
-                    <%= link_to expense.group.group_name, group_path(expense.group), class: "badge bg-info text-decoration-none" %>
-                  <% end %>
-                </td>
-                <td><span class="badge bg-secondary"><%= expense.added_by_user.name if expense.added_by_user %></span></td>
-                <td class="text-end">
-                  <div class="btn-group" role="group">
-                    <%= link_to 'View', expense_path(expense), class: 'btn btn-sm btn-outline-primary' %>
-                    <%= button_to 'Delete', expense_path(expense), method: :delete, 
-                        class: 'btn btn-sm btn-outline-danger',
-                        data: { turbo_confirm: 'Are you sure?' } %>
-                  </div>
-                </td>
-              </tr>
+  <% if @user %>
+    <div class="alert alert-success shadow-sm rounded-pill px-4 py-2 fw-semibold">
+      Welcome, <%= @user.name %>!
+    </div>
+
+    <div class="row g-4">
+      <!-- Expenses Section -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-lg h-100">
+          <div class="card-header bg-primary text-white fw-semibold">
+            <i class="bi bi-cash-stack me-2"></i>Your Expenses
+          </div>
+          <div class="card-body">
+            <% if @user.expenses.any? %>
+              <ul class="list-group list-group-flush">
+                <% @user.expenses.each do |expense| %>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-muted"><%= expense.description %></span>
+                    <span class="badge bg-success rounded-pill"><%= number_to_currency(expense.total_amount) %></span>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="text-muted fst-italic">No expenses found.</p>
             <% end %>
-          </tbody>
-        </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Groups Section -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-lg h-100">
+          <div class="card-header bg-secondary text-white fw-semibold">
+            <i class="bi bi-people-fill me-2"></i>Your Groups
+          </div>
+          <div class="card-body">
+            <p class="text-muted fst-italic">Click a group to add an expense</p>
+            <% if @user.groups.any? %>
+              <ul class="list-group list-group-flush">
+                <% @user.groups.each do |group| %>
+                  <li class="list-group-item">
+                    <i class="bi bi-circle-fill text-info me-2"></i>
+                    <%= link_to group.group_name, group_path(group), class: 'text-decoration-none fw-medium' %>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="text-muted fst-italic">No group memberships found.</p>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
+
+<style>
+  .link-hover:hover {
+    color: #7d34eb !important;
+    text-decoration: underline;
+    transition: 0.2s ease-in-out;
+  }
+</style>

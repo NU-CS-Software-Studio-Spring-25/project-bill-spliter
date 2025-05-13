@@ -1,51 +1,67 @@
-<div class="container mt-4">
+<div class="container mt-5">
+  <!-- Header -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-primary">Expense Details</h1>
-    <%= link_to 'Back to Expenses', expenses_path, class: 'btn btn-outline-secondary' %>
+    <h1 class="text-primary fw-bold display-6">
+      <i class="bi bi-receipt me-2"></i>Expense Details
+    </h1>
+    <%= link_to expenses_path, class: 'btn btn-outline-secondary btn-lg' do %>
+      <i class="bi bi-arrow-left-circle me-1"></i>Back to Expenses
+    <% end %>
   </div>
 
-  <div class="card shadow-sm mb-4">
-    <div class="card-header bg-light">
-      <h5 class="card-title mb-0">Expense Information</h5>
+  <!-- Expense Information Card -->
+  <div class="card border-0 shadow-lg mb-4">
+    <div class="card-header bg-light border-bottom">
+      <h5 class="mb-0 text-muted">
+        <i class="bi bi-info-circle me-2"></i>Expense Information
+      </h5>
     </div>
     <div class="card-body">
       <dl class="row">
-        <dt class="col-sm-3">Description:</dt>
+        <dt class="col-sm-3 fw-semibold text-secondary">Description:</dt>
         <dd class="col-sm-9"><%= @expense.description %></dd>
 
-        <dt class="col-sm-3">Total Amount:</dt>
-        <dd class="col-sm-9"><%= number_to_currency(@expense.total_amount) %></dd>
+        <dt class="col-sm-3 fw-semibold text-secondary">Total Amount:</dt>
+        <dd class="col-sm-9">
+          <span class="badge bg-success fs-6 py-2 px-3">
+            <%= number_to_currency(@expense.total_amount) %>
+          </span>
+        </dd>
 
-        <dt class="col-sm-3">Group:</dt>
+        <dt class="col-sm-3 fw-semibold text-secondary">Group:</dt>
         <dd class="col-sm-9">
           <% if @expense.group %>
-            <%= link_to @expense.group.group_name, group_path(@expense.group), class: "badge bg-info text-decoration-none" %>
+            <%= link_to @expense.group.group_name, group_path(@expense.group),
+              class: "badge bg-info text-dark text-decoration-none fs-6 px-3 py-2" %>
           <% end %>
         </dd>
 
-        <dt class="col-sm-3">Added by:</dt>
+        <dt class="col-sm-3 fw-semibold text-secondary">Added by:</dt>
         <dd class="col-sm-9">
           <% if @expense.added_by_user %>
-            <span class="badge bg-secondary"><%= @expense.added_by_user.name %></span>
+            <span class="badge bg-secondary fs-6 px-3 py-2">
+              <%= @expense.added_by_user.name %>
+            </span>
           <% end %>
         </dd>
       </dl>
     </div>
   </div>
 
-  <div class="card shadow-sm">
-    <div class="card-header bg-light">
-      <h5 class="card-title mb-0">Split Details</h5>
+  <!-- Split Details Card -->
+  <div class="card border-0 shadow-lg">
+    <div class="card-header bg-light border-bottom">
+      <h5 class="mb-0 text-muted">
+        <i class="bi bi-people-fill me-2"></i>Split Details
+      </h5>
     </div>
     <div class="card-body">
       <% if @expense.expense_splits.any? %>
         <ul class="list-group list-group-flush">
           <% @expense.expense_splits.each do |split| %>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span>
-                <strong><%= split.user.name %></strong>
-              </span>
-              <span class="badge bg-primary rounded-pill">
+              <span class="fw-semibold"><i class="bi bi-person-fill me-1"></i><%= split.user.name %></span>
+              <span class="badge bg-primary rounded-pill fs-6">
                 <%= number_to_currency(split.amount) %>
               </span>
             </li>
@@ -53,18 +69,18 @@
         </ul>
       <% else %>
         <div class="alert alert-info mb-3">
-          <h4 class="alert-heading">Estimated Equal Split</h4>
-          <p>Owed to <%= @expense.added_by_user.name if @expense.added_by_user %></p>
+          <h5 class="alert-heading">
+            <i class="bi bi-calculator me-1"></i>Estimated Equal Split
+          </h5>
+          <p class="mb-0">Owed to <strong><%= @expense.added_by_user.name if @expense.added_by_user %></strong></p>
         </div>
         <ul class="list-group list-group-flush">
           <% group_users = @expense.group.members %>
           <% split_amount = @expense.total_amount.to_f / group_users.count %>
           <% group_users.each do |user| %>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span>
-                <strong><%= user.name %></strong>
-              </span>
-              <span class="badge bg-primary rounded-pill">
+              <span class="fw-semibold"><i class="bi bi-person-fill me-1"></i><%= user.name %></span>
+              <span class="badge bg-primary rounded-pill fs-6">
                 <%= number_to_currency(split_amount) %>
               </span>
             </li>

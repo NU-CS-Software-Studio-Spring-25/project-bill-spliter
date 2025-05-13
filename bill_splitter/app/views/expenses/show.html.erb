@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary">Expense Details</h1>
+    <%= link_to 'Back to Expenses', expenses_path, class: 'btn btn-outline-secondary' %>
+  </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-light">
+      <h5 class="card-title mb-0">Expense Information</h5>
+    </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Description:</dt>
+        <dd class="col-sm-9"><%= @expense.description %></dd>
+
+        <dt class="col-sm-3">Total Amount:</dt>
+        <dd class="col-sm-9"><%= number_to_currency(@expense.total_amount) %></dd>
+
+        <dt class="col-sm-3">Group:</dt>
+        <dd class="col-sm-9">
+          <% if @expense.group %>
+            <%= link_to @expense.group.group_name, group_path(@expense.group), class: "badge bg-info text-decoration-none" %>
+          <% end %>
+        </dd>
+
+        <dt class="col-sm-3">Added by:</dt>
+        <dd class="col-sm-9">
+          <% if @expense.added_by_user %>
+            <span class="badge bg-secondary"><%= @expense.added_by_user.name %></span>
+          <% end %>
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-header bg-light">
+      <h5 class="card-title mb-0">Split Details</h5>
+    </div>
+    <div class="card-body">
+      <% if @expense.expense_splits.any? %>
+        <ul class="list-group list-group-flush">
+          <% @expense.expense_splits.each do |split| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>
+                <strong><%= split.user.name %></strong>
+              </span>
+              <span class="badge bg-primary rounded-pill">
+                <%= number_to_currency(split.amount) %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="alert alert-info mb-3">
+          <h4 class="alert-heading">Estimated Equal Split</h4>
+          <p>Owed to <%= @expense.added_by_user.name if @expense.added_by_user %></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <% group_users = @expense.group.members %>
+          <% split_amount = @expense.total_amount.to_f / group_users.count %>
+          <% group_users.each do |user| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>
+                <strong><%= user.name %></strong>
+              </span>
+              <span class="badge bg-primary rounded-pill">
+                <%= number_to_currency(split_amount) %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,27 +1,85 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-
 
 # db/seeds.rb
-alice = User.create!(name: "Alice", email: "alice@example.com", password: "password123")
+require 'faker'
 
-group = Group.create!(group_name: "Trip to NYC", created_by: alice.id)
+# Clear all existing data first
+Expense.destroy_all
+GroupMembership.destroy_all
+Group.destroy_all
+User.destroy_all
 
+puts "Seeding data..."
 
-# user1 = User.create!(name: "Alice", email: "alice@example.com", password: "password")
-# user2 = User.create!(name: "Bob", email: "bob@example.com", password: "password")
+# Create 40 users with Faker data
+users = []
+40.times do
+  user = User.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.email,
+    password: "password123"
+  )
+  users << user
+end
+puts "Created #{users.length} users"
 
-# group = Group.create!(group_name: "Trip to NYC", created_by: user1.id)
-# GroupMember.create!(group: group, user: user1)
-# GroupMember.create!(group: group, user: user2)
+# Create 40 groups with Faker data
+groups = []
+40.times do
+  group = Group.create!(
+    group_name: Faker::Company.name,
+    creator: users.sample
+  )
+  groups << group
+end
+puts "Created #{groups.length} groups"
 
-# expense = Expense.create!(group: group, added_by: user1.id, description: "Dinner", total_amount: 100)
-# ExpenseSplit.create!(expense: expense, user: user1, amount: 50, paid: true)
-# ExpenseSplit.create!(expense: expense, user: user2, amount: 50, paid: false)
+# Create group memberships (at least 2 members per group)
+groups.each do |group|
+  # Add creator as admin
+  GroupMembership.create!(
+    group: group,
+    user: group.creator,
+    role: "admin"
+  )
+  
+  # Add 2-5 random members
+  rand(2..5).times do
+    random_user = users.sample
+    next if random_user == group.creator # Skip if it's the creator
+    
+    GroupMembership.create!(
+      group: group,
+      user: random_user,
+      role: ["admin", "member"].sample
+    )
+  end
+end
+puts "Created group memberships"
+
+# Create 40 expenses with Faker data
+40.times do
+  group = groups.sample
+  Expense.create!(
+    group: group,
+    added_by_user: group.members.sample,
+    description: Faker::Commerce.product_name,
+    total_amount: Faker::Commerce.price(range: 10.0..1000.0)
+  )
+end
+puts "Created #{Expense.count} expenses"
+
+# Create expense splits for each expense
+Expense.find_each do |expense|
+  # Create splits for 2-5 random members of the group
+  expense.group.members.sample(rand(2..5)).each do |member|
+    ExpenseSplit.create!(
+      expense: expense,
+      user: member,
+      amount: expense.total_amount / expense.group.members.count,
+      paid: [true, false].sample
+    )
+  end
+end
+puts "Created expense splits"
+
+puts "Seeding completed!

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchGroups } from "../api";
 import { useNavigate } from "react-router-dom";
 import { CURRENT_USER } from "../lib/session";
+const BASE_URL = "https://bill-splitter-api-d46b8052a10f.herokuapp.com/api/v1";
 
 export default function CreateExpense() {
   const [groups, setGroups] = useState([]);
@@ -20,7 +21,7 @@ export default function CreateExpense() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/api/v1/expenses", {
+      const res = await fetch(`${BASE_URL}/expenses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

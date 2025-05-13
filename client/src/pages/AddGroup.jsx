@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CURRENT_USER } from "../lib/session";
+const BASE_URL = "https://bill-splitter-api-d46b8052a10f.herokuapp.com/api/v1";
+
 
 export default function CreateGroup() {
   const [groupName, setGroupName] = useState("");
@@ -13,7 +15,7 @@ export default function CreateGroup() {
       const rawEmails = memberEmails.split(",").map((email) => email.trim()).filter(Boolean);
       const allEmails = Array.from(new Set([...rawEmails, CURRENT_USER.email])); // ✅ 자신 포함
       console.log(CURRENT_USER.email)
-      const res = await fetch("http://localhost:3000/api/v1/groups", {
+      const res = await fetch(`${BASE_URL}/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -19076,3 +19076,232 @@ Processing by ExpensesController#new as HTML
 Completed 200 OK in 63ms (Views: 6.6ms | ActiveRecord: 1.3ms (2 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2025-05-12 23:21:28 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BillSplitter'*/[0m
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (15.2ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:21
+  [1m[36mGroup Load (1.4ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 3 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 8 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.7ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 10 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 24 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.3ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 16 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 25 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 39 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 32 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 19 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 12 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 17 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.4ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 12 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 7 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 26 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 39 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 22 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 26 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 23 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 14 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 23 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 17 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 25 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 11 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 5 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 1 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 28 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 10 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 27 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 12 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 5 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 16 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.3ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 13 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 4 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 29 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 20 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 20 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 29 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 22 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 23 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 30 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  Rendered expenses/index.html.erb within layouts/application (Duration: 188.6ms | GC: 11.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 193.9ms | GC: 11.2ms)
+Completed 200 OK in 393ms (Views: 152.2ms | ActiveRecord: 45.2ms (41 queries, 14 cached) | GC: 23.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-05-12 23:36:19 -0400
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (32.5ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:21
+  [1m[36mGroup Load (0.9ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 3 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 8 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 10 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 24 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 16 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 25 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 39 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 32 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 19 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 12 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 17 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 12 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 7 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 26 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 39 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 22 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 26 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 23 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 14 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 23 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 17 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 25 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 11 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 5 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 1 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 28 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 10 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 27 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 12 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 5 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 16 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 13 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 4 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 29 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 20 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 20 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 29 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 22 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mCACHE Group Load (0.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 23 LIMIT 1[0m
+  ↳ app/views/expenses/index.html.erb:28
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 30 LIMIT 1 /*action='index',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/index.html.erb:28
+  Rendered expenses/index.html.erb within layouts/application (Duration: 67.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 68.1ms | GC: 0.0ms)
+Completed 200 OK in 110ms (Views: 22.4ms | ActiveRecord: 46.7ms (41 queries, 14 cached) | GC: 0.0ms)
+
+
+Started GET "/expenses/1" for 127.0.0.1 at 2025-05-12 23:36:21 -0400
+Processing by ExpensesController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mExpense Load (0.5ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" WHERE "expenses"."id" = 1 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/controllers/expenses_controller.rb:28:in 'ExpensesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/show.html.erb within layouts/application
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 3 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:21
+  [1m[36mExpenseSplit Exists? (2.5ms)[0m  [1m[34mSELECT 1 AS one FROM "expense_splits" WHERE "expense_splits"."expense_id" = 1 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:41
+  [1m[36mExpenseSplit Load (0.4ms)[0m  [1m[34mSELECT "expense_splits".* FROM "expense_splits" WHERE "expense_splits"."expense_id" = 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:43
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 3 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:46
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 14 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:46
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 16 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:46
+  Rendered expenses/show.html.erb within layouts/application (Duration: 95.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 95.8ms | GC: 0.0ms)
+Completed 200 OK in 153ms (Views: 78.3ms | ActiveRecord: 18.5ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/expenses/13" for 127.0.0.1 at 2025-05-12 23:36:21 -0400
+Processing by ExpensesController#show as HTML
+  Parameters: {"id" => "13"}
+  [1m[36mExpense Load (0.4ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" WHERE "expenses"."id" = 13 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/controllers/expenses_controller.rb:28:in 'ExpensesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/show.html.erb within layouts/application
+  [1m[36mGroup Load (0.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = 7 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:21
+  [1m[36mExpenseSplit Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "expense_splits" WHERE "expense_splits"."expense_id" = 13 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:41
+  [1m[36mExpenseSplit Load (0.2ms)[0m  [1m[34mSELECT "expense_splits".* FROM "expense_splits" WHERE "expense_splits"."expense_id" = 13 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:43
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 25 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:46
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 32 LIMIT 1 /*action='show',application='BillSplitter',controller='expenses'*/[0m
+  ↳ app/views/expenses/show.html.erb:46
+  Rendered expenses/show.html.erb within layouts/application (Duration: 6.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.1ms | GC: 0.0ms)
+Completed 200 OK in 58ms (Views: 6.4ms | ActiveRecord: 1.2ms (6 queries, 0 cached) | GC: 0.0ms)
+
+

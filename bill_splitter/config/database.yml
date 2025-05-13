@@ -22,6 +22,7 @@ default: &default
 
 development:
   <<: *default
+  adapter: postgresql
   database: bill_splitter_development
 
   # The specified database role being used to connect to PostgreSQL.

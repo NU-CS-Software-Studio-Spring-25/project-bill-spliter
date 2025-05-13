@@ -1,4 +1,4 @@
-const BASE_URL = "https://bill-splitter-api-d46b8052a10f.herokuapp.com/ap1/v1";
+const BASE_URL = "https://bill-splitter-api-d46b8052a10f.herokuapp.com/api/v1";
 export async function fetchGroups() {
   const res = await fetch(`${BASE_URL}/groups`);
   if (!res.ok) throw new Error("Failed to fetch groups");

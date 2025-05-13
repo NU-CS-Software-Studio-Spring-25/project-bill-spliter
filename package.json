@@ -1,0 +1,7 @@
+{
+    "name": "heroku-mixed-app",
+    "version": "1.0.0",
+    "scripts": {
+      "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
+    }
+  }

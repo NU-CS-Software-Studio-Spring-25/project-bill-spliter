@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   get '*path', to: 'static#index', constraints: ->(request) do
     !request.xhr? && request.format.html?
   end
+
+  root to: redirect('/index.html')
 end

@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   end
   resources :expenses, only: [:index, :new, :create, :destroy, :show]
   resources :groups, only: [:show]
+
 end

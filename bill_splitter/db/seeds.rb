@@ -1,3 +1,4 @@
+
 # db/seeds.rb
 require 'faker'
 
@@ -81,4 +82,4 @@ Expense.find_each do |expense|
 end
 puts "Created expense splits"
 
-puts "Seeding completed!"
+puts "Seeding completed!

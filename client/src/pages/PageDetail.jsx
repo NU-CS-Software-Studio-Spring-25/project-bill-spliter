@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { fetchGroups, fetchExpenses, fetchUsers } from "../api";
 import { CURRENT_USER } from "../lib/session";
 import { useNavigate } from "react-router-dom";
-import { deleteExpense } from "../api";
+import { deleteExpense, deleteGroup } from "../api";
 
 export default function GroupDetail() {
   const { id } = useParams();
@@ -22,6 +22,19 @@ export default function GroupDetail() {
     } catch (err) {
       console.error("Delete failed", err);
       alert("Failed to delete.");
+    }
+  };
+  const handleGroupDelete = async () => {
+    const confirm = window.confirm("Are you sure you want to delete this group?");
+    if (!confirm) return;
+  
+    try {
+      await deleteGroup(group.id);
+      alert("Group deleted.");
+      navigate("/")
+    } catch (err) {
+      console.error("Failed to delete group", err);
+      alert("Failed to delete group.");
     }
   };
 
@@ -84,6 +97,10 @@ export default function GroupDetail() {
 
   return (
     <>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+  <h1>{group.group_name}</h1>
+  <button style={styles.deleteGroupBtn} onClick={handleGroupDelete}>Delete Group</button>
+</div>
       <div style={styles.container}>
         <div style={styles.card}>
           <h2 style={styles.cardTitle}>Members</h2>
@@ -254,4 +271,14 @@ const styles = {
     fontWeight: 600,
     cursor: "pointer",
   },
+  deleteGroupBtn: {
+    backgroundColor: "#dc2626",
+    color: "white",
+    border: "none",
+    padding: "0.5rem 1rem",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: 600,
+  }
+  
 };

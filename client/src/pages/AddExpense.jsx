@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchGroups } from "../api";
 import { useNavigate } from "react-router-dom";
 import { CURRENT_USER } from "../lib/session";
-const BASE_URL = "https://bill-splitter-api-d46b8052a10f.herokuapp.com/api/v1";
-
+import { BASE_URL } from "../api";
 export default function CreateExpense() {
   const [groups, setGroups] = useState([]);
   const [description, setDescription] = useState("");

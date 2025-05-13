@@ -6,40 +6,47 @@ User.destroy_all
 
 # Create users
 alice = User.create!(name: "Alice", email: "alice@example.com", password: "password123")
-bob = User.create!(name: "Bob", email: "bob@example.com", password: "password123")
-carol = User.create!(name: "Carol", email: "carol@example.com", password: "password123")
-david = User.create!(name: "David", email: "david@example.com", password: "password123")
-emily = User.create!(name: "Emily", email: "emily@example.com", password: "password123")
-frank = User.create!(name: "Frank", email: "frank@example.com", password: "password123")
-puts "✅ Created users: Alice, Bob, Carol, David, Emily, Frank"
+40.times do
+    User.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.unique.email,
+      password: "password"
+    )
+end
+users = User.all
+puts "✅ Created users: Alice and 40 other users"
+group_names=[]
+100.times do
+    group_names << [
+        "#{Faker::Address.city} Trip",
+        "#{Faker::Team.creature.capitalize} Team",
+        "#{Faker::Music.genre} Night",
+        "#{Faker::Food.dish} Dinner",
+        "#{Faker::Hobby.activity} Club",
+        "#{Faker::Company.buzzword.capitalize} Project",
+        "#{Faker::Nation.nationality} Roommates",
+    ].sample
+end
+40.times do
+    group = Group.create!(
+      group_name: group_names.sample,
+      creator: users.sample
+    )
+    group.members << alice
+    group.members << users.sample(rand(2..5))
+end
 
-# Create groups (with creator)
-trip = Group.create!(group_name: "Trip to Chicago", created_by: alice.id)
-lunch = Group.create!(group_name: "Group Lunch", created_by: bob.id)
-roommates = Group.create!(group_name: "Roommates", created_by: carol.id)
+puts "✅ Created 40 groups"
 
-puts "✅ Created groups: Trip to Chicago, Group Lunch, Roommates"
-
-# Add members via has_many :through
-trip.members << [alice, frank]
-lunch.members << [alice, bob, carol, david]
-roommates.members << [alice, emily, carol]
-
-# Create expenses for trip group
-Expense.create!(group: trip, added_by: alice.id, description: "Hotel Booking", total_amount: 600.00)
-Expense.create!(group: trip, added_by: alice.id, description: "Flight Tickets", total_amount: 1200.00)
-Expense.create!(group: trip, added_by: alice.id, description: "Ventra Tickets", total_amount: 10.00)
-Expense.create!(group: trip, added_by: frank.id, description: "Fancy Dinner", total_amount: 120.00)
-Expense.create!(group: trip, added_by: frank.id, description: "Drink at the Bar", total_amount: 50.00)
-
-# Expenses for lunch group
-Expense.create!(group: lunch, added_by: david.id, description: "Pizza Lunch", total_amount: 45.50)
-Expense.create!(group: lunch, added_by: alice.id, description: "Dessert", total_amount: 20.00)
-Expense.create!(group: lunch, added_by: alice.id, description: "Coffee", total_amount: 15.00)
-
-# Expenses for roommate group
-Expense.create!(group: roommates, added_by: alice.id, description: "Sofa", total_amount: 150.00)
-Expense.create!(group: roommates, added_by: emily.id, description: "Group dinner", total_amount: 55.00)
-Expense.create!(group: roommates, added_by: carol.id, description: "New Coffee Machine", total_amount: 75.00)
-
-puts "✅ Expenses created"
+Group.all.each do |group|
+    rand(3..7).times do
+      Expense.create!(
+        group: group,
+        description: Faker::Commerce.product_name,
+        total_amount: Faker::Commerce.price(range: 5.0..100.0),
+        added_by: group.members.sample.id
+      )
+    end
+  end
+  
+  puts "✅ Done seeding!"

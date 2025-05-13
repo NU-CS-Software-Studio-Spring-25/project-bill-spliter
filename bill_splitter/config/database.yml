@@ -80,4 +80,20 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  url: <%= ENV["DATABASE_URL"] %>
+  primary: &primary_production
+    <<: *default
+    database: bill_splitter_production
+    username: bill_splitter
+    password: <%= ENV["BILL_SPLITTER_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: bill_splitter_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: bill_splitter_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: bill_splitter_production_cable
+    migrations_paths: db/cable_migrate

@@ -18,13 +18,13 @@ export async function fetchUsers() {
 }
 
 export async function fetchExpense(id) {
-    const res = await fetch(`http://localhost:3000/api/v1/expenses/${id}`);
+    const res = await fetch(`${BASE_URL}/expenses/${id}`);
     if (!res.ok) throw new Error("Failed to fetch expense");
     return res.json();
 }
 
 export async function deleteExpense(id) {
-    const res = await fetch(`http://localhost:3000/api/v1/expenses/${id}`, {
+    const res = await fetch(`${BASE_URL}/expenses/${id}`, {
         method: "DELETE",
     });
     if (!res.ok) throw new Error("Failed to delete expense");

@@ -39,9 +39,13 @@
 
           <div class="col-md-6">
             <div class="form-floating">
-              <%= form.select :added_by, @users.map { |user| [user.name, user.id] }, 
-                  { prompt: "Select a User" }, 
-                  { class: 'form-select', required: true } %>
+              <% if @users.present? %>
+                <%= form.select :added_by, @users.map { |user| [user.name, user.id] }, 
+                    { prompt: "Select a User" }, 
+                    { class: 'form-select', required: true } %>
+              <% else %>
+                <p>No users available. Please create a user first.</p>
+              <% end %>
               <%= form.label :added_by, class: 'form-label' %>
             </div>
           </div>

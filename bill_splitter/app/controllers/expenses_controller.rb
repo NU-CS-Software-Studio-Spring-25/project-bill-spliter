@@ -1,5 +1,5 @@
 class ExpensesController < ApplicationController
-  before_action :set_groups, only: [:new, :create]
+  before_action :set_users_and_groups, only: [:new, :create]
 
   def index
     @expenses = Expense.all
@@ -30,8 +30,9 @@ class ExpensesController < ApplicationController
 
   private
 
-  def set_groups
-    @groups = Group.all # Ensure this fetches the groups from your database
+  def set_users_and_groups
+    @users = User.all # Fetch all users from the database
+    @groups = Group.all # Fetch all groups from the database
   end
 
   def expense_params

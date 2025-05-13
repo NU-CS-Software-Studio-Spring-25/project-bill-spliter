@@ -1,7 +1,6 @@
 # app/models/group.rb
 class Group < ApplicationRecord
-  belongs_to :creator, class_name: "User", foreign_key: :created_by
-  
+  belongs_to :creator, class_name: 'User', foreign_key: 'creator_id', optional: false
   has_many :group_memberships, dependent: :destroy
   has_many :members, through: :group_memberships, source: :user
   has_many :expenses, dependent: :destroy

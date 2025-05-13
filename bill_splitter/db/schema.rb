@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_12_225155) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_13_064110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "expense_splits", force: :cascade do |t|
     t.bigint "expense_id", null: false
-    t.bigint "user_id", null: false
+    t.uuid "user_id", null: false
     t.decimal "amount"
     t.boolean "paid"
     t.datetime "created_at", null: false
@@ -27,34 +28,36 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_12_225155) do
 
   create_table "expenses", force: :cascade do |t|
     t.bigint "group_id", null: false
-    t.uuid "added_by"
+    t.uuid "added_by_id", null: false
     t.string "description"
     t.decimal "total_amount"
+    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["added_by_id"], name: "index_expenses_on_added_by_id"
     t.index ["group_id"], name: "index_expenses_on_group_id"
   end
 
   create_table "group_memberships", force: :cascade do |t|
     t.bigint "group_id", null: false
-    t.bigint "user_id", null: false
+    t.uuid "user_id", null: false
     t.datetime "joined_at"
     t.string "role", default: "member"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id", "user_id"], name: "index_group_memberships_on_group_id_and_user_id", unique: true
     t.index ["group_id"], name: "index_group_memberships_on_group_id"
     t.index ["user_id"], name: "index_group_memberships_on_user_id"
   end
 
   create_table "groups", force: :cascade do |t|
     t.string "group_name"
-    t.uuid "created_by"
+    t.uuid "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_groups_on_creator_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
@@ -65,6 +68,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_12_225155) do
   add_foreign_key "expense_splits", "expenses"
   add_foreign_key "expense_splits", "users"
   add_foreign_key "expenses", "groups"
+  add_foreign_key "expenses", "users", column: "added_by_id"
   add_foreign_key "group_memberships", "groups"
   add_foreign_key "group_memberships", "users"
+  add_foreign_key "groups", "users", column: "creator_id"
 end

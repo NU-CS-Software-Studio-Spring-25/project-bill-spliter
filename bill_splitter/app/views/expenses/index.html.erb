@@ -29,7 +29,7 @@
                     <%= link_to expense.group.group_name, group_path(expense.group), class: "badge bg-info text-decoration-none" %>
                   <% end %>
                 </td>
-                <td><span class="badge bg-secondary"><%= expense.added_by_user.name if expense.added_by_user %></span></td>
+                <td><span class="badge bg-secondary"><%= expense.added_by.name if expense.added_by %></span></td>
                 <td class="text-end">
                   <div class="btn-group" role="group">
                     <%= link_to 'View', expense_path(expense), class: 'btn btn-sm btn-outline-primary' %>

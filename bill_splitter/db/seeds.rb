@@ -60,11 +60,29 @@ puts "Created group memberships"
 # Create 40 expenses with Faker data
 40.times do
   group = groups.sample
+  group_members = group.members
+
+  if group_members.empty?
+    puts "Skipping expense: group #{group.id} has no members"
+    next
+  end
+
+  added_by_user = group_members.sample
+
+  unless User.exists?(added_by_user.id)
+    puts "Error: user #{added_by_user.id} not found in DB!"
+    next
+  end
+
+  puts "Creating expense in group #{group.id}, added by user #{added_by_user.id}"
+  puts "Group members: #{group_members.map(&:id)}"
+
   Expense.create!(
     group: group,
-    added_by_user: group.members.sample,
+    added_by_id: added_by_user.id,
     description: Faker::Commerce.product_name,
-    total_amount: Faker::Commerce.price(range: 10.0..1000.0)
+    total_amount: Faker::Commerce.price(range: 10.0..1000.0),
+    date: Faker::Date.backward(days: 60)
   )
 end
 puts "Created #{Expense.count} expenses"

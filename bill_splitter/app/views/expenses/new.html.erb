@@ -40,9 +40,9 @@
           <div class="col-md-6">
             <div class="form-floating">
               <% if @users.present? %>
-                <%= form.select :added_by, @users.map { |user| [user.name, user.id] }, 
-                    { prompt: "Select a User" }, 
-                    { class: 'form-select', required: true } %>
+                <%= form.collection_select :added_by_id, @users, :id, :name, 
+                  { prompt: "Select a User" },
+                  { class: 'form-select', required: true } %>
               <% else %>
                 <p>No users available. Please create a user first.</p>
               <% end %>

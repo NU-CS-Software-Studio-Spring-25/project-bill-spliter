@@ -25,10 +25,18 @@
 
         <dt class="col-sm-3">Added by:</dt>
         <dd class="col-sm-9">
-          <% if @expense.added_by_user %>
-            <span class="badge bg-secondary"><%= @expense.added_by_user.name %></span>
+          <% if @expense.added_by %>
+            <span class="badge bg-secondary"><%= @expense.added_by.name %></span>
+          <% else %>
+            <span class="text-muted">Unknown</span>
           <% end %>
         </dd>
+
+        <dd class="col-sm-9">
+          <%= @expense.date.present? ? @expense.date.strftime("%B %d, %Y") : "Date not set" %>
+        </dd>
+
+        <dt class="col-sm-3">
       </dl>
     </div>
   </div>

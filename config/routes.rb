@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   end
   resources :expenses, only: [:index, :new, :create, :destroy, :show]
   resources :groups, only: [:show]
+
+  get '*path', to: 'static#index', constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 end

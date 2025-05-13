@@ -55,3 +55,5 @@ more details on how this going look like later
 User can enter expense (name, amount, date)
 
 User can access overview of all expenses
+
+https://bill-splitter-api-d46b8052a10f.herokuapp.com/

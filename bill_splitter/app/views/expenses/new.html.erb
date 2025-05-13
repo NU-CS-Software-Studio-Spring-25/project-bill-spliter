@@ -26,9 +26,13 @@
         <div class="row mb-3">
           <div class="col-md-6">
             <div class="form-floating">
-              <%= form.collection_select :group_id, @groups, :id, :group_name, 
-                  { prompt: "Select a Group" }, 
-                  { class: 'form-select', required: true } %>
+              <% if @groups.present? %>
+                <%= form.collection_select :group_id, @groups, :id, :group_name,
+                    { prompt: "Select a Group" },
+                    { class: 'form-select', required: true } %>
+              <% else %>
+                <p>No groups available. Please create a group first.</p>
+              <% end %>
               <%= form.label :group_id, class: 'form-label' %>
             </div>
           </div>

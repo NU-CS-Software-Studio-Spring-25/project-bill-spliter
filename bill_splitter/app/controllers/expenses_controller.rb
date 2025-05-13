@@ -1,36 +1,40 @@
 class ExpensesController < ApplicationController
-    def index
-        @expenses = Expense.all
-    end
+  before_action :set_groups, only: [:new, :create]
 
-    def new 
-        @expense = Expense.new(group_id: params[:group_id])
-        @groups = Group.all
-        @users = User.all
-    end
+  def index
+    @expenses = Expense.all
+  end
 
-    def create
-        @expense = Expense.new(expense_params)
-        if @expense.save
-            redirect_to expenses_path, notice: "Expense was successfully created."
-        else
-            render :new, status: :unprocessable_entity
-        end
-    end
+  def new
+    @expense = Expense.new
+  end
 
-    def destroy
-        @expense = Expense.find(params[:id])
-        @expense.destroy
-        redirect_to expenses_path, notice: "Expense was successfully deleted."
+  def create
+    @expense = Expense.new(expense_params)
+    if @expense.save
+      redirect_to expenses_path, notice: "Expense was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
+  end
 
-    def show
-        @expense = Expense.find(params[:id])
-    end
+  def destroy
+    @expense = Expense.find(params[:id])
+    @expense.destroy
+    redirect_to expenses_path, notice: "Expense was successfully deleted."
+  end
 
-    private
+  def show
+    @expense = Expense.find(params[:id])
+  end
 
-    def expense_params
-        params.require(:expense).permit(:description, :total_amount, :group_id, :added_by)
-    end
+  private
+
+  def set_groups
+    @groups = Group.all # Ensure this fetches the groups from your database
+  end
+
+  def expense_params
+    params.require(:expense).permit(:description, :total_amount, :group_id, :added_by)
+  end
 end

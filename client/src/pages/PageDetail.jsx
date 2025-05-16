@@ -18,7 +18,7 @@ export default function GroupDetail() {
   
     try {
       await deleteExpense(expenseId);
-      setExpenses(prev => prev.filter(e => e.id !== expenseId)); // UI 업데이트
+      setExpenses(prev => prev.filter(e => e.id !== expenseId)); 
     } catch (err) {
       console.error("Delete failed", err);
       alert("Failed to delete.");

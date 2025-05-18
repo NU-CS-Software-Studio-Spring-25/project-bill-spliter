@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchGroups, fetchExpenses, fetchUsers } from "../api";
+import { fetchGroup, fetchExpenses, fetchUsers } from "../api";
 import { CURRENT_USER } from "../lib/session";
 import { useNavigate } from "react-router-dom";
 import { deleteExpense, deleteGroup } from "../api";
@@ -40,13 +40,12 @@ export default function GroupDetail() {
 
   useEffect(() => {
     Promise.all([
-      fetchGroups(),
+      fetchGroup(id),
       fetchExpenses(id),
       fetchUsers(),
     ])
-      .then(([groups, expensesData, usersData]) => {
-        const g = groups.find((g) => g.id === parseInt(id));
-        setGroup(g);
+      .then(([groupData, expensesData, usersData]) => {
+        setGroup(groupData);
         setExpenses(expensesData);
         setUsers(usersData);
       })

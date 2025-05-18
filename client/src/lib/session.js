@@ -1,5 +1,5 @@
 export const CURRENT_USER = {
-    id: "9839a03d-0f07-4241-9184-1a969d062898",
+    id: "3ddcdd14-9840-4d45-9cdd-cbacb49ea8af",
     name: "Alice",
     email: "alice@example.com"
   };

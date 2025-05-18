@@ -3,10 +3,16 @@ const production = 'https://bill-splitter-api-d46b8052a10f.herokuapp.com/api/v1'
 const development ='http://localhost:3000/api/v1'
 export const BASE_URL = process.env.NODE_ENV === 'development' ? development : production;
 
-export async function fetchGroups() {
-  const res = await fetch(`${BASE_URL}/groups`);
-  if (!res.ok) throw new Error("Failed to fetch groups");
-  return res.json();
+export async function fetchGroups(page = 1) {
+    const res = await fetch(`${BASE_URL}/groups?page=${page}`);
+    if (!res.ok) throw new Error("Failed to fetch groups");
+    return res.json(); // { groups: [...], current_page: 1, total_pages: 3 }
+}
+
+export async function fetchGroup(id) {
+    const res = await fetch(`${BASE_URL}/groups/${id}`);
+    if (!res.ok) throw new Error("Failed to fetch group");
+    return res.json();
 }
 
 export async function fetchExpenses(groupId) {

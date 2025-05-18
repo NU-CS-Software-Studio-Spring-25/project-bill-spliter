@@ -31,7 +31,6 @@ class Api::V1::UsersController < ApplicationController
   
       if user
         ActiveRecord::Base.transaction do
-          # 모든 그룹에서 이 유저를 멤버에서 제거
           user.groups.each do |group|
             group.members.delete(user)
           end

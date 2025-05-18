@@ -3,8 +3,12 @@ class Api::V1::GroupsController < ApplicationController
   
     # GET /api/v1/groups
     def index
-      groups = Group.all.includes(:members)
-      render json: groups.to_json(include: :members)
+      groups = Group.includes(:members).page(params[:page]).per(12)
+      render json: {
+        groups: groups.as_json(include: :members),
+        current_page: groups.current_page,
+        total_pages: groups.total_pages
+      }
     end
   
     # GET /api/v1/groups/:id
@@ -54,7 +58,7 @@ class Api::V1::GroupsController < ApplicationController
   
     private
   
-    # group_params는 현재 사용하지 않지만 유지할 수 있음 (선택)
+    # group_params
     def group_params
       params.permit(:group_name, :created_by, member_ids: [])
     end

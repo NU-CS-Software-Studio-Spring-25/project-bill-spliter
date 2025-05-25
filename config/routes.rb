@@ -11,16 +11,74 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  namespace :api do
-    namespace :v1 do
-      resources :expenses, only: [:index,:create,:destroy, :show]
-      resources :groups, only: [:index, :show, :create, :destroy]
-      resources :users, only: [:index, :show, :create, :destroy]
-      get 'users/groups/:user_id', to: 'users#groups'
+ # API Routes
+ namespace :api do
+  namespace :v1 do
+    # Expenses API
+    resources :expenses, only: [:index, :create, :destroy, :show] do
+      collection do
+        get :summary    # GET /api/v1/expenses/summary?group_id=X
+      end
+    end
+    
+    # Groups API
+    resources :groups, only: [:index, :show, :create, :destroy] do
+      member do
+        get :balances     # GET /api/v1/groups/:id/balances - Get group balances and debts
+        get :expenses     # GET /api/v1/groups/:id/expenses - Get all expenses for a group
+        get :settlements  # GET /api/v1/groups/:id/settlements - Get all settlements for a group
+      end
+      
+      collection do
+        get :my_groups    # GET /api/v1/groups/my_groups?user_id=X - Get groups for a user
+      end
+    end
+    
+    # Users API
+    resources :users, only: [:index, :show, :create, :destroy] do
+      member do
+        get :groups       # GET /api/v1/users/:id/groups - Get groups for a user
+        get :balance      # GET /api/v1/users/:id/balance - Get total balance across all groups
+      end
+    end
+    
+    # Settlements API
+    resources :settlements, only: [:index, :show, :create, :destroy] do
+      collection do
+        get :by_group     # GET /api/v1/settlements/by_group?group_id=X
+      end
+    end
+    
+    # Group Members API (for adding/removing members)
+    resources :group_members, only: [:create, :destroy] do
+      collection do
+        post :bulk_create # POST /api/v1/group_members/bulk_create - Add multiple members
+      end
+    end
+    
+    # Expense Splits API (for custom splitting if needed later)
+    resources :expense_splits, only: [:index, :show, :update] do
+      member do
+        patch :mark_settled   # PATCH /api/v1/expense_splits/:id/mark_settled
+        patch :mark_unsettled # PATCH /api/v1/expense_splits/:id/mark_unsettled
+      end
     end
   end
-  resources :expenses, only: [:index, :new, :create, :destroy, :show]
-  resources :groups, only: [:show]
+end
+
+# Web/HTML Routes (for your existing Rails views)
+resources :expenses, only: [:index, :new, :create, :destroy, :show]
+resources :groups, only: [:show] do
+  member do
+    get :balances     # For web interface balance view
+  end
+end
+
+# Authentication routes (if you add authentication later)
+# resources :sessions, only: [:new, :create, :destroy]
+# get '/login', to: 'sessions#new'
+# post '/login', to: 'sessions#create'
+# delete '/logout', to: 'sessions#destroy'
 
   get '*path', to: 'static#index', constraints: ->(request) do
     !request.xhr? && request.format.html?

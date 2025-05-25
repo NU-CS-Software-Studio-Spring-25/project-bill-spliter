@@ -10,27 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_13_032207) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_014843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "expense_splits", force: :cascade do |t|
+    t.bigint "expense_id", null: false
     t.uuid "user_id", null: false
-    t.decimal "amount"
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.decimal "paid_amount", precision: 10, scale: 2, default: "0.0"
+    t.boolean "is_settled", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "expense_id", null: false
+    t.index ["expense_id", "user_id"], name: "index_expense_splits_on_expense_id_and_user_id", unique: true
     t.index ["expense_id"], name: "index_expense_splits_on_expense_id"
+    t.index ["user_id"], name: "index_expense_splits_on_user_id"
   end
 
   create_table "expenses", force: :cascade do |t|
     t.bigint "group_id", null: false
-    t.uuid "added_by"
     t.string "description"
     t.decimal "total_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "payer_id", null: false
+    t.date "expense_date", default: -> { "CURRENT_DATE" }
     t.index ["group_id"], name: "index_expenses_on_group_id"
+    t.index ["payer_id"], name: "index_expenses_on_payer_id"
   end
 
   create_table "group_members", force: :cascade do |t|
@@ -44,10 +50,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_13_032207) do
 
   create_table "groups", force: :cascade do |t|
     t.string "group_name"
-    t.uuid "created_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "member_ids", default: [], array: true
+    t.uuid "creator_id", null: false
+    t.index ["creator_id"], name: "index_groups_on_creator_id"
+  end
+
+  create_table "settlements", force: :cascade do |t|
+    t.uuid "payer_id", null: false
+    t.uuid "payee_id", null: false
+    t.bigint "group_id", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.text "description"
+    t.date "settlement_date", default: -> { "CURRENT_DATE" }
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_settlements_on_group_id"
+    t.index ["payee_id"], name: "index_settlements_on_payee_id"
+    t.index ["payer_id"], name: "index_settlements_on_payer_id"
+    t.check_constraint "payer_id <> payee_id", name: "check_no_self_payment"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -56,12 +77,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_13_032207) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.integer "group_ids", default: [], null: false, array: true
   end
 
   add_foreign_key "expense_splits", "expenses"
   add_foreign_key "expense_splits", "users"
   add_foreign_key "expenses", "groups"
+  add_foreign_key "expenses", "users", column: "payer_id"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
+  add_foreign_key "groups", "users", column: "creator_id"
+  add_foreign_key "settlements", "groups"
+  add_foreign_key "settlements", "users", column: "payee_id"
+  add_foreign_key "settlements", "users", column: "payer_id"
 end

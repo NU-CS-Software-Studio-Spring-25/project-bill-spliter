@@ -1,5 +1,4 @@
 class Api::V1::GroupsController < ApplicationController
-  skip_before_action :verify_authenticity_token
   before_action :set_group, only: [:show, :destroy, :balances, :expenses, :settlements]
 
   def index
@@ -23,16 +22,62 @@ class Api::V1::GroupsController < ApplicationController
         creator: { only: [:id, :name] },
         expenses: { 
           include: { payer: { only: [:id, :name] } }
-        },
-        settlements: {
-          include: {
-            payer: { only: [:id, :name] },
-            payee: { only: [:id, :name] }
-          }
         }
       },
       methods: [:total_spending]
     )
+  end
+
+  def my_groups
+    groups = current_user.groups.includes(:members, :creator)
+    render json: groups.as_json(
+      include: {
+        members: { only: [:id, :name, :email] },
+        creator: { only: [:id, :name] }
+      },
+      methods: [:total_spending]
+    )
+  end
+
+  def create
+    group = Group.new(group_params.except(:member_emails))
+    group.creator = current_user
+    
+    ActiveRecord::Base.transaction do
+      if group.save
+        # Add creator as member
+        group.group_members.create!(user: current_user)
+        
+        # Add other members by email
+        if params[:member_emails].present?
+          emails = params[:member_emails].reject(&:blank?)
+          users = User.where(email: emails)
+          
+          users.each do |user|
+            group.group_members.find_or_create_by(user: user)
+          end
+        end
+        
+        render json: group.as_json(
+          include: {
+            members: { only: [:id, :name, :email] },
+            creator: { only: [:id, :name] }
+          }
+        ), status: :created
+      else
+        render json: { errors: group.errors.full_messages }, status: :unprocessable_entity
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
+
+  def destroy
+    if @group.creator == current_user
+      @group.destroy
+      render json: { message: "Group deleted successfully" }
+    else
+      render json: { error: "Only group creator can delete the group" }, status: :forbidden
+    end
   end
 
   def balances
@@ -61,101 +106,15 @@ class Api::V1::GroupsController < ApplicationController
     }
   end
 
-  def expenses
-    expenses = @group.expenses.includes(:payer, :expense_splits)
-                             .order(created_at: :desc)
-    
-    render json: expenses.as_json(
-      include: {
-        payer: { only: [:id, :name] },
-        expense_splits: {
-          include: { user: { only: [:id, :name] } },
-          only: [:id, :amount, :paid_amount, :is_settled]
-        }
-      }
-    )
-  end
-
-  def settlements
-    settlements = @group.settlements.includes(:payer, :payee)
-                                   .order(created_at: :desc)
-    
-    render json: settlements.as_json(
-      include: {
-        payer: { only: [:id, :name] },
-        payee: { only: [:id, :name] }
-      }
-    )
-  end
-
-  def my_groups
-    user_id = params[:user_id]
-    if user_id.blank?
-      render json: { error: "User ID is required" }, status: :bad_request
-      return
-    end
-
-    user = User.find_by(id: user_id)
-    unless user
-      render json: { error: "User not found" }, status: :not_found
-      return
-    end
-
-    groups = user.groups.includes(:members, :creator)
-    render json: groups.as_json(
-      include: {
-        members: { only: [:id, :name, :email] },
-        creator: { only: [:id, :name] }
-      },
-      methods: [:total_spending]
-    )
-  end
-
-  def create
-    group = Group.new(group_params.except(:member_emails))
-    
-    ActiveRecord::Base.transaction do
-      if group.save
-        # Add creator as member
-        group.group_members.create!(user: group.creator)
-        
-        # Add other members by email
-        if params[:member_emails].present?
-          emails = params[:member_emails].reject(&:blank?)
-          users = User.where(email: emails)
-          
-          users.each do |user|
-            group.group_members.find_or_create_by(user: user)
-          end
-        end
-        
-        render json: group.as_json(
-          include: {
-            members: { only: [:id, :name, :email] },
-            creator: { only: [:id, :name] }
-          }
-        ), status: :created
-      else
-        render json: { errors: group.errors.full_messages }, status: :unprocessable_entity
-        raise ActiveRecord::Rollback
-      end
-    end
-  end
-
-  def destroy
-    @group.destroy
-    render json: { message: "Group deleted successfully" }
-  end
-
   private
 
   def set_group
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: "Group not found" }, status: :not_found
+    render json: { error: "Group not found or access denied" }, status: :not_found
   end
 
   def group_params
-    params.require(:group).permit(:group_name, :creator_id, member_emails: [])
+    params.require(:group).permit(:group_name, member_emails: [])
   end
 end

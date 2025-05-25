@@ -14,9 +14,14 @@ class User < ApplicationRecord
   has_many :received_settlements, class_name: 'Settlement', foreign_key: 'payee_id', dependent: :destroy
   
   # Validations
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, 
+            format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
   
+  # Callbacks
+  before_save :downcase_email
+
   # Calculate total balance for a user across all groups
   def total_balance
     groups.sum { |group| balance_in_group(group) }
@@ -54,46 +59,7 @@ class User < ApplicationRecord
     }
   end
 
-  # Get user's total expenses across all groups
-  def total_expenses_paid
-    expenses.sum(:total_amount)
-  end
-
-  # Get user's total amount owed across all groups
-  def total_amount_owed
-    expense_splits.sum(:amount)
-  end
-
-  # Get settlements made by this user
-  def total_settlements_paid
-    paid_settlements.sum(:amount)
-  end
-
-  # Get settlements received by this user
-  def total_settlements_received
-    received_settlements.sum(:amount)
-  end
-
-  # Get detailed balance breakdown
-  def detailed_balance
-    {
-      total_paid: total_expenses_paid,
-      total_owed: total_amount_owed,
-      settlements_paid: total_settlements_paid,
-      settlements_received: total_settlements_received,
-      net_balance: total_balance
-    }
-  end
-
-  # Get pending settlements (what this user needs to pay/receive)
-  def pending_settlements_by_group
-    groups.map do |group|
-      balance = balance_in_group(group)
-      {
-        group: { id: group.id, name: group.group_name },
-        balance: balance,
-        status: balance > 0 ? 'others_owe_you' : balance < 0 ? 'you_owe_others' : 'settled'
-      }
-    end
+  def downcase_email
+    self.email = email.downcase.strip if email.present?
   end
 end

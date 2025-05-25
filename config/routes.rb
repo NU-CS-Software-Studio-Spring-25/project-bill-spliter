@@ -14,6 +14,12 @@ Rails.application.routes.draw do
  # API Routes
  namespace :api do
   namespace :v1 do
+    # Authentication routes
+    post 'login', to: 'sessions#create'
+    delete 'logout', to: 'sessions#destroy'
+    get 'profile', to: 'sessions#show'
+    post 'register', to: 'registrations#create'
+
     # Expenses API
     resources :expenses, only: [:index, :create, :destroy, :show] do
       collection do
@@ -73,12 +79,6 @@ resources :groups, only: [:show] do
     get :balances     # For web interface balance view
   end
 end
-
-# Authentication routes (if you add authentication later)
-# resources :sessions, only: [:new, :create, :destroy]
-# get '/login', to: 'sessions#new'
-# post '/login', to: 'sessions#create'
-# delete '/logout', to: 'sessions#destroy'
 
   get '*path', to: 'static#index', constraints: ->(request) do
     !request.xhr? && request.format.html?

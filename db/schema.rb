@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_25_014843) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_042757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -44,6 +44,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_25_014843) do
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role"
     t.index ["group_id"], name: "index_group_members_on_group_id"
     t.index ["user_id"], name: "index_group_members_on_user_id"
   end
@@ -65,6 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_25_014843) do
     t.date "settlement_date", default: -> { "CURRENT_DATE" }
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "completed_at"
     t.index ["group_id"], name: "index_settlements_on_group_id"
     t.index ["payee_id"], name: "index_settlements_on_payee_id"
     t.index ["payer_id"], name: "index_settlements_on_payer_id"

@@ -23,6 +23,21 @@ module BillSplitter
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.api_only = true
+    # config.api_only = true
+    # Add session configuration
+    config.session_store :cookie_store, key: '_bill_splitter_session'
+# Enable sessions for API routes
+    config.force_ssl = false # Set to true in production
+    
+    # CORS configuration for sessions
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'http://localhost:3000', 'http://localhost:3001' # Add your frontend URLs
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :put, :patch, :delete, :options, :head],
+          credentials: true # IMPORTANT: Enable credentials for sessions
+      end
+    end
   end
 end

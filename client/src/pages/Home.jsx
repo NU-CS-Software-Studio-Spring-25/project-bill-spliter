@@ -21,7 +21,6 @@ export default function Home() {
     setLoading(true);
     fetchGroups(page)
       .then((data) => {
-        // data may be wrapped or raw array
         let rawGroups = [];
         let pagesCount = 1;
 
@@ -32,7 +31,6 @@ export default function Home() {
           rawGroups = data;
         }
 
-        // Only keep groups the user belongs to (if not already filtered)
         const userGroups = rawGroups.filter((g) => {
           if (g.member_ids) {
             return g.member_ids.includes(user.id);
@@ -50,7 +48,7 @@ export default function Home() {
   }, [page, user, navigate]);
 
   return (
-    <div>
+    <div style={{ padding: '1rem' }}>
       <h1 style={{ marginBottom: '1rem' }}>
         Welcome, {user?.name || 'Guest'}!
       </h1>
@@ -101,13 +99,14 @@ export default function Home() {
 const styles = {
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
     gap: '1rem',
     alignItems: 'stretch',
   },
   pagination: {
     marginTop: '2rem',
     display: 'flex',
+    flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
     gap: '1rem',

@@ -1,35 +1,39 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CURRENT_USER } from "../lib/session";
-import { BASE_URL } from "../api";
-
+import { useUser } from "../lib/userContext";
+import { createGroup } from "../api";
 
 export default function CreateGroup() {
-  const [groupName, setGroupName] = useState("");
-  const [memberEmails, setMemberEmails] = useState(""); // ✅ 이름 변경
+  const { user } = useUser();
   const navigate = useNavigate();
+  const [groupName, setGroupName] = useState("");
+  const [memberEmails, setMemberEmails] = useState("");
+
+  useEffect(() => {
+    if (!user) navigate("/login");
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const rawEmails = memberEmails.split(",").map((email) => email.trim()).filter(Boolean);
-      const allEmails = Array.from(new Set([...rawEmails, CURRENT_USER.email])); // ✅ 자신 포함
-      console.log(CURRENT_USER.email)
-      const res = await fetch(`${BASE_URL}/groups`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          group_name: groupName,
-          created_by: CURRENT_USER.id,
-          member_ids: allEmails
-        })
-      });
-      if (!res.ok) throw new Error("Failed to create group");
-      alert("Group created");
+      const emails = memberEmails
+        .split(",")
+        .map((email) => email.trim())
+        .filter(Boolean);
+      const allEmails = Array.from(new Set([...(emails || []), user.email]));
+
+      await createGroup({ group_name: groupName, member_emails: allEmails });
+
+      alert("Group created successfully");
       navigate("/");
     } catch (err) {
-      console.error("Error creating group", err);
-      alert("Failed to create group");
+      console.error(err);
+      if (err.message.includes("Creator must exist")) {
+        alert("Session expired. Please log in.");
+        navigate("/login");
+      } else {
+        alert(err.message || "Failed to create group");
+      }
     }
   };
 
@@ -37,6 +41,7 @@ export default function CreateGroup() {
     <form onSubmit={handleSubmit} style={styles.form}>
       <h2>Create New Group</h2>
       <input
+        type="text"
         placeholder="Group Name"
         value={groupName}
         onChange={(e) => setGroupName(e.target.value)}
@@ -50,7 +55,9 @@ export default function CreateGroup() {
         rows={4}
         style={styles.input}
       />
-      <button style={styles.button}>Create</button>
+      <button type="submit" style={styles.button}>
+        Create Group
+      </button>
     </form>
   );
 }
@@ -65,21 +72,21 @@ const styles = {
     border: "1px solid #e5e7eb",
     padding: "1.5rem",
     borderRadius: "8px",
-    boxShadow: "0 2px 4px rgba(0,0,0,0.05)"
+    boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
   },
   input: {
     padding: "0.5rem",
     fontSize: "1rem",
     borderRadius: "4px",
-    border: "1px solid #ccc"
+    border: "1px solid #ccc",
   },
   button: {
-    padding: "0.5rem 1rem",
+    padding: "0.75rem 1.25rem",
     backgroundColor: "#2563eb",
     color: "white",
     border: "none",
     borderRadius: "4px",
     fontWeight: "bold",
-    cursor: "pointer"
-  }
+    cursor: "pointer",
+  },
 };

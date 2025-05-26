@@ -3,47 +3,142 @@ const production = 'https://bill-splitter-api-d46b8052a10f.herokuapp.com/api/v1'
 const development ='http://localhost:3000/api/v1'
 export const BASE_URL = process.env.NODE_ENV === 'development' ? development : production;
 
-export async function fetchGroups(page = 1) {
-    const res = await fetch(`${BASE_URL}/groups?page=${page}`);
-    if (!res.ok) throw new Error("Failed to fetch groups");
-    return res.json(); // { groups: [...], current_page: 1, total_pages: 3 }
-}
-
-export async function fetchGroup(id) {
-    const res = await fetch(`${BASE_URL}/groups/${id}`);
-    if (!res.ok) throw new Error("Failed to fetch group");
-    return res.json();
-}
-
-export async function fetchExpenses(groupId) {
-    const res = await fetch(`${BASE_URL}/expenses?group_id=${groupId}`);
-    if (!res.ok) throw new Error("Failed to fetch expenses");
-    return res.json();
-}
+async function parseJsonOrText(res) {
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      return res.json();
+    }
+    return res.text();
+  }
   
-export async function fetchUsers() {
-    const res = await fetch(`${BASE_URL}/users`);
-    if (!res.ok) throw new Error("Failed to fetch users");
-    return res.json();
-}
+  async function handleFetch(res) {
+    const data = await parseJsonOrText(res);
+    if (!res.ok) {
+      const errorMessage = data && data.error ? data.error : res.statusText;
+      throw new Error(errorMessage);
+    }
+    return data;
+  }
+  
+  export async function fetchGroups(page = 1) {
+    // Use the 'my_groups' endpoint for the authenticated user's groups
+    const res = await fetch(`${BASE_URL}/groups/my_groups?page=${page}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return handleFetch(res);
+  }  
 
-export async function fetchExpense(id) {
-    const res = await fetch(`${BASE_URL}/expenses/${id}`);
-    if (!res.ok) throw new Error("Failed to fetch expense");
-    return res.json();
-}
-
-export async function deleteExpense(id) {
+  export async function fetchGroup(id) {
+    const res = await fetch(`${BASE_URL}/groups/${id}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return handleFetch(res);
+  }
+  
+  export async function fetchExpenses(groupId) {
+    const res = await fetch(`${BASE_URL}/expenses?group_id=${groupId}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return handleFetch(res);
+  }
+  
+  export async function fetchUsers() {
+    const res = await fetch(`${BASE_URL}/users`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return handleFetch(res);
+  }
+  
+  export async function fetchExpense(id) {
     const res = await fetch(`${BASE_URL}/expenses/${id}`, {
-        method: "DELETE",
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
     });
-    if (!res.ok) throw new Error("Failed to delete expense");
-}
+    return handleFetch(res);
+  }
 
-export async function deleteGroup(groupId) {
-    const res = await fetch(`${BASE_URL}/groups/${groupId}`, {
-      method: "DELETE",
+  export async function createGroup(groupData) {
+    const res = await fetch(`${BASE_URL}/groups`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ group: groupData }),
     });
-    if (!res.ok) throw new Error("Failed to delete group");
+    return handleFetch(res);
+  }
+  
+  export async function createExpense(expenseData) {
+    const res = await fetch(`${BASE_URL}/expenses`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ expense: expenseData }),
+    });
+    return handleFetch(res);
+  }
+  
+  
+  export async function deleteExpense(id) {
+    const res = await fetch(`${BASE_URL}/expenses/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    return handleFetch(res);
+  }
+  
+  export async function deleteGroup(groupId) {
+    const res = await fetch(`${BASE_URL}/groups/${groupId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    return handleFetch(res);
+  }
+  
+  export async function login(email, password) {
+    const res = await fetch(`${BASE_URL}/login`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    return handleFetch(res);
+  }
+  
+  export async function logout() {
+    const res = await fetch(`${BASE_URL}/logout`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    return handleFetch(res);
+  }
+  
+  export async function fetchProfile() {
+    const res = await fetch(`${BASE_URL}/profile`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    const data = await handleFetch(res);
+    return data;
+  }
+  
+  export async function register(userData) {
+    const res = await fetch(`${BASE_URL}/register`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user: userData }),
+    });
+    return handleFetch(res);
   }
   

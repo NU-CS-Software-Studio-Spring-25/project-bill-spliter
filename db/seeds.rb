@@ -11,13 +11,24 @@ User.destroy_all
 
 puts "🌱 Seeding data..."
 
-# Create 40 users with realistic names
-users = []
-40.times do |i|
+# Create a test user for authentication testing
+puts "🧪 Creating test user..."
+test_user = User.create!(
+  name: "Test User",
+  email: "testuser@example.com",
+  password: "password123",
+  password_confirmation: "password123"
+)
+puts "Created test user: #{test_user.email} / password123"
+
+# Create additional 39 users with realistic names
+users = [test_user]
+39.times do
   user = User.create!(
     name: Faker::Name.name,
     email: Faker::Internet.unique.email,
-    password: "password123"
+    password: "password123",
+    password_confirmation: "password123"
   )
   users << user
   puts "Created user: #{user.name} (#{user.email})"
@@ -25,6 +36,7 @@ end
 puts "✅ Created #{users.length} users"
 
 # Create 40 groups with realistic names
+puts "🌱 Creating groups..."
 groups = []
 group_types = [
   "Trip to #{Faker::Address.city}",
@@ -38,7 +50,6 @@ group_types = [
   "#{Faker::Restaurant.name} Regulars",
   "#{Faker::University.name} Alumni"
 ]
-
 40.times do |i|
   group = Group.create!(
     group_name: group_types.sample,
@@ -50,6 +61,7 @@ end
 puts "✅ Created #{groups.length} groups"
 
 # Create group memberships (2-5 members per group)
+puts "🌱 Creating group memberships..."
 groups.each do |group|
   # Add creator as admin
   GroupMember.create!(
@@ -57,22 +69,21 @@ groups.each do |group|
     user: group.creator,
     role: "admin"
   )
-  
   # Add 2-5 random members
   rand(2..5).times do
-    random_user = users.sample
-    next if random_user == group.creator || group.members.include?(random_user) # Skip if it's the creator or already a member
-    
+    member = users.sample
+    next if member == group.creator || group.members.include?(member)
     GroupMember.create!(
       group: group,
-      user: random_user,
+      user: member,
       role: ["admin", "member"].sample
     )
   end
 end
 puts "✅ Created group memberships"
 
-# Create 40 expenses with realistic descriptions
+# Create expenses and splits
+puts "🌱 Creating expenses and splits..."
 expense_types = [
   "Dinner at #{Faker::Restaurant.name}",
   "Tickets for #{Faker::Music.band} concert",
@@ -101,31 +112,28 @@ expense_types = [
     expense_date: Faker::Date.between(from: 30.days.ago, to: Date.today)
   )
 
-  # Create expense splits for each expense
-  # Split among 2-5 random members of the group
-  expense.group.members.sample(rand(2..5)).each do |member|
-    next if ExpenseSplit.exists?(expense: expense, user: member) # Skip if the split already exists
-    
+  # Split expense among random group members
+  split_members = group.members.sample(rand(2..5))
+  split_amount = (expense.total_amount / split_members.size).round(2)
+  split_members.each do |member|
+    # Skip if split already exists (avoids unique constraint violation)
+    next if ExpenseSplit.exists?(expense: expense, user: member)
     ExpenseSplit.create!(
       expense: expense,
       user: member,
-      amount: expense.total_amount / expense.group.members.count
+      amount: split_amount
     )
   end
 end
 puts "✅ Created #{Expense.count} expenses with splits"
 
-# Create 40 settlements with realistic amounts
+# Create settlements
+puts "🌱 Creating settlements..."
 40.times do
   group = groups.sample
   payer = group.members.sample
   payee = group.members.sample
-  
-  # Ensure payer and payee are different
-  while payee == payer
-    payee = group.members.sample
-  end
-
+  next if payee == payer
   Settlement.create!(
     group: group,
     payer: payer,
@@ -136,4 +144,4 @@ puts "✅ Created #{Expense.count} expenses with splits"
 end
 puts "✅ Created #{Settlement.count} settlements"
 
-puts "🌱 Seeding completed!" 
+puts "🌱 Seeding completed! You can log in with testuser@example.com / password123"

@@ -1,4 +1,5 @@
 class Api::V1::GroupsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_group, only: [:show, :destroy, :balances, :expenses, :settlements]
 
   def index
@@ -49,8 +50,8 @@ class Api::V1::GroupsController < ApplicationController
         group.group_members.create!(user: current_user)
         
         # Add other members by email
-        if params[:member_emails].present?
-          emails = params[:member_emails].reject(&:blank?)
+        if group_params[:member_emails].present?
+          emails = group_params[:member_emails].reject(&:blank?)
           users = User.where(email: emails)
           
           users.each do |user|
@@ -104,6 +105,27 @@ class Api::V1::GroupsController < ApplicationController
       end,
       total_spending: @group.total_spending
     }
+  end
+
+  # GET /api/v1/groups/:id/expenses
+  def expenses
+    expenses = @group.expenses.includes(:payer)
+    render json: expenses.as_json(
+      include: { payer: { only: [:id, :name, :email] } },
+      only:   [:id, :description, :total_amount, :expense_date]
+    )
+  end
+
+  # GET /api/v1/groups/:id/settlements
+  def settlements
+    settlements = @group.settlements.includes(:payer, :payee)
+    render json: settlements.as_json(
+      include: {
+        payer: { only: [:id, :name, :email] },
+        payee: { only: [:id, :name, :email] }
+      },
+      only:   [:id, :amount, :settlement_date]
+    )
   end
 
   private

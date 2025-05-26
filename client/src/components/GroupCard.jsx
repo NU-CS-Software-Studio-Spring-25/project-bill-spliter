@@ -5,7 +5,7 @@ export default function GroupCard({ group }) {
     <div style={styles.card}>
       <div style={styles.header}>
         <h2 style={styles.title}>{group.group_name}</h2>
-        <span style={styles.members}>{`${group.member_ids.length} members`}</span>
+        <span style={styles.members}>{`${group.members.length} members`}</span>
       </div>
 
       <Link to={`/groups/${group.id}`} style={styles.link}>

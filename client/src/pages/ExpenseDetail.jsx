@@ -45,7 +45,7 @@ export default function ExpenseDetail() {
       </div>
       <div style={styles.row}>
         <strong>Added by:</strong>{" "}
-        <span style={styles.userBadge}>{userMap[expense.added_by]}</span>
+        <span style={styles.userBadge}>{userMap[expense.payer_id]}</span>
       </div>
     </div>
   );

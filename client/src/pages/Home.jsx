@@ -1,33 +1,57 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchGroups } from "../api";
-import { CURRENT_USER } from "../lib/session";
+import { useUser } from "../lib/userContext";
 import GroupCard from "../components/GroupCard";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const { user } = useUser();
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     setLoading(true);
     fetchGroups(page)
       .then((data) => {
-        const userGroups = data.groups.filter((g) =>
-          g.members.some((member) => member.id === CURRENT_USER.id)
-        );
+        let rawGroups = [];
+        let pagesCount = 1;
+
+        if (data.groups) {
+          rawGroups = data.groups;
+          pagesCount = data.total_pages;
+        } else if (Array.isArray(data)) {
+          rawGroups = data;
+        }
+
+        const userGroups = rawGroups.filter((g) => {
+          if (g.member_ids) {
+            return g.member_ids.includes(user.id);
+          } else if (Array.isArray(g.members)) {
+            return g.members.some((m) => m.id === user.id);
+          }
+          return true;
+        });
+
         setGroups(userGroups);
-        setTotalPages(data.total_pages);
+        setTotalPages(pagesCount);
       })
-      .catch((err) => {
-        console.error("Failed to load groups", err);
-      })
+      .catch((err) => console.error('Failed to load groups', err))
       .finally(() => setLoading(false));
-  }, [page]);
+  }, [page, user, navigate]);
 
   return (
-    <div>
-      <h1 style={{ marginBottom: "1rem" }}>Welcome, {CURRENT_USER.name}!</h1>
+    <div style={{ padding: '1rem' }}>
+      <h1 style={{ marginBottom: '1rem' }}>
+        Welcome, {user?.name || 'Guest'}!
+      </h1>
 
       {loading ? (
         <p>Loading groups...</p>
@@ -41,7 +65,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Pagination controls */}
           <div style={styles.pagination}>
             <button
               onClick={() => setPage((p) => Math.max(p - 1, 1))}
@@ -75,40 +98,37 @@ export default function Home() {
 
 const styles = {
   grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gap: "1rem",
-    alignItems: "stretch",
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gap: '1rem',
+    alignItems: 'stretch',
   },
   pagination: {
-    marginTop: "2rem",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "1rem",
-    fontSize: "0.95rem",
+    marginTop: '2rem',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '1rem',
+    fontSize: '0.95rem',
   },
-  
   pageButton: {
-    backgroundColor: "#3b82f6",
-    color: "white",
-    border: "none",
-    padding: "0.4rem 0.9rem",
-    borderRadius: "6px",
-    cursor: "pointer",
+    backgroundColor: '#3b82f6',
+    color: 'white',
+    border: 'none',
+    padding: '0.4rem 0.9rem',
+    borderRadius: '6px',
+    cursor: 'pointer',
     fontWeight: 600,
-    fontSize: "0.9rem",
-    transition: "background-color 0.2s ease",
+    fontSize: '0.9rem',
+    transition: 'background-color 0.2s ease',
   },
-  
   disabledButton: {
-    backgroundColor: "#d1d5db",
-    cursor: "not-allowed",
+    backgroundColor: '#d1d5db',
+    cursor: 'not-allowed',
   },
-  
   pageInfo: {
     fontWeight: 500,
-    color: "#374151",
-  }
-  
+    color: '#374151',
+  },
 };

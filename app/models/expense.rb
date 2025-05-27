@@ -4,14 +4,27 @@ class Expense < ApplicationRecord
   belongs_to :payer, class_name: 'User'
   has_many :expense_splits, dependent: :destroy
   
-  validates :description, presence: true
+  validates :description, presence: true, length: { maximum: 255 }
   validates :total_amount, presence: true, numericality: { greater_than: 0 }
   validates :expense_date, presence: true
+  validates :group, presence: true
+  validates :payer, presence: true
+  validate :payer_must_be_member_of_group
+
   
   after_create :create_equal_splits
   after_update :update_splits, if: :saved_change_to_total_amount?
   
   private
+
+
+  def payer_must_be_member_of_group
+    return if group.blank? || payer.blank?
+    
+    unless group.members.include?(payer)
+      errors.add(:payer, "must be a member of the group")
+    end
+  end
   
   def create_equal_splits
     create_splits_for_members

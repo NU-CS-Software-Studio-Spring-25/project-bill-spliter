@@ -35,6 +35,20 @@ export default function CreateExpense() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!description.trim() || !amount || !groupId || !expenseDate) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      toast.error("Amount must be a positive number.");
+      return;
+    }
+    const today = new Date().toISOString().split("T")[0];
+    if (expenseDate > today) {
+      toast.error("Expense date cannot be in the future.");
+      return;
+    }
     try {
       const expenseData = {
         description,

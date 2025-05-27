@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route} from 'react-router-dom';
 import NavBar from './components/NavBar';
+import MainFooter from './components/MainFooter';
 import Home from './pages/Home';
 import AddGroup from './pages/AddGroup';
 import AddExpense from './pages/AddExpense';
@@ -81,6 +82,7 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>
+      <MainFooter />
       <ToastContainer position="top-right" autoClose={1000} />
     </UserProvider>
   );

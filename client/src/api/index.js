@@ -66,6 +66,16 @@ async function parseJsonOrText(res) {
     return handleFetch(res);
   }
 
+  export async function updateExpense(id, expenseData) {
+    const response = await fetch(`${BASE_URL}/expenses/${id}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ expense: expenseData }),
+    });
+    return await response.json();
+  }
+
   export async function createGroup(groupData) {
     const res = await fetch(`${BASE_URL}/groups`, {
       method: 'POST',

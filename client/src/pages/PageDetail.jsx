@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUser } from "../lib/userContext";
 import { fetchGroup, deleteExpense, deleteGroup } from "../api";
+import { toast } from "react-toastify";
 
 export default function GroupDetail() {
   const { id } = useParams();
@@ -30,26 +31,43 @@ export default function GroupDetail() {
   const handleDeleteExpense = async (expenseId) => {
     if (!window.confirm("Are you sure you want to delete this expense?")) return;
     try {
-      await deleteExpense(expenseId);
+      const response = await deleteExpense(expenseId);
       setGroup((prev) => ({
         ...prev,
         expenses: prev.expenses.filter((e) => e.id !== expenseId),
       }));
+      toast.success(response.message);
+      console.log("Expense deleted successfully:", response);
     } catch (err) {
       console.error(err);
-      alert("Failed to delete expense.");
+      if (err.message.includes("Creator must exist")) {
+        toast.error("Session expired. Please log in.");
+        navigate("/login");
+      }
+      else{
+        toast.error(err.message || "Failed to delete expense");
+      }
     }
   };
 
   const handleDeleteGroup = async () => {
     if (!window.confirm("Are you sure you want to delete this group?")) return;
     try {
-      await deleteGroup(group.id);
-      alert("Group deleted successfully.");
+      const response = await deleteGroup(group.id);
+      if (!response.message) {
+        throw new Error(response.error || "Failed to delete group");
+      }
+      toast.success(response.message);
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert("Failed to delete group.");
+       if (err.message.includes("Creator must exist")) {
+        toast.error("Session expired. Please log in.");
+        navigate("/login");
+      }
+      else {
+      toast.error(err.message || "Failed to delete group");
+      }
     }
   };
 
@@ -134,11 +152,14 @@ export default function GroupDetail() {
                 <td>{e.description}</td>
                 <td>${Number(e.total_amount).toFixed(2)}</td>
                 <td>{e.payer?.name}</td>
-                <td>
-                  <button onClick={() => navigate(`/expenses/${e.id}`)}>
+                <td style={{ textAlign: "center" }}>
+                  <button style={{ margin: "5px" }} onClick={() => navigate(`/expenses/${e.id}`)}>
                     View
                   </button>
-                  <button onClick={() => handleDeleteExpense(e.id)}>
+                  <button style={{ margin: "5px" }} onClick={() => navigate(`/expenses/${e.id}/edit`)}>
+                    Edit
+                  </button>
+                  <button style={{ margin: "5px" }} onClick={() => handleDeleteExpense(e.id)}>
                     Delete
                   </button>
                 </td>

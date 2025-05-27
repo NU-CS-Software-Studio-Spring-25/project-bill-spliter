@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchGroups, createExpense } from "../api";
 import { useUser } from "../lib/userContext";
+import { toast } from "react-toastify";
 
 export default function CreateExpense() {
   const { user } = useUser();
@@ -34,6 +35,20 @@ export default function CreateExpense() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!description.trim() || !amount || !groupId || !expenseDate) {
+      toast.error("Please fill in all the fields");
+      return;
+    }
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      toast.error("Amount must be a positive number.");
+      return;
+    }
+    const today = new Date().toISOString().split("T")[0];
+    if (expenseDate > today) {
+      toast.error("Expense date cannot be in the future.");
+      return;
+    }
     try {
       const expenseData = {
         description,
@@ -43,12 +58,24 @@ export default function CreateExpense() {
         expense_date: expenseDate,
       };
 
-      await createExpense(expenseData);
-      alert("Expense created successfully");
+      const response = await createExpense(expenseData);
+      if (!response.data) {
+        throw new Error(response.error || "Failed to create expense");
+      }
+      console.log("Expense created successfully:", response);
+      toast.success(response.message || "Expense created successfully");
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert(err.message || "Failed to create expense");
+      if (err.message.includes("Creator must exist")) {
+        toast.error("Session expired. Please log in.");
+        navigate("/login");
+      }
+      else {
+      toast.error(
+        err.message || "Failed to create expense. Please try again."
+      );
+    }
     }
   };
 

@@ -10,6 +10,8 @@ import LoginPage from './pages/LoginPage';
 import { UserProvider } from './lib/userContext';
 import PrivateRoute from './components/PrivateRoute';
 import RegisterPage from './pages/RegisterPage';
+import EditExpense from './pages/EditExpense';
+
 
 // Toastify imports
 import { ToastContainer } from 'react-toastify';
@@ -63,6 +65,14 @@ function App() {
             element={
               <PrivateRoute>
                 <ExpenseDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/expenses/:id/edit"
+            element={
+              <PrivateRoute>
+                <EditExpense />
               </PrivateRoute>
             }
           />

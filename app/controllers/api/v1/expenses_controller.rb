@@ -1,7 +1,7 @@
 # app/controllers/api/v1/expenses_controller.rb
 class Api::V1::ExpensesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_expense, only: [:show, :destroy]
+  before_action :set_expense, only: [:show, :destroy, :update]
 
   def index
     expenses = if params[:group_id]
@@ -73,6 +73,25 @@ class Api::V1::ExpensesController < ApplicationController
     render json: { 
       message: "Expense deleted successfully from group '#{group_name}'" 
     }
+  end
+
+  def update
+    if @expense.update(expense_params)
+      render json: {
+        message: "Expense updated successfully",
+        data: @expense.as_json(
+          include: {
+            payer: { only: [:id, :name] },
+            group: { only: [:id, :group_name] },
+            expense_splits: { 
+              include: { user: { only: [:id, :name] } }
+            }
+          }
+        )
+      }, status: :ok
+    else
+      render json: { error: @expense.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   # Additional endpoint to get expense summary for a group

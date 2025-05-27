@@ -153,10 +153,13 @@ export default function GroupDetail() {
                 <td>${Number(e.total_amount).toFixed(2)}</td>
                 <td>{e.payer?.name}</td>
                 <td>
-                  <button onClick={() => navigate(`/expenses/${e.id}`)}>
+                  <button style={{ margin: "5px" }} onClick={() => navigate(`/expenses/${e.id}`)}>
                     View
                   </button>
-                  <button onClick={() => handleDeleteExpense(e.id)}>
+                  <button style={{ margin: "5px" }} onClick={() => navigate(`/expenses/${e.id}/edit`)}>
+                    Edit
+                  </button>
+                  <button style={{ margin: "5px" }} onClick={() => handleDeleteExpense(e.id)}>
                     Delete
                   </button>
                 </td>

@@ -31,7 +31,7 @@ export default function ExpenseDetail() {
   const userMap = Object.fromEntries(users.map((u) => [u.id, u.name]));
 
   return (
-    <div style={styles.card}>
+    <div style={styles.card} className="container">
       <h2 style={styles.header}>Expense Information</h2>
       <div style={styles.row}>
         <strong>Description:</strong> <span>{expense.description}</span>

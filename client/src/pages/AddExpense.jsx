@@ -41,7 +41,11 @@ export default function CreateExpense() {
     }
     const parsedAmount = parseFloat(amount);
     if (isNaN(parsedAmount) || parsedAmount <= 0) {
-      toast.error("Amount must be a positive number.");
+      toast.error("Amount must be a positive number");
+      return;
+    }
+    if (parsedAmount > 10000000){
+      toast.error("Amount is too large");
       return;
     }
     const today = new Date().toISOString().split("T")[0];

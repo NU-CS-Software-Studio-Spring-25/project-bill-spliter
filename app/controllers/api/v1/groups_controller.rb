@@ -30,16 +30,25 @@ class Api::V1::GroupsController < ApplicationController
   end
 
   def my_groups
-    groups = current_user.groups.includes(:members, :creator)
-    render json: groups.as_json(
-      include: {
-        members: { only: [:id, :name, :email] },
-        creator: { only: [:id, :name] }
-      },
-      methods: [:total_spending]
-    )
+    groups = current_user
+               .groups
+               .includes(:members, :creator)
+               .page(params[:page])
+               .per(12)
+  
+    render json: {
+      groups: groups.as_json(
+        include: {
+          members: { only: [:id, :name, :email] },
+          creator: { only: [:id, :name] }
+        },
+        methods: [:total_spending]
+      ),
+      current_page: groups.current_page,
+      total_pages: groups.total_pages
+    }
   end
-
+  
   def create
     group = Group.new(group_params.except(:member_emails))
     group.creator = current_user

@@ -2,29 +2,45 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../lib/userContext";
 import { createGroup } from "../api";
+import { toast } from "react-toastify";
 
 export default function CreateGroup() {
   const { user } = useUser();
   const navigate = useNavigate();
   const [groupName, setGroupName] = useState("");
   const [memberEmails, setMemberEmails] = useState("");
-
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
   useEffect(() => {
     if (!user) navigate("/login");
   }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!groupName.trim() || !memberEmails.trim()) {
+      toast.error("Please fill in all the fields");
+      return;
+    }
     try {
       const emails = memberEmails
         .split(",")
         .map((email) => email.trim())
         .filter(Boolean);
+      
+      const invalidEmails = emails.filter((email) => !isValidEmail(email));
+      if (invalidEmails.length > 0) {
+        toast.error(`Invalid email(s): ${invalidEmails.join(", ")}. Please enter valid email addresses.`);
+        return;
+      }
       const allEmails = Array.from(new Set([...(emails || []), user.email]));
 
-      await createGroup({ group_name: groupName, member_emails: allEmails });
-
-      alert("Group created successfully");
+      const response = await createGroup({ group_name: groupName, member_emails: allEmails });
+      if (!response.data) {
+        throw new Error(response.error || "Failed to create group");
+      }
+      console.log("Group created successfully:", response);
+      toast.success(response.message || "Group created successfully");
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -32,7 +48,7 @@ export default function CreateGroup() {
         alert("Session expired. Please log in.");
         navigate("/login");
       } else {
-        alert(err.message || "Failed to create group");
+        toast.error(err.message || "Failed to create group");
       }
     }
   };

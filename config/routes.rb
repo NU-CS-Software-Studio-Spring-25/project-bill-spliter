@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     post 'register', to: 'registrations#create'
 
     # Expenses API
-    resources :expenses, only: [:index, :create, :destroy, :show] do
+    resources :expenses, only: [:index, :create, :destroy, :show, :update] do
       collection do
         get :summary    # GET /api/v1/expenses/summary?group_id=X
       end

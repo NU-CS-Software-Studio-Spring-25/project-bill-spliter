@@ -21,7 +21,14 @@ export default function NavBar() {
   return (
     <>
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-      <Link to="/" className='navbar-brand px-3'>Bill Splitter</Link>
+      <Link to="/" className='navbar-brand px-3'>
+        <img 
+          src="/logo.png" 
+          alt="CheckMate logo" 
+          style={{ height: '30px', marginRight: '10px' }} 
+        />
+        CheckMate
+      </Link>
         {user && (
           <>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +43,7 @@ export default function NavBar() {
                 <Link to="/add-expense" className='nav-item nav-link btn btn-outline-success text-white border-0 mx-1'>
                   <button className='nav-link text-white'>Add Expense</button>
                 </Link>
-                <button onClick={handleLogout} className='nav-link btn btn-outline-danger text-white border border-danger mx-1'>Logout</button>
+                <button onClick={handleLogout} className='nav-link btn btn-outline-danger text-white border-0 border-danger mx-1'>Logout</button>
               </ul>
             </div>
           </>

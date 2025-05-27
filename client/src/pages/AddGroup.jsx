@@ -9,18 +9,30 @@ export default function CreateGroup() {
   const navigate = useNavigate();
   const [groupName, setGroupName] = useState("");
   const [memberEmails, setMemberEmails] = useState("");
-
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
   useEffect(() => {
     if (!user) navigate("/login");
   }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!groupName.trim() || !memberEmails.trim()) {
+      toast.error("Please fill in all the fields");
+      return;
+    }
     try {
       const emails = memberEmails
         .split(",")
         .map((email) => email.trim())
         .filter(Boolean);
+      
+      const invalidEmails = emails.filter((email) => !isValidEmail(email));
+      if (invalidEmails.length > 0) {
+        toast.error(`Invalid email(s): ${invalidEmails.join(", ")}. Please enter valid email addresses.`);
+        return;
+      }
       const allEmails = Array.from(new Set([...(emails || []), user.email]));
 
       const response = await createGroup({ group_name: groupName, member_emails: allEmails });

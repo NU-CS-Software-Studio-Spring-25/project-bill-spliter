@@ -36,7 +36,7 @@ export default function CreateExpense() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!description.trim() || !amount || !groupId || !expenseDate) {
-      toast.error("Please fill in all fields");
+      toast.error("Please fill in all the fields");
       return;
     }
     const parsedAmount = parseFloat(amount);

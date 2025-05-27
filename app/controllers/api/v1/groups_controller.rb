@@ -50,10 +50,19 @@ class Api::V1::GroupsController < ApplicationController
         group.group_members.create!(user: current_user)
         
         # Add other members by email
+        invalid_emails = []
         if group_params[:member_emails].present?
           emails = group_params[:member_emails].reject(&:blank?)
           users = User.where(email: emails)
-          
+
+          found_emails = users.pluck(:email)
+          invalid_emails = emails - found_emails
+
+          if invalid_emails.any?
+            render json: { error: "The group was not created. The following emails do not correspond to existing users: #{invalid_emails.join(', ')}" }, status: :unprocessable_entity
+            raise ActiveRecord::Rollback
+          end
+
           users.each do |user|
             group.group_members.find_or_create_by(user: user)
           end

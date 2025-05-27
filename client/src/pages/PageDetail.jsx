@@ -152,7 +152,7 @@ export default function GroupDetail() {
                 <td>{e.description}</td>
                 <td>${Number(e.total_amount).toFixed(2)}</td>
                 <td>{e.payer?.name}</td>
-                <td>
+                <td style={{ textAlign: "center" }}>
                   <button style={{ margin: "5px" }} onClick={() => navigate(`/expenses/${e.id}`)}>
                     View
                   </button>

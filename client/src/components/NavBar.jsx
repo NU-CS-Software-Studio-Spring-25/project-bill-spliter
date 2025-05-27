@@ -19,25 +19,31 @@ export default function NavBar() {
   };
 
   return (
-    <nav style={styles.nav}>
-      <Link to="/" style={styles.logo}>Bill Splitter</Link>
-      <div style={styles.buttons}>
+    <>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+      <Link to="/" className='navbar-brand px-3'>Bill Splitter</Link>
         {user && (
           <>
-            <Link to="/groups/new">
-              <button style={styles.addGroup}>Add Group</button>
-            </Link>
-            <Link to="/add-expense">
-              <button style={styles.addExpense}>Add Expense</button>
-            </Link>
-            <button onClick={handleLogout} style={styles.logout}>Logout</button>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
+              <ul className="navbar-nav ms-auto">
+                <Link to="/groups/new" className='nav-item nav-link btn btn-outline-primary text-white border-0 mx-1'>
+                  <button className='nav-link text-white'>Add Group</button>
+                </Link>
+                <Link to="/add-expense" className='nav-item nav-link btn btn-outline-success text-white border-0 mx-1'>
+                  <button className='nav-link text-white'>Add Expense</button>
+                </Link>
+                <button onClick={handleLogout} className='nav-link btn btn-outline-danger text-white border border-danger mx-1'>Logout</button>
+              </ul>
+            </div>
           </>
         )}
-        {!user 
-
-        }
-      </div>
-    </nav>
+        {!user}
+        </nav>
+      </>
   );
 }
 

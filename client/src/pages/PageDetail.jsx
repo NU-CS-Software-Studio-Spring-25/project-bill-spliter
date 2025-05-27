@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useUser } from "../lib/userContext";
 import { fetchGroup, deleteExpense, deleteGroup } from "../api";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 export default function GroupDetail() {
   const { id } = useParams();
@@ -117,92 +118,149 @@ export default function GroupDetail() {
 
   return (
     <>
-      <div style={styles.header}>
-        <h1>{group.group_name}</h1>
-        <button style={styles.deleteBtn} onClick={handleDeleteGroup}>
-          Delete Group
-        </button>
-      </div>
+  <div className="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <h1 className="h2 mb-0">{group.group_name}</h1>
+    <div className="d-flex gap-2">
+      <button 
+        className="btn btn-outline-danger d-flex align-items-center gap-1"
+        onClick={handleDeleteGroup}
+      >
+        <i className="bi bi-trash-fill"></i> Delete Group
+      </button>
+    </div>
+  </div>
 
-      <div style={styles.section}>
-        <h2>Members ({members.length})</h2>
-        <ul style={styles.list}>
+  <div className="d-flex flex-column gap-4">
+    {/* Members Section */}
+    <div className="card">
+      <div className="card-header d-flex justify-content-between align-items-center">
+        <h2 className="h5 mb-0 d-flex align-items-center gap-2">
+          <i className="bi bi-people-fill"></i> Members ({members.length})
+        </h2>
+      </div>
+      <div className="card-body">
+        <ul className="list-unstyled row row-cols-1 row-cols-md-3 g-3">
           {members.map((m) => (
-            <li key={m.id} style={styles.listItem}>
-              {m.name}
+            <li key={m.id} className="col">
+              <div className="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+                <span className="fw-medium">{m.name}</span>
+                {m.id === group.owner_id && (
+                  <span className="badge bg-info text-dark">Owner</span>
+                )}
+              </div>
             </li>
           ))}
         </ul>
       </div>
+    </div>
 
-      <div style={styles.section}>
-        <h2>Expenses</h2>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Amount</th>
-              <th>Payer</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {group.expenses.map((e) => (
-              <tr key={e.id}>
-                <td>{e.description}</td>
-                <td>${Number(e.total_amount).toFixed(2)}</td>
-                <td>{e.payer?.name}</td>
-                <td style={{ textAlign: "center" }}>
-                  <button style={{ margin: "5px" }} onClick={() => navigate(`/expenses/${e.id}`)}>
-                    View
-                  </button>
-                  <button style={{ margin: "5px" }} onClick={() => navigate(`/expenses/${e.id}/edit`)}>
-                    Edit
-                  </button>
-                  <button style={{ margin: "5px" }} onClick={() => handleDeleteExpense(e.id)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    {/* Expenses Section */}
+    <div className="card">
+      <div className="card-header d-flex justify-content-between align-items-center">
+        <h2 className="h5 mb-0 d-flex align-items-center gap-2">
+          <i className="bi bi-receipt"></i> Expenses
+        </h2>
+        <Link 
+          to={`/add-expense`}
+          className="btn btn-primary btn-sm d-flex align-items-center gap-1"
+        >
+          <i className="bi bi-plus-lg"></i> Add Expense
+        </Link>
       </div>
+      <div className="card-body">
+        <div className="table-responsive">
+          <table className="table table-hover">
+            <thead className="table-light">
+              <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Payer</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {group.expenses.map((e) => (
+                <tr key={e.id}>
+                  <td>{e.description}</td>
+                  <td className="fw-bold text-success">${Number(e.total_amount).toFixed(2)}</td>
+                  <td>{e.payer?.name}</td>
+                  <td>
+                    <div className="d-flex gap-2">
+                      <button 
+                        onClick={() => navigate(`/expenses/${e.id}`)}
+                        className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                      >
+                        <i className="bi bi-eye-fill"></i> View
+                      </button>
+                      <button 
+                        onClick={() => handleDeleteExpense(e.id)}
+                        className="btn btn-sm btn-outline-danger"
+                      >
+                        <i className="bi bi-trash-fill">Delete</i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-      <div style={styles.section}>
-        <h2>Your Settlement Summary</h2>
+    {/* Settlement Section */}
+    <div className="card">
+      <div className="card-header">
+        <h2 className="h5 mb-0 d-flex align-items-center gap-2">
+          <i className="bi bi-cash-stack"></i> Settlement Summary
+        </h2>
+      </div>
+      <div className="card-body">
         {youOwe.length === 0 && othersOweYou.length === 0 ? (
-          <p>You're all settled up 🎉</p>
+          <div className="text-center py-4 bg-success bg-opacity-10 rounded">
+            <i className="bi bi-check-circle-fill text-success fs-1"></i>
+            <p className="h5 text-success mt-2 mb-0">You're all settled up! 🎉</p>
+          </div>
         ) : (
-          <>
+          <div className="row g-3">
             {youOwe.length > 0 && (
-              <div>
-                <h4>You owe:</h4>
-                <ul>
-                  {youOwe.map((s, i) => (
-                    <li key={i}>
-                      You owe <strong>{s.to}</strong> ${s.amount}
-                    </li>
-                  ))}
-                </ul>
+              <div className="col-md-6">
+                <div className="p-3 bg-light rounded">
+                  <h4 className="h6 d-flex align-items-center gap-2 text-danger">
+                    <i className="bi bi-arrow-up-circle-fill"></i> You owe:
+                  </h4>
+                  <ul className="list-unstyled mt-3">
+                    {youOwe.map((s, i) => (
+                      <li key={i} className="p-2 bg-white rounded mb-2 shadow-sm">
+                        You owe <strong>{s.to}</strong> <span className="fw-bold text-danger">${s.amount}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
             {othersOweYou.length > 0 && (
-              <div>
-                <h4>They owe you:</h4>
-                <ul>
-                  {othersOweYou.map((s, i) => (
-                    <li key={i}>
-                      <strong>{s.from}</strong> owes you ${s.amount}
-                    </li>
-                  ))}
-                </ul>
+              <div className="col-md-6">
+                <div className="p-3 bg-light rounded">
+                  <h4 className="h6 d-flex align-items-center gap-2 text-success">
+                    <i className="bi bi-arrow-down-circle-fill"></i> They owe you:
+                  </h4>
+                  <ul className="list-unstyled mt-3">
+                    {othersOweYou.map((s, i) => (
+                      <li key={i} className="p-2 bg-white rounded mb-2 shadow-sm">
+                        <strong>{s.from}</strong> owes you <span className="fw-bold text-success">${s.amount}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
-          </>
+          </div>
         )}
       </div>
-    </>
+    </div>
+  </div>
+</>
   );
 }
 

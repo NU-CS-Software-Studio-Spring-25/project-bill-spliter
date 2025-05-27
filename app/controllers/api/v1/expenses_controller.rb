@@ -51,7 +51,7 @@ class Api::V1::ExpensesController < ApplicationController
 
     if expense.save
       render json: {
-        expense: expense.as_json(
+        data: expense.as_json(
           include: {
             payer: { only: [:id, :name] },
             group: { only: [:id, :group_name] },
@@ -60,10 +60,10 @@ class Api::V1::ExpensesController < ApplicationController
             }
           }
         ),
-        message: "Expense created and split among #{expense.expense_splits.count} members"
+        message: "Expense #{expense.description} created and split among #{expense.expense_splits.count} members"
       }, status: :created
     else
-      render json: { errors: expense.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: expense.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

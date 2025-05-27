@@ -59,14 +59,17 @@ class Api::V1::GroupsController < ApplicationController
           end
         end
         
-        render json: group.as_json(
-          include: {
-            members: { only: [:id, :name, :email] },
-            creator: { only: [:id, :name] }
-          }
-        ), status: :created
+        render json: {
+          message: "Group created successfully",
+          data: group.as_json(
+            include: {
+              members: { only: [:id, :name, :email] },
+              creator: { only: [:id, :name] }
+            }
+          )
+        }, status: :created
       else
-        render json: { errors: group.errors.full_messages }, status: :unprocessable_entity
+        render json: { error: group.errors.full_messages }, status: :unprocessable_entity
         raise ActiveRecord::Rollback
       end
     end

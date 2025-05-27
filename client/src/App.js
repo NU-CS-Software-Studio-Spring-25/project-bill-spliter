@@ -11,6 +11,10 @@ import { UserProvider } from './lib/userContext';
 import PrivateRoute from './components/PrivateRoute';
 import RegisterPage from './pages/RegisterPage';
 
+// Toastify imports
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
     <UserProvider>
@@ -67,6 +71,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
+      <ToastContainer position="top-right" autoClose={1000} />
     </UserProvider>
   );
 }

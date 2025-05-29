@@ -99,7 +99,7 @@ export default function Home() {
 const styles = {
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)', // 여기 고정
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr)', // 여기 고정
     gap: '1rem',
     alignItems: 'stretch',
   },

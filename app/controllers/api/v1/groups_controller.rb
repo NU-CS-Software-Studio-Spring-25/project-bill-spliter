@@ -78,7 +78,7 @@ class Api::V1::GroupsController < ApplicationController
         end
         
         render json: {
-          message: "Group created successfully",
+          message: "Group #{group.group_name} created successfully",
           data: group.as_json(
             include: {
               members: { only: [:id, :name, :email] },
@@ -96,9 +96,74 @@ class Api::V1::GroupsController < ApplicationController
   def destroy
     if @group.creator == current_user
       @group.destroy
-      render json: { message: "Group deleted successfully" }
+      render json: { message: "Group #{@group.group_name} deleted successfully" }
     else
       render json: { error: "Only group creator can delete the group" }, status: :forbidden
+    end
+  end
+
+  def update
+    group = Group.find(params[:id])
+    
+    ActiveRecord::Base.transaction do
+      # Update group name if provided
+      unless group.update(group_params.except(:member_emails))
+        render json: { error: group.errors.full_messages }, status: :unprocessable_entity
+        raise ActiveRecord::Rollback
+      end
+
+      # Add new members by email, if any
+      if group_params[:member_emails].present?
+        emails = group_params[:member_emails].reject(&:blank?)
+        users = User.where(email: emails)
+        
+        found_emails = users.pluck(:email)
+        invalid_emails = emails - found_emails
+
+        if invalid_emails.any?
+          render json: {
+            error: "The group was not updated. The following emails do not correspond to existing users: #{invalid_emails.join(', ')}"
+          }, status: :unprocessable_entity
+          raise ActiveRecord::Rollback
+        end
+
+        users.each do |user|
+          group.group_members.find_or_create_by(user: user)
+        end
+      end
+
+      render json: {
+        message: "Group #{group.group_name} updated successfully",
+        data: group.as_json(
+          include: {
+            members: { only: [:id, :name, :email] },
+            creator: { only: [:id, :name] }
+          }
+        )
+      }, status: :ok
+    end
+  end
+
+  def remove_member
+    group = Group.find(params[:id])
+
+    user = User.find_by(id: params[:user_id])
+    if user.nil?
+      render json: { error: "User not found" }, status: :not_found
+      return
+    end
+
+    if user.id == group.creator_id
+      render json: { error: "Cannot remove the group creator" }, status: :forbidden
+      return
+    end
+
+    membership = group.group_members.find_by(user_id: user.id)
+    if membership
+      membership.destroy
+      render json: { message: "Member #{user.name} removed successfully" }, status: :ok
+    else
+      render json: { error: "User #{user.name} is not a member of this group" }, status: :not_found
     end
   end
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUser } from "../lib/userContext";
-import { fetchGroup, deleteExpense, deleteGroup } from "../api";
+import { fetchGroup, deleteExpense, deleteGroup, deleteGroupMember } from "../api";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
@@ -72,12 +72,37 @@ export default function GroupDetail() {
     }
   };
 
+  const handleDeleteMember = async (memberId) => {
+    if (!window.confirm("Are you sure you want to remove this member?")) return;
+    try {
+      const response = await deleteGroupMember(group.id, memberId);
+      if (!response.message) {
+        throw new Error(response.error);
+      }
+      setGroup((prev) => ({
+        ...prev,
+        members: prev.members.filter((m) => m.id !== memberId),
+      }));
+      toast.success("Member removed successfully");
+      console.log("Member removed successfully");
+    } catch (err) {
+      console.error(err);
+      if (err.message.includes("Creator must exist")) {
+        toast.error("Session expired. Please log in.");
+        navigate("/login");
+      } else {
+        toast.error(err.message || "Failed to remove member");
+      }
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!group) return <p>Group not found</p>;
 
   // Members and user map
   const members = group.members || [];
+  console.log("Members:", members);
   const userMap = Object.fromEntries(members.map((m) => [m.id, m.name]));
 
   // Calculate spending
@@ -122,10 +147,16 @@ export default function GroupDetail() {
     <h1 className="h2 mb-0">{group.group_name}</h1>
     <div className="d-flex gap-2">
       <button 
+        onClick={() => navigate(`/groups/${group.id}/edit`)}
+        className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+      >
+        Edit Group
+      </button>
+      <button 
         className="btn btn-outline-danger d-flex align-items-center gap-1"
         onClick={handleDeleteGroup}
       >
-        <i className="bi bi-trash-fill"></i> Delete Group
+        Delete Group
       </button>
     </div>
   </div>
@@ -146,6 +177,14 @@ export default function GroupDetail() {
                 <span className="fw-medium">{m.name}</span>
                 {m.id === group.owner_id && (
                   <span className="badge bg-info text-dark">Owner</span>
+                )}
+                {m.id !== user.id && (
+                  <button 
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={() => handleDeleteMember(m.id)}
+                  >
+                    <i className="bi bi-trash-fill"></i> Remove
+                  </button>
                 )}
               </div>
             </li>
@@ -190,7 +229,13 @@ export default function GroupDetail() {
                         onClick={() => navigate(`/expenses/${e.id}`)}
                         className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
                       >
-                        <i className="bi bi-eye-fill"></i> View
+                        View
+                      </button>
+                      <button 
+                        onClick={() => navigate(`/expenses/${e.id}/edit`)}
+                        className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+                      >
+                        Edit
                       </button>
                       <button 
                         onClick={() => handleDeleteExpense(e.id)}

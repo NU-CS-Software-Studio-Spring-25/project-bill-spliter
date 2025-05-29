@@ -85,6 +85,24 @@ async function parseJsonOrText(res) {
     });
     return handleFetch(res);
   }
+
+  export async function updateGroup(id, groupData) {
+    const res = await fetch(`${BASE_URL}/groups/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ group: groupData }),
+    });
+    return handleFetch(res);
+  }
+
+  export async function deleteGroupMember(groupId, memberId) {
+    const res = await fetch(`${BASE_URL}/groups/${groupId}/members/${memberId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    return handleFetch(res);
+  }
   
   export async function createExpense(expenseData) {
     const res = await fetch(`${BASE_URL}/expenses`, {

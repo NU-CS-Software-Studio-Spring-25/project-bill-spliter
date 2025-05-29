@@ -33,8 +33,12 @@ Rails.application.routes.draw do
         get :balances     # GET /api/v1/groups/:id/balances - Get group balances and debts
         get :expenses     # GET /api/v1/groups/:id/expenses - Get all expenses for a group
         get :settlements  # GET /api/v1/groups/:id/settlements - Get all settlements for a group
+
+        patch :update     # PATCH /api/v1/groups/:id
       end
       
+      resources :group_members, path: 'members', only: [:create, :destroy] # Add/remove members to a group
+
       collection do
         get :my_groups    # GET /api/v1/groups/my_groups?user_id=X - Get groups for a user
       end

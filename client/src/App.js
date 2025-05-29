@@ -5,13 +5,14 @@ import MainFooter from './components/MainFooter';
 import Home from './pages/Home';
 import AddGroup from './pages/AddGroup';
 import AddExpense from './pages/AddExpense';
-import GroupDetail from './pages/PageDetail';
+import GroupDetail from './pages/GroupDetail';
 import ExpenseDetail from './pages/ExpenseDetail';
 import LoginPage from './pages/LoginPage';
 import { UserProvider } from './lib/userContext';
 import PrivateRoute from './components/PrivateRoute';
 import RegisterPage from './pages/RegisterPage';
 import EditExpense from './pages/EditExpense';
+import EditGroup from './pages/EditGroup';
 import ErrorPage from './pages/ErrorPage';
 
 // Toastify imports
@@ -58,6 +59,14 @@ function App() {
             element={
               <PrivateRoute>
                 <GroupDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/groups/:id/edit"
+            element={
+              <PrivateRoute>
+                <EditGroup />
               </PrivateRoute>
             }
           />

@@ -57,8 +57,12 @@ class Api::V1::GroupMembersController < ApplicationController
     end
   
     def destroy
-      group_member = GroupMember.find(params[:id])
+      group_member = GroupMember.find_by(user_id: params[:id], group_id: params[:group_id])
       
+      if group_member.nil?
+        render json: { error: "Group member not found in this group" }, status: :not_found
+        return
+      end
       # Don't allow removing the group creator
       if group_member.group.creator == group_member.user
         render json: { error: "Cannot remove group creator" }, status: :forbidden
@@ -67,8 +71,6 @@ class Api::V1::GroupMembersController < ApplicationController
   
       group_member.destroy
       render json: { message: "Member removed successfully" }
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: "Group member not found" }, status: :not_found
     end
   
     private

@@ -71,14 +71,14 @@ class Api::V1::ExpensesController < ApplicationController
     group_name = @expense.group.group_name
     @expense.destroy
     render json: { 
-      message: "Expense deleted successfully from group '#{group_name}'" 
+      message: "Expense #{@expense.description} deleted successfully from group '#{group_name}'" 
     }
   end
 
   def update
     if @expense.update(expense_params)
       render json: {
-        message: "Expense updated successfully",
+        message: "Expense #{@expense.description} updated successfully",
         data: @expense.as_json(
           include: {
             payer: { only: [:id, :name] },

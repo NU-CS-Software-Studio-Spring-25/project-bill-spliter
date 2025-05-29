@@ -1,34 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate} from "react-router-dom";
-import { fetchExpense, fetchGroups, fetchUsers } from "../api";
+import { useParams, useNavigate } from "react-router-dom";
+import { fetchExpense } from "../api/index";
 
 export default function ExpenseDetail() {
   const { id } = useParams();
   const [expense, setExpense] = useState(null);
-  const [group, setGroup] = useState(null);
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchExpense(id)
-      .then((exp) => {
-        setExpense(exp);
-        return Promise.all([fetchGroups(), fetchUsers(), Promise.resolve(exp)]);
-      })
-      .then(([groups, usersData, exp]) => {
-        const grp = groups.find((g) => g.id === exp.group_id);
-        setGroup(grp);
-        setUsers(usersData);
-      })
+      .then(setExpense)
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [id]);
 
   if (loading) return <p>Loading expense...</p>;
-  if (!expense || !group) return <p>Expense not found</p>;
-
-  const userMap = Object.fromEntries(users.map((u) => [u.id, u.name]));
+  if (!expense) return <p>Expense not found</p>;
 
   return (
     <div style={styles.card} className="container">
@@ -41,11 +29,28 @@ export default function ExpenseDetail() {
       </div>
       <div style={styles.row}>
         <strong>Group:</strong>{" "}
-        <span style={styles.groupBadge} onClick={() => navigate(`/groups/${group.id}`)}>{group.group_name}</span>
+        <span
+          style={styles.groupBadge}
+          onClick={() => navigate(`/groups/${expense.group.id}`)}
+        >
+          {expense.group.group_name}
+        </span>
       </div>
       <div style={styles.row}>
         <strong>Added by:</strong>{" "}
-        <span style={styles.userBadge}>{userMap[expense.payer_id]}</span>
+        <span style={styles.userBadge}>{expense.payer.name}</span>
+      </div>
+      <div style={{ marginTop: "1.5rem" }}>
+        <h3 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Expense Splits:</h3>
+        {expense.expense_splits.map((split) => (
+          <div key={split.id} style={styles.splitRow}>
+            <span style={styles.userName}>{split.user.name}</span>
+            <span>${Number(split.amount).toFixed(2)}</span>
+            <span style={split.is_settled ? styles.settled : styles.unsettled}>
+              {split.is_settled ? "Settled" : "Unsettled"}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -80,6 +85,7 @@ const styles = {
     borderRadius: "999px",
     fontWeight: 600,
     fontSize: "0.85rem",
+    cursor: "pointer",
   },
   userBadge: {
     backgroundColor: "#6b7280",
@@ -88,5 +94,22 @@ const styles = {
     borderRadius: "999px",
     fontWeight: 500,
     fontSize: "0.85rem",
+  },
+  splitRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "0.5rem 0",
+    borderBottom: "1px solid #f3f4f6",
+  },
+  userName: {
+    fontWeight: 500,
+  },
+  settled: {
+    color: "green",
+    fontWeight: 500,
+  },
+  unsettled: {
+    color: "red",
+    fontWeight: 500,
   },
 };

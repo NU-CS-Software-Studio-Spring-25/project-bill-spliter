@@ -78,7 +78,7 @@ export default function EditExpense() {
 
             toast.success(response.message || "Expense updated successfully");
             console.log("Expense updated successfully:", response);
-            navigate("/");
+            navigate("/groups/" + groupId);
         } catch (err) {
             console.error(err);
             toast.error(err.message || "Failed to update expense");

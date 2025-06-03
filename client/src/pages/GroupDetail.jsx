@@ -51,27 +51,6 @@ export default function GroupDetail() {
     }
   };
 
-  const handleDeleteGroup = async () => {
-    if (!window.confirm("Are you sure you want to delete this group?")) return;
-    try {
-      const response = await deleteGroup(group.id);
-      if (!response.message) {
-        throw new Error(response.error || "Failed to delete group");
-      }
-      toast.success(response.message);
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-       if (err.message.includes("Creator must exist")) {
-        toast.error("Session expired. Please log in.");
-        navigate("/login");
-      }
-      else {
-      toast.error(err.message || "Failed to delete group");
-      }
-    }
-  };
-
   const handleDeleteMember = async (memberId) => {
     if (!window.confirm("Are you sure you want to remove this member?")) return;
     try {
@@ -84,7 +63,7 @@ export default function GroupDetail() {
         members: prev.members.filter((m) => m.id !== memberId),
       }));
       toast.success("Member removed successfully");
-      console.log("Member removed successfully");
+      navigate(`/`);
     } catch (err) {
       console.error(err);
       if (err.message.includes("Creator must exist")) {
@@ -152,12 +131,6 @@ export default function GroupDetail() {
       >
         Edit Group
       </button>
-      <button 
-        className="btn btn-outline-danger d-flex align-items-center gap-1"
-        onClick={handleDeleteGroup}
-      >
-        Delete Group
-      </button>
     </div>
   </div>
 
@@ -175,15 +148,14 @@ export default function GroupDetail() {
             <li key={m.id} className="col">
               <div className="d-flex justify-content-between align-items-center p-3 bg-light rounded">
                 <span className="fw-medium">{m.name}</span>
-                {m.id === group.owner_id && (
-                  <span className="badge bg-info text-dark">Owner</span>
+                {m.id === group.creator_id && (
+                  <span className="badge bg-info text-light py-2">Owner</span>
                 )}
-                {m.id !== user.id && (
+                {m.id === user.id && (
                   <button 
                     className="btn btn-sm btn-outline-danger"
                     onClick={() => handleDeleteMember(m.id)}
-                  >
-                    <i className="bi bi-trash-fill"></i> Remove
+                  >Leave
                   </button>
                 )}
               </div>

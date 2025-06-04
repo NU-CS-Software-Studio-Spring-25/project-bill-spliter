@@ -61,7 +61,7 @@ export default function RegisterPage() {
 
   return (
     <form onSubmit={handleRegister} style={styles.form}>
-      <h2 style={styles.heading}>Register</h2>
+      <h1 style={styles.heading}>Register</h1>
       {error && <p id="register-error" style={styles.error}>{error}</p>}
       <input
         type="text"

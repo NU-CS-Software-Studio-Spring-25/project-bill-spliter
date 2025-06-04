@@ -20,7 +20,7 @@ export default function ExpenseDetail() {
 
   return (
     <article style={styles.card} className="container">
-      <h2 style={styles.header}>Expense Information</h2>
+      <h1 style={styles.header}>Expense Information</h1>
       <dl> {/* Using a definition list for key-value pairs */}
         <div style={styles.row}>
           <dt>Description:</dt> <dd>{expense.description}</dd>
@@ -47,7 +47,7 @@ export default function ExpenseDetail() {
         </div>
       </dl>
       <section style={{ marginTop: "1.5rem" }}>
-        <h3 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Expense Splits:</h3>
+        <h2 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Expense Splits:</h2>
         <ul style={styles.list}> {/* Using an unordered list for splits */}
           {expense.expense_splits.map((split) => (
             <li key={split.id} style={styles.splitRow}>

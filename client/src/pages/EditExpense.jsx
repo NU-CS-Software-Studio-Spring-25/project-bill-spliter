@@ -87,7 +87,7 @@ export default function EditExpense() {
 
     return (
         <form onSubmit={handleSubmit} style={styles.form}>
-            <h2>Edit Expense</h2>
+            <h1 className="fs-2">Edit Expense</h1>
 
             <label htmlFor="expense-description" style={styles.label}>
                 Expense description

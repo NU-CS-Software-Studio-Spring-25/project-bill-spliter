@@ -55,7 +55,7 @@ export default function CreateGroup() {
 
   return (
     <form onSubmit={handleSubmit} style={styles.form}>
-      <h2>Create New Group</h2>
+      <h1 className="fs-2">Create New Group</h1>
       <label htmlFor="group-name-input" className="visually-hidden">Group Name</label>
       <input
         type="text"

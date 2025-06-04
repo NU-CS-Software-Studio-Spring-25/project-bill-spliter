@@ -85,7 +85,7 @@ export default function CreateExpense() {
 
   return (
     <form onSubmit={handleSubmit} style={styles.form}>
-      <h2>Create New Expense</h2>
+      <h1 className="fs-2">Create New Expense</h1>
 
       <label htmlFor="expense-description" className="visually-hidden">Expense description</label>
       <input

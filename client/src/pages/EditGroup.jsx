@@ -121,7 +121,7 @@ export default function EditGroup() {
 
     return (
         <form onSubmit={handleSubmit} style={styles.form}>
-            <h2>Edit Group</h2>
+            <h1 className="fs-2">Edit Group</h1>
             <label htmlFor="group-name" style={styles.label}>Group Name
                 <input
                     id="group-name"
@@ -134,7 +134,7 @@ export default function EditGroup() {
                     aria-label="Group Name" // Added aria-label for improved accessibility
                 />
             </label>
-            <h3 className="fs-5 fw-info text-secondary mb-1">Invite New Members</h3>
+            <h2 className="fs-5 fw-info text-secondary mb-1">Invite New Members</h2>
             <label htmlFor="new-member-emails" className="visually-hidden">New Member Emails</label> {/* Added for accessibility without changing visuals */}
             <textarea
                 id="new-member-emails" // Added ID for association with label
@@ -150,7 +150,7 @@ export default function EditGroup() {
             </span> {/* Added visually hidden hint for accessibility */}
             {user.id === group.creator_id && (
                 <section> {/* Semantic grouping for members */}
-                    <h3 className="fs-5 fw-info text-secondary mb-1">Edit Current Members</h3>
+                    <h2 className="fs-5 fw-info text-secondary mb-3">Edit Current Members</h2>
                     <ul className="list-unstyled">
                         {members.map((m) => (
                             <li key={m.id} className="col">

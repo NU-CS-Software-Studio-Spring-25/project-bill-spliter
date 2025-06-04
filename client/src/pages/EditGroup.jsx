@@ -122,15 +122,17 @@ export default function EditGroup() {
     return (
         <form onSubmit={handleSubmit} style={styles.form}>
             <h2>Edit Group</h2>
-            <input
-                id="group-name"
-                type="text"
-                placeholder="Group Name"
-                value={groupName}
-                onChange={(e) => setGroupName(e.target.value)}
-                required
-                style={styles.input}
-            />
+            <label htmlFor="group-name" style={styles.label}>Group Name
+                <input
+                    id="group-name"
+                    type="text"
+                    placeholder="Group Name"
+                    value={groupName}
+                    onChange={(e) => setGroupName(e.target.value)}
+                    required
+                    style={styles.input}
+                />
+            </label>
             <h3 className="fs-5 fw-info text-secondary mb-1">Invite New Members</h3>
             <textarea
                 placeholder="Enter user emails, separated by commas"
@@ -141,7 +143,7 @@ export default function EditGroup() {
             />
             {user.id === group.creator_id && (
                 <>
-                    <h3 className="fs-5 fw-info text-secondary mb-1">Current Members</h3>
+                    <h3 className="fs-5 fw-info text-secondary mb-1">Edit Current Members</h3>
                     <ul className="list-unstyled">
                         {members.map((m) => (
                             <li key={m.id} className="col">
@@ -201,6 +203,12 @@ const styles = {
         fontSize: "1rem",
         borderRadius: "4px",
         border: "1px solid #ccc",
+    },
+    label: {
+        display: "flex",
+        flexDirection: "column",
+        fontSize: "0.9rem",
+        color: "#374151",
     },
     button: {
         padding: "0.75rem 1.25rem",

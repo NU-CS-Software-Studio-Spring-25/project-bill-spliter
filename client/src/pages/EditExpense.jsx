@@ -90,7 +90,7 @@ export default function EditExpense() {
             <h2>Edit Expense</h2>
 
             <label htmlFor="expense-description" style={styles.label}>
-                Description:
+                Expense description
                 <input
                     id="expense-description"
                     type="text"
@@ -103,7 +103,7 @@ export default function EditExpense() {
             </label>
 
             <label htmlFor="expense-amount" style={styles.label}>
-                Amount:
+                Amount ($)
                 <input
                     id="expense-amount"
                     type="number"
@@ -117,7 +117,7 @@ export default function EditExpense() {
             </label>
 
             <label htmlFor="expense-date" style={styles.label}>
-                Date:
+                Date (MM/DD/YYYY)
                 <input
                     id="expense-date"
                     type="date"
@@ -129,7 +129,7 @@ export default function EditExpense() {
             </label>
 
             <label htmlFor="group" style={styles.label}>
-                Group:
+                Group to split expense with
                 <select
                     id="group"
                     value={groupId}
@@ -179,7 +179,7 @@ const styles = {
     },
     button: {
         padding: "0.5rem 1rem",
-        backgroundColor: "#16a34a",
+        backgroundColor: "#0d6efd",
         color: "white",
         border: "none",
         borderRadius: "4px",

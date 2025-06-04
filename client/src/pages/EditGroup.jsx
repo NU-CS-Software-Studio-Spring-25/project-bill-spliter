@@ -123,6 +123,7 @@ export default function EditGroup() {
         <form onSubmit={handleSubmit} style={styles.form}>
             <h2>Edit Group</h2>
             <input
+                id="group-name"
                 type="text"
                 placeholder="Group Name"
                 value={groupName}
@@ -132,7 +133,7 @@ export default function EditGroup() {
             />
             <h3 className="fs-5 fw-info text-secondary mb-1">Invite New Members</h3>
             <textarea
-                placeholder="Enter member emails, separated by commas"
+                placeholder="Enter user emails, separated by commas"
                 value={newMemberEmails}
                 onChange={(e) => setNewMemberEmails(e.target.value)}
                 rows={4}

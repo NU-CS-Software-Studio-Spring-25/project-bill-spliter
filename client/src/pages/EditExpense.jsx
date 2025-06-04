@@ -89,28 +89,37 @@ export default function EditExpense() {
         <form onSubmit={handleSubmit} style={styles.form}>
             <h2>Edit Expense</h2>
 
-            <input
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                style={styles.input}
-            />
+            <label htmlFor="expense-description" style={styles.label}>
+                Description:
+                <input
+                    id="expense-description"
+                    type="text"
+                    placeholder="Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                    style={styles.input}
+                />
+            </label>
 
-            <input
-                type="number"
-                step="0.01"
-                placeholder="Amount"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                required
-                style={styles.input}
-            />
+            <label htmlFor="expense-amount" style={styles.label}>
+                Amount:
+                <input
+                    id="expense-amount"
+                    type="number"
+                    step="0.01"
+                    placeholder="Amount"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    required
+                    style={styles.input}
+                />
+            </label>
 
-            <label style={styles.label}>
+            <label htmlFor="expense-date" style={styles.label}>
                 Date:
                 <input
+                    id="expense-date"
                     type="date"
                     value={expenseDate}
                     onChange={(e) => setExpenseDate(e.target.value)}
@@ -119,19 +128,23 @@ export default function EditExpense() {
                 />
             </label>
 
-            <select
-                value={groupId}
-                onChange={(e) => setGroupId(e.target.value)}
-                required
-                style={styles.input}
-            >
-                <option value="">Select group</option>
-                {groups.map((g) => (
-                    <option key={g.id} value={g.id}>
-                        {g.group_name}
-                    </option>
-                ))}
-            </select>
+            <label htmlFor="group" style={styles.label}>
+                Group:
+                <select
+                    id="group"
+                    value={groupId}
+                    onChange={(e) => setGroupId(e.target.value)}
+                    required
+                    style={styles.input}
+                >
+                    <option value="">Select group</option>
+                    {groups.map((g) => (
+                        <option key={g.id} value={g.id}>
+                            {g.group_name}
+                        </option>
+                    ))}
+                </select>
+            </label>
 
             <button type="submit" style={styles.button}>
                 Update

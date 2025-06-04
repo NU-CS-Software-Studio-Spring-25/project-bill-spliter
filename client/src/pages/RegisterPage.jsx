@@ -14,21 +14,58 @@ export default function RegisterPage() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setError('');
+    setError(''); // Clear previous errors
 
-    if (password !== passwordConfirmation) {
-      setError('Passwords do not match');
+    // --- Client-side Validation ---
+
+    // Name validation
+    if (!name.trim()) {
+      setError('Name is required.');
       return;
     }
+
+    // Email validation
+    if (!email.trim()) {
+      setError('Email is required.');
+      return;
+    }
+    // Basic email format validation
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    // Password validation
+    if (!password) {
+      setError('Password is required.');
+      return;
+    }
+    if (password.length < 6) { // Example: minimum 6 characters
+      setError('Password must be at least 6 characters long.');
+      return;
+    }
+
+    // Password confirmation validation
+    if (!passwordConfirmation) {
+      setError('Password confirmation is required.');
+      return;
+    }
+    if (password !== passwordConfirmation) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    // --- End Client-side Validation ---
 
     try {
       // register returns { message, user }
       const data = await register({ name, email, password, password_confirmation: passwordConfirmation });
-      const userObj = data.user || data;
+      const userObj = data.user || data; 
       setUser(userObj);
       navigate('/');
     } catch (err) {
-      setError(err.message);
+      console.error("Registration error:", err);
+      setError(err.message || 'Registration failed. Please try again.');
     }
   };
 

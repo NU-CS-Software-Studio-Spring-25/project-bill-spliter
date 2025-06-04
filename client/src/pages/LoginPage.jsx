@@ -12,17 +12,38 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');
+    setError(''); // Clear previous errors
+
+    // --- Client-side Validation ---
+
+    // Email validation
+    if (!email.trim()) {
+      setError('Email is required.');
+      return;
+    }
+    // Basic email format validation
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    // Password validation
+    if (!password) {
+      setError('Password is required.');
+      return;
+    }
+
+    // --- End Client-side Validation ---
 
     try {
       // login returns { message, user }
       const data = await login(email, password);
-      // extract user object
       const userObj = data.user || data;
       setUser(userObj);
       navigate('/');
     } catch (err) {
-      setError(err.message);
+      console.error("Login error:", err);
+      setError(err.message || 'Login failed. Please check your credentials and try again.');
     }
   };
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchExpense } from "../api/index";
 
@@ -19,40 +19,48 @@ export default function ExpenseDetail() {
   if (!expense) return <p>Expense not found</p>;
 
   return (
-    <div style={styles.card} className="container">
+    <article style={styles.card} className="container">
       <h2 style={styles.header}>Expense Information</h2>
-      <div style={styles.row}>
-        <strong>Description:</strong> <span>{expense.description}</span>
-      </div>
-      <div style={styles.row}>
-        <strong>Total Amount:</strong> <span>${Number(expense.total_amount).toFixed(2)}</span>
-      </div>
-      <div style={styles.row}>
-        <strong>Group:</strong>{" "}
-        <span
-          style={styles.groupBadge}
-          onClick={() => navigate(`/groups/${expense.group.id}`)}
-        >
-          {expense.group.group_name}
-        </span>
-      </div>
-      <div style={styles.row}>
-        <strong>Added by:</strong>{" "}
-        <span style={styles.userBadge}>{expense.payer.name}</span>
-      </div>
-      <div style={{ marginTop: "1.5rem" }}>
-        <h3 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Expense Splits:</h3>
-        {expense.expense_splits.map((split) => (
-          <div key={split.id} style={styles.splitRow}>
-            <span style={styles.userName}>{split.user.name}</span>
-            <span>${Number(split.amount).toFixed(2)}</span>
-            <span style={split.is_settled ? styles.settled : styles.unsettled}>
-              {split.is_settled ? "Settled" : "Unsettled"}
+      <dl> {/* Using a definition list for key-value pairs */}
+        <div style={styles.row}>
+          <dt>Description:</dt> <dd>{expense.description}</dd>
+        </div>
+        <div style={styles.row}>
+          <dt>Total Amount:</dt> <dd>${Number(expense.total_amount).toFixed(2)}</dd>
+        </div>
+        <div style={styles.row}>
+          <dt>Group:</dt>{" "}
+          <dd>
+            <span
+              style={styles.groupBadge}
+              onClick={() => navigate(`/groups/${expense.group.id}`)}
+            >
+              {expense.group.group_name}
             </span>
-          </div>
-        ))}
-      </div>
-    </div>
+          </dd>
+        </div>
+        <div style={styles.row}>
+          <dt>Added by:</dt>{" "}
+          <dd>
+            <span style={styles.userBadge}>{expense.payer.name}</span>
+          </dd>
+        </div>
+      </dl>
+      <section style={{ marginTop: "1.5rem" }}>
+        <h3 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Expense Splits:</h3>
+        <ul style={styles.list}> {/* Using an unordered list for splits */}
+          {expense.expense_splits.map((split) => (
+            <li key={split.id} style={styles.splitRow}>
+              <span style={styles.userName}>{split.user.name}</span>
+              <span>${Number(split.amount).toFixed(2)}</span>
+              <span style={split.is_settled ? styles.settled : styles.unsettled}>
+                {split.is_settled ? "Settled" : "Unsettled"}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </article>
   );
 }
 
@@ -112,4 +120,9 @@ const styles = {
     color: "red",
     fontWeight: 500,
   },
+  list: { // Added style for the new <ul> element
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
+  }
 };

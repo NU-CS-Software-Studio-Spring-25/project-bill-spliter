@@ -27,7 +27,7 @@ export default function CreateGroup() {
         .split(",")
         .map((email) => email.trim())
         .filter(Boolean);
-      
+
       const invalidEmails = emails.filter((email) => !isValidEmail(email));
       if (invalidEmails.length > 0) {
         toast.error(`Invalid email(s): ${invalidEmails.join(", ")}. Please enter valid email addresses.`);
@@ -56,21 +56,31 @@ export default function CreateGroup() {
   return (
     <form onSubmit={handleSubmit} style={styles.form}>
       <h2>Create New Group</h2>
+      <label htmlFor="group-name-input" className="visually-hidden">Group Name</label>
       <input
         type="text"
+        id="group-name-input" // Added id
         placeholder="Group Name"
         value={groupName}
         onChange={(e) => setGroupName(e.target.value)}
         required
         style={styles.input}
+        aria-label="Group Name" // Added aria-label for accessibility without visible label
       />
+      <label htmlFor="member-emails-textarea" className="visually-hidden">Member Emails</label>
       <textarea
+        id="member-emails-textarea" // Added id
         placeholder="Enter member emails, separated by commas"
         value={memberEmails}
         onChange={(e) => setMemberEmails(e.target.value)}
         rows={4}
         style={styles.input}
+        aria-label="Enter member emails, separated by commas" // Added aria-label
+        aria-describedby="member-emails-hint" // Associate with hint
       />
+      <span id="member-emails-hint" className="visually-hidden">
+        Enter email addresses separated by commas to invite members to the group.
+      </span>
       <button type="submit" style={styles.button}>
         Create Group
       </button>

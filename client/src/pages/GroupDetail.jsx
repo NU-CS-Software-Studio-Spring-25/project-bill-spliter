@@ -121,163 +121,160 @@ export default function GroupDetail() {
   });
 
   return (
-    <>
-  <div className="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
-    <h1 className="h2 mb-0">{group.group_name}</h1>
-    <div className="d-flex gap-2">
-      <button 
-        onClick={() => navigate(`/groups/${group.id}/edit`)}
-        className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
-      >
-        Edit Group
-      </button>
-    </div>
-  </div>
-
-  <div className="d-flex flex-column gap-4">
-    {/* Members Section */}
-    <div className="card">
-      <div className="card-header d-flex justify-content-between align-items-center">
-        <h2 className="h5 mb-0 d-flex align-items-center gap-2">
-          <i className="bi bi-people-fill"></i> Members ({members.length})
-        </h2>
-      </div>
-      <div className="card-body">
-        <ul className="list-unstyled row row-cols-1 row-cols-md-3 g-3">
-          {members.map((m) => (
-            <li key={m.id} className="col">
-              <div className="d-flex justify-content-between align-items-center p-3 bg-light rounded">
-                <span className="fw-medium">{m.name}</span>
-                {m.id === group.creator_id && (
-                  <span className="badge bg-info text-light py-2">Owner</span>
-                )}
-                {m.id === user.id && (
-                  <button 
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() => handleDeleteMember(m.id)}
-                  >Leave
-                  </button>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-
-    {/* Expenses Section */}
-    <div className="card">
-      <div className="card-header d-flex justify-content-between align-items-center">
-        <h2 className="h5 mb-0 d-flex align-items-center gap-2">
-          <i className="bi bi-receipt"></i> Expenses
-        </h2>
-        <Link 
-          to={`/add-expense`}
-          className="btn btn-primary btn-sm d-flex align-items-center gap-1"
-        >
-          <i className="bi bi-plus-lg"></i> Add Expense
-        </Link>
-      </div>
-      <div className="card-body">
-        <div className="table-responsive">
-          <table className="table table-hover">
-            <thead className="table-light">
-              <tr>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Payer</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {group.expenses.map((e) => (
-                <tr key={e.id}>
-                  <td>{e.description}</td>
-                  <td className="fw-bold text-success">${Number(e.total_amount).toFixed(2)}</td>
-                  <td>{e.payer?.name}</td>
-                  <td>
-                    <div className="d-flex gap-2">
-                      <button 
-                        onClick={() => navigate(`/expenses/${e.id}`)}
-                        className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
-                      >
-                        View
-                      </button>
-                      <button 
-                        onClick={() => navigate(`/expenses/${e.id}/edit`)}
-                        className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
-                      >
-                        Edit
-                      </button>
-                      <button 
-                        onClick={() => handleDeleteExpense(e.id)}
-                        className="btn btn-sm btn-outline-danger"
-                      >
-                        <i className="bi bi-trash-fill">Delete</i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <main>
+      <header className="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <h1 className="h2 mb-0">{group.group_name}</h1>
+        <div className="d-flex gap-2">
+          <button
+            onClick={() => navigate(`/groups/${group.id}/edit`)}
+            className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+          >
+            Edit Group
+          </button>
         </div>
-      </div>
-    </div>
+      </header>
 
-    {/* Settlement Section */}
-    <div className="card">
-      <div className="card-header">
-        <h2 className="h5 mb-0 d-flex align-items-center gap-2">
-          <i className="bi bi-cash-stack"></i> Settlement Summary
-        </h2>
-      </div>
-      <div className="card-body">
-        {youOwe.length === 0 && othersOweYou.length === 0 ? (
-          <div className="text-center py-4 bg-success bg-opacity-10 rounded">
-            <i className="bi bi-check-circle-fill text-success fs-1"></i>
-            <p className="h5 text-success mt-2 mb-0">You're all settled up! 🎉</p>
+      <div className="d-flex flex-column gap-4">
+        <section className="card" aria-labelledby="members-heading">
+          <div className="card-header d-flex justify-content-between align-items-center">
+            <h2 id="members-heading" className="h5 mb-0 d-flex align-items-center gap-2">
+              <i className="bi bi-people-fill"></i> Members ({members.length})
+            </h2>
           </div>
-        ) : (
-          <div className="row g-3">
-            {youOwe.length > 0 && (
-              <div className="col-md-6">
-                <div className="p-3 bg-light rounded">
-                  <h4 className="h6 d-flex align-items-center gap-2 text-danger">
-                    <i className="bi bi-arrow-up-circle-fill"></i> You owe:
-                  </h4>
-                  <ul className="list-unstyled mt-3">
-                    {youOwe.map((s, i) => (
-                      <li key={i} className="p-2 bg-white rounded mb-2 shadow-sm">
-                        You owe <strong>{s.to}</strong> <span className="fw-bold text-danger">${s.amount}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+          <div className="card-body">
+            <ul className="list-unstyled row row-cols-1 row-cols-md-3 g-3">
+              {members.map((m) => (
+                <li key={m.id} className="col">
+                  <div className="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+                    <span className="fw-medium">{m.name}</span>
+                    {m.id === group.creator_id && (
+                      <span className="badge bg-info text-light py-2">Owner</span>
+                    )}
+                    {m.id === user.id && (
+                      <button
+                        className="btn btn-sm btn-outline-danger"
+                        onClick={() => handleDeleteMember(m.id)}
+                      >Leave
+                      </button>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="card" aria-labelledby="expenses-heading">
+          <div className="card-header d-flex justify-content-between align-items-center">
+            <h2 id="expenses-heading" className="h5 mb-0 d-flex align-items-center gap-2">
+              <i className="bi bi-receipt"></i> Expenses
+            </h2>
+            <Link
+              to={`/add-expense`}
+              className="btn btn-primary btn-sm d-flex align-items-center gap-1"
+            >
+              <i className="bi bi-plus-lg"></i> Add Expense
+            </Link>
+          </div>
+          <div className="card-body">
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Payer</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {group.expenses.map((e) => (
+                    <tr key={e.id}>
+                      <td>{e.description}</td>
+                      <td className="fw-bold text-success">${Number(e.total_amount).toFixed(2)}</td>
+                      <td>{e.payer?.name}</td>
+                      <td>
+                        <div className="d-flex gap-2">
+                          <button
+                            onClick={() => navigate(`/expenses/${e.id}`)}
+                            className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                          >
+                            View
+                          </button>
+                          <button
+                            onClick={() => navigate(`/expenses/${e.id}/edit`)}
+                            className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteExpense(e.id)}
+                            className="btn btn-sm btn-outline-danger"
+                          >
+                            <i className="bi bi-trash-fill" aria-hidden="true"></i>Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="card" aria-labelledby="settlement-heading">
+          <div className="card-header">
+            <h2 id="settlement-heading" className="h5 mb-0 d-flex align-items-center gap-2">
+              <i className="bi bi-cash-stack"></i> Settlement Summary
+            </h2>
+          </div>
+          <div className="card-body">
+            {youOwe.length === 0 && othersOweYou.length === 0 ? (
+              <div className="text-center py-4 bg-success bg-opacity-10 rounded">
+                <i className="bi bi-check-circle-fill text-success fs-1" aria-hidden="true"></i>
+                <p className="h5 text-success mt-2 mb-0">You're all settled up! 🎉</p>
+              </div>
+            ) : (
+              <div className="row g-3">
+                {youOwe.length > 0 && (
+                  <div className="col-md-6">
+                    <div className="p-3 bg-light rounded">
+                      <h3 className="h6 d-flex align-items-center gap-2 text-danger">
+                        <i className="bi bi-arrow-up-circle-fill" aria-hidden="true"></i> You owe:
+                      </h3>
+                      <ul className="list-unstyled mt-3">
+                        {youOwe.map((s, i) => (
+                          <li key={i} className="p-2 bg-white rounded mb-2 shadow-sm">
+                            You owe <strong>{s.to}</strong> <span className="fw-bold text-danger">${s.amount}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+                {othersOweYou.length > 0 && (
+                  <div className="col-md-6">
+                    <div className="p-3 bg-light rounded">
+                      <h3 className="h6 d-flex align-items-center gap-2 text-success">
+                        <i className="bi bi-arrow-down-circle-fill" aria-hidden="true"></i> They owe you:
+                      </h3>
+                      <ul className="list-unstyled mt-3">
+                        {othersOweYou.map((s, i) => (
+                          <li key={i} className="p-2 bg-white rounded mb-2 shadow-sm">
+                            <strong>{s.from}</strong> owes you <span className="fw-bold text-success">${s.amount}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
-            {othersOweYou.length > 0 && (
-              <div className="col-md-6">
-                <div className="p-3 bg-light rounded">
-                  <h4 className="h6 d-flex align-items-center gap-2 text-success">
-                    <i className="bi bi-arrow-down-circle-fill"></i> They owe you:
-                  </h4>
-                  <ul className="list-unstyled mt-3">
-                    {othersOweYou.map((s, i) => (
-                      <li key={i} className="p-2 bg-white rounded mb-2 shadow-sm">
-                        <strong>{s.from}</strong> owes you <span className="fw-bold text-success">${s.amount}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )}
           </div>
-        )}
+        </section>
       </div>
-    </div>
-  </div>
-</>
+    </main>
   );
 }
 

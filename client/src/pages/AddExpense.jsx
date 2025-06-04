@@ -87,29 +87,36 @@ export default function CreateExpense() {
     <form onSubmit={handleSubmit} style={styles.form}>
       <h2>Create New Expense</h2>
 
+      <label htmlFor="expense-description" className="visually-hidden">Expense description</label>
       <input
         type="text"
+        id="expense-description" // Added id
         placeholder="Expense description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
         style={styles.input}
+        aria-label="Expense description" // Added aria-label
       />
 
+      <label htmlFor="expense-amount" className="visually-hidden">Amount</label>
       <input
         type="number"
+        id="expense-amount" // Added id
         step="0.01"
         placeholder="Amount ($)"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         required
         style={styles.input}
+        aria-label="Amount in dollars" // Added aria-label
       />
 
-      <label style={styles.label}>
+      <label htmlFor="expense-date" style={styles.label}>
         Date:
         <input
           type="date"
+          id="expense-date" // Added id
           value={expenseDate}
           onChange={(e) => setExpenseDate(e.target.value)}
           required
@@ -117,11 +124,14 @@ export default function CreateExpense() {
         />
       </label>
 
+      <label htmlFor="group-select" className="visually-hidden">Select group to split expense with</label>
       <select
+        id="group-select" // Added id
         value={groupId}
         onChange={(e) => setGroupId(e.target.value)}
         required
         style={styles.input}
+        aria-label="Select group to split expense with" // Added aria-label
       >
         <option value="">Select group to split expense with</option>
         {groups.map((g) => (

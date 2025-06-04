@@ -131,18 +131,25 @@ export default function EditGroup() {
                     onChange={(e) => setGroupName(e.target.value)}
                     required
                     style={styles.input}
+                    aria-label="Group Name" // Added aria-label for improved accessibility
                 />
             </label>
             <h3 className="fs-5 fw-info text-secondary mb-1">Invite New Members</h3>
+            <label htmlFor="new-member-emails" className="visually-hidden">New Member Emails</label> {/* Added for accessibility without changing visuals */}
             <textarea
+                id="new-member-emails" // Added ID for association with label
                 placeholder="Enter user emails, separated by commas"
                 value={newMemberEmails}
                 onChange={(e) => setNewMemberEmails(e.target.value)}
                 rows={4}
                 style={styles.input}
+                aria-describedby="new-member-emails-hint" // Associate with hint
             />
+            <span id="new-member-emails-hint" className="visually-hidden">
+                Enter email addresses separated by commas to invite new members to the group.
+            </span> {/* Added visually hidden hint for accessibility */}
             {user.id === group.creator_id && (
-                <>
+                <section> {/* Semantic grouping for members */}
                     <h3 className="fs-5 fw-info text-secondary mb-1">Edit Current Members</h3>
                     <ul className="list-unstyled">
                         {members.map((m) => (
@@ -154,7 +161,7 @@ export default function EditGroup() {
                                             className="btn btn-sm btn-outline-danger"
                                             onClick={() => handleDeleteMember(m.id)}
                                         >
-                                            <i className="bi bi-trash-fill"></i> Remove
+                                            <i className="bi bi-trash-fill" aria-hidden="true"></i>Remove
                                         </button>
                                     )}
                                     {m.id === user.id && (
@@ -162,14 +169,14 @@ export default function EditGroup() {
                                             className="btn btn-sm btn-outline-danger"
                                             onClick={() => handleDeleteMember(m.id)}
                                         >
-                                            <i className="bi bi-trash-fill"></i> Leave
+                                            <i className="bi bi-trash-fill" aria-hidden="true"></i>Leave
                                         </button>
                                     )}
                                 </div>
                             </li>
                         ))}
                     </ul>
-                </>
+                </section>
             )}
             <button type="submit" className="btn btn-primary text-center gap-1">
                 Update Group

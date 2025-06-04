@@ -1,6 +1,6 @@
 import { useUser } from '../lib/userContext';
 import { logout as apiLogout } from '../api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link
 
 
 export default function MainFooter() {
@@ -20,24 +20,26 @@ export default function MainFooter() {
 
 
     return user ? (
-        <div className="container-fluid bg-light position-relative">
-            <footer className="py-3 my-4">
-                <ul className="nav flex-column flex-md-row justify-content-center border-bottom pb-3 mb-3">
-                    <li className="nav-item">
-                        <a href="/" className="nav-link px-2 text-muted">Home</a>
-                    </li>
-                    <li className="nav-item">
-                        <a href="/groups/new" className="nav-link px-2 text-muted">Create A Group</a>
-                    </li>
-                    <li className="nav-item">
-                        <a href="/add-expense" className="nav-link px-2 text-muted">Create An Expense</a>
-                    </li>
-                    <li className="nav-item">
-                        <button onClick={handleLogout} className="nav-link px-2 text-muted">Logout</button>
-                    </li>
-                </ul>
+        <footer className="container-fluid bg-light position-relative"> {/* Changed outer div to footer */}
+            <div className="py-3 my-4"> {/* Kept div for internal styling, but main semantic wrapper is footer */}
+                <nav> {/* Added nav for navigation links */}
+                    <ul className="nav flex-column flex-md-row justify-content-center border-bottom pb-3 mb-3">
+                        <li className="nav-item">
+                            <Link to="/" className="nav-link px-2 text-muted">Home</Link> {/* Changed <a> to Link */}
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/groups/new" className="nav-link px-2 text-muted">Create A Group</Link> {/* Changed <a> to Link */}
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/add-expense" className="nav-link px-2 text-muted">Create An Expense</Link> {/* Changed <a> to Link */}
+                        </li>
+                        <li className="nav-item">
+                            <button onClick={handleLogout} className="nav-link px-2 text-muted">Logout</button>
+                        </li>
+                    </ul>
+                </nav>
                 <p className="text-center text-muted">© 2025 Bill Splitter -- Northwestern University</p>
-            </footer>
-        </div>
+            </div>
+        </footer>
     ) : <></>;
 }

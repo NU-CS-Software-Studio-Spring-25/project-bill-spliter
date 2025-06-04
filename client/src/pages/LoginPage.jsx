@@ -12,31 +12,23 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError('');
 
-    // --- Client-side Validation ---
-
-    // Email validation
     if (!email.trim()) {
       setError('Email is required.');
       return;
     }
-    // Basic email format validation
     if (!/\S+@\S+\.\S+/.test(email)) {
       setError('Please enter a valid email address.');
       return;
     }
 
-    // Password validation
     if (!password) {
       setError('Password is required.');
       return;
     }
 
-    // --- End Client-side Validation ---
-
     try {
-      // login returns { message, user }
       const data = await login(email, password);
       const userObj = data.user || data;
       setUser(userObj);
@@ -50,7 +42,7 @@ export default function LoginPage() {
   return (
     <form onSubmit={handleLogin} style={styles.form}>
       <h2 style={styles.heading}>Login</h2>
-      {error && <p style={styles.error}>{error}</p>}
+      {error && <p id="login-error" style={styles.error}>{error}</p>}
       <input
         type="email"
         placeholder="Email"
@@ -58,6 +50,7 @@ export default function LoginPage() {
         onChange={(e) => setEmail(e.target.value)}
         required
         style={styles.input}
+        aria-label="Email" // Added for accessibility
       />
       <input
         type="password"
@@ -66,6 +59,7 @@ export default function LoginPage() {
         onChange={(e) => setPassword(e.target.value)}
         required
         style={styles.input}
+        aria-label="Password" // Added for accessibility
       />
       <button type="submit" style={styles.button}>Login</button>
       <p style={styles.registerPrompt}>

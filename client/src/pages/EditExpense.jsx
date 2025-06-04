@@ -128,10 +128,10 @@ export default function EditExpense() {
                 />
             </label>
 
-            <label htmlFor="group" style={styles.label}>
+            <label htmlFor="group-select" style={styles.label}>
                 Group to split expense with
                 <select
-                    id="group"
+                    id="group-select" // Changed ID to avoid conflict with `id` prop if it existed
                     value={groupId}
                     onChange={(e) => setGroupId(e.target.value)}
                     required

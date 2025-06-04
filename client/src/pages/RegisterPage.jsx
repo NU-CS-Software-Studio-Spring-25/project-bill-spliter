@@ -14,38 +14,31 @@ export default function RegisterPage() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError('');
 
-    // --- Client-side Validation ---
-
-    // Name validation
     if (!name.trim()) {
       setError('Name is required.');
       return;
     }
 
-    // Email validation
     if (!email.trim()) {
       setError('Email is required.');
       return;
     }
-    // Basic email format validation
     if (!/\S+@\S+\.\S+/.test(email)) {
       setError('Please enter a valid email address.');
       return;
     }
 
-    // Password validation
     if (!password) {
       setError('Password is required.');
       return;
     }
-    if (password.length < 6) { // Example: minimum 6 characters
+    if (password.length < 6) {
       setError('Password must be at least 6 characters long.');
       return;
     }
 
-    // Password confirmation validation
     if (!passwordConfirmation) {
       setError('Password confirmation is required.');
       return;
@@ -55,12 +48,9 @@ export default function RegisterPage() {
       return;
     }
 
-    // --- End Client-side Validation ---
-
     try {
-      // register returns { message, user }
       const data = await register({ name, email, password, password_confirmation: passwordConfirmation });
-      const userObj = data.user || data; 
+      const userObj = data.user || data;
       setUser(userObj);
       navigate('/');
     } catch (err) {
@@ -72,7 +62,7 @@ export default function RegisterPage() {
   return (
     <form onSubmit={handleRegister} style={styles.form}>
       <h2 style={styles.heading}>Register</h2>
-      {error && <p style={styles.error}>{error}</p>}
+      {error && <p id="register-error" style={styles.error}>{error}</p>}
       <input
         type="text"
         placeholder="Name"
@@ -80,6 +70,7 @@ export default function RegisterPage() {
         onChange={(e) => setName(e.target.value)}
         required
         style={styles.input}
+        aria-label="Name" // Added for accessibility
       />
       <input
         type="email"
@@ -88,6 +79,7 @@ export default function RegisterPage() {
         onChange={(e) => setEmail(e.target.value)}
         required
         style={styles.input}
+        aria-label="Email" // Added for accessibility
       />
       <input
         type="password"
@@ -96,6 +88,7 @@ export default function RegisterPage() {
         onChange={(e) => setPassword(e.target.value)}
         required
         style={styles.input}
+        aria-label="Password" // Added for accessibility
       />
       <input
         type="password"
@@ -104,6 +97,7 @@ export default function RegisterPage() {
         onChange={(e) => setPasswordConfirmation(e.target.value)}
         required
         style={styles.input}
+        aria-label="Confirm Password" // Added for accessibility
       />
       <button type="submit" style={styles.button}>Register</button>
       <p style={styles.loginPrompt}>

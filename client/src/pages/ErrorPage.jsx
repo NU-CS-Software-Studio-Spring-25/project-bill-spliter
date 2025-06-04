@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ErrorPage = () => (
-    <div style={{
+    <main style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -23,7 +23,7 @@ const ErrorPage = () => (
         }}>
             Go Home
         </Link>
-    </div>
+    </main>
 );
 
 export default ErrorPage;

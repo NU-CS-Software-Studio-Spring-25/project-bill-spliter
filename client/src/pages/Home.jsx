@@ -48,7 +48,7 @@ export default function Home() {
   }, [page, user, navigate]);
 
   return (
-    <div style={{ padding: '1rem' }}>
+    <main style={{ padding: '1rem' }}>
       <h1 style={{ marginBottom: '1rem' }}>
         Welcome, {user?.name || 'Guest'}!
       </h1>
@@ -59,13 +59,13 @@ export default function Home() {
         <p>You are not part of any groups.</p>
       ) : (
         <>
-          <div style={styles.grid}>
+          <section style={styles.grid} aria-label="Your Groups">
             {groups.map((group) => (
               <GroupCard key={group.id} group={group} />
             ))}
-          </div>
+          </section>
 
-          <div style={styles.pagination}>
+          <nav aria-label="Pagination" style={styles.pagination}>
             <button
               onClick={() => setPage((p) => Math.max(p - 1, 1))}
               disabled={page === 1}
@@ -89,17 +89,17 @@ export default function Home() {
             >
               Next
             </button>
-          </div>
+          </nav>
         </>
       )}
-    </div>
+    </main>
   );
 }
 
 const styles = {
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr)', // 여기 고정
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr)',
     gap: '1rem',
     alignItems: 'stretch',
   },

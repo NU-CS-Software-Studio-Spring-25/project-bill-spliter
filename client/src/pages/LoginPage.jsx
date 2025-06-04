@@ -41,7 +41,7 @@ export default function LoginPage() {
 
   return (
     <form onSubmit={handleLogin} style={styles.form}>
-      <h2 style={styles.heading}>Login</h2>
+      <h1 style={styles.heading}>Login</h1>
       {error && <p id="login-error" style={styles.error}>{error}</p>}
       <input
         type="email"

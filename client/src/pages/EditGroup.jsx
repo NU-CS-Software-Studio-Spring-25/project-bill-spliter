@@ -3,17 +3,60 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../lib/userContext";
 import { fetchGroup, updateGroup } from "../api";
 import { toast } from "react-toastify";
+import { deleteGroupMember, deleteGroup } from "../api";
 
 export default function EditGroup() {
     const { user } = useUser();
     const { id } = useParams();
     const navigate = useNavigate();
+    const [group, setGroup] = useState({});
     const [groupName, setGroupName] = useState("");
-    const [memberEmails, setMemberEmails] = useState("");
+    const [members, setMembers] = useState([]);
+    const [newMemberEmails, setNewMemberEmails] = useState("");
 
     function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
+
+    const handleDeleteMember = async (memberId) => {
+        if (!window.confirm("Are you sure you want to remove this member?")) return;
+        try {
+            const response = await deleteGroupMember(group.id, memberId);
+            if (!response.message) {
+                throw new Error(response.error);
+            }
+            toast.success("Member removed successfully");
+            navigate(`/groups/${group.id}`);
+        } catch (err) {
+            console.error(err);
+            if (err.message.includes("Creator must exist")) {
+                toast.error("Session expired. Please log in.");
+                navigate("/login");
+            } else {
+                toast.error(err.message || "Failed to remove member");
+            }
+        }
+    };
+
+    const handleDeleteGroup = async () => {
+        if (!window.confirm("Are you sure you want to delete this group?")) return;
+        try {
+            const response = await deleteGroup(group.id);
+            if (!response.message) {
+                throw new Error(response.error || "Failed to delete group");
+            }
+            toast.success(response.message);
+            navigate("/");
+        } catch (err) {
+            console.error(err);
+            if (err.message.includes("Creator must exist")) {
+                toast.error("Session expired. Please log in.");
+                navigate("/login");
+            } else {
+                toast.error(err.message || "Failed to delete group");
+            }
+        }
+    };
 
     useEffect(() => {
         if (!user) navigate("/login");
@@ -27,7 +70,9 @@ export default function EditGroup() {
 
         fetchGroup(id)
             .then((data) => {
+                setGroup(data);
                 setGroupName(data.group_name || "");
+                setMembers(data.members || []);
             })
             .catch((err) => console.error("Failed to load groups", err));
     }, [user, navigate, id]);
@@ -39,7 +84,7 @@ export default function EditGroup() {
             return;
         }
         try {
-            const emails = memberEmails
+            const emails = newMemberEmails
                 .split(",")
                 .map((email) => email.trim())
                 .filter(Boolean);
@@ -53,7 +98,7 @@ export default function EditGroup() {
                 );
                 return;
             }
-            const updatedGroupData = {group_name: groupName};
+            const updatedGroupData = { group_name: groupName };
             if (emails.length > 0) {
                 updatedGroupData.member_emails = emails;
             }
@@ -61,9 +106,8 @@ export default function EditGroup() {
             if (!response.data) {
                 throw new Error(response.error || "Failed to create group");
             }
-            console.log("Group updated successfully:", response);
             toast.success(response.message || "Group updated successfully");
-            navigate("/");
+            navigate("/groups/" + id);
         } catch (err) {
             console.error(err);
             if (err.message.includes("Creator must exist")) {
@@ -78,25 +122,66 @@ export default function EditGroup() {
     return (
         <form onSubmit={handleSubmit} style={styles.form}>
             <h2>Edit Group</h2>
-            <input
-                type="text"
-                placeholder="Group Name"
-                value={groupName}
-                onChange={(e) => setGroupName(e.target.value)}
-                required
-                style={styles.input}
-            />
-            <h3 className="fs-5 fw-info text-secondary mb-1">Adding New Members</h3>
+            <label htmlFor="group-name" style={styles.label}>Group Name
+                <input
+                    id="group-name"
+                    type="text"
+                    placeholder="Group Name"
+                    value={groupName}
+                    onChange={(e) => setGroupName(e.target.value)}
+                    required
+                    style={styles.input}
+                />
+            </label>
+            <h3 className="fs-5 fw-info text-secondary mb-1">Invite New Members</h3>
             <textarea
-                placeholder="Enter member emails, separated by commas"
-                value={memberEmails}
-                onChange={(e) => setMemberEmails(e.target.value)}
+                placeholder="Enter user emails, separated by commas"
+                value={newMemberEmails}
+                onChange={(e) => setNewMemberEmails(e.target.value)}
                 rows={4}
                 style={styles.input}
             />
-            <button type="submit" style={styles.button}>
+            {user.id === group.creator_id && (
+                <>
+                    <h3 className="fs-5 fw-info text-secondary mb-1">Edit Current Members</h3>
+                    <ul className="list-unstyled">
+                        {members.map((m) => (
+                            <li key={m.id} className="col">
+                                <div className="d-flex justify-content-between align-items-center p-3 bg-light rounded mb-3">
+                                    <span className="fw-medium">{m.name}</span>
+                                    {m.id !== user.id && (
+                                        <button
+                                            className="btn btn-sm btn-outline-danger"
+                                            onClick={() => handleDeleteMember(m.id)}
+                                        >
+                                            <i className="bi bi-trash-fill"></i> Remove
+                                        </button>
+                                    )}
+                                    {m.id === user.id && (
+                                        <button
+                                            className="btn btn-sm btn-outline-danger"
+                                            onClick={() => handleDeleteMember(m.id)}
+                                        >
+                                            <i className="bi bi-trash-fill"></i> Leave
+                                        </button>
+                                    )}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            )}
+            <button type="submit" className="btn btn-primary text-center gap-1">
                 Update Group
             </button>
+            {user.id === group.creator_id && (
+                <button
+                    className="btn btn-outline-danger text-center gap-1"
+                    onClick={handleDeleteGroup}
+                >
+                    Delete Group
+                </button>
+            )}
         </form>
     );
 }
@@ -118,6 +203,12 @@ const styles = {
         fontSize: "1rem",
         borderRadius: "4px",
         border: "1px solid #ccc",
+    },
+    label: {
+        display: "flex",
+        flexDirection: "column",
+        fontSize: "0.9rem",
+        color: "#374151",
     },
     button: {
         padding: "0.75rem 1.25rem",

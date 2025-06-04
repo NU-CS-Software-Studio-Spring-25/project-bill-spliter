@@ -89,7 +89,7 @@ export default function CreateExpense() {
 
       <input
         type="text"
-        placeholder="Description"
+        placeholder="Expense description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
@@ -99,7 +99,7 @@ export default function CreateExpense() {
       <input
         type="number"
         step="0.01"
-        placeholder="Amount"
+        placeholder="Amount ($)"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         required
@@ -123,7 +123,7 @@ export default function CreateExpense() {
         required
         style={styles.input}
       >
-        <option value="">Select group</option>
+        <option value="">Select group to split expense with</option>
         {groups.map((g) => (
           <option key={g.id} value={g.id}>
             {g.group_name}

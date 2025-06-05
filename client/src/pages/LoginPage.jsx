@@ -104,7 +104,7 @@ const styles = {
   },
   button: {
     padding: '0.75rem',
-    backgroundColor: '#3b82f6',
+    backgroundColor: '#1A6EF4',
     color: '#ffffff',
     fontSize: '1rem',
     fontWeight: '600',
@@ -119,7 +119,7 @@ const styles = {
     color: '#4b5563',
   },
   registerLink: {
-    color: '#3b82f6',
+    color: '#1A6EF4',
     textDecoration: 'underline',
     cursor: 'pointer',
   },

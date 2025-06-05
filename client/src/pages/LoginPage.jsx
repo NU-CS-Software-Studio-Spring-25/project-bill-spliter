@@ -65,6 +65,8 @@ export default function LoginPage() {
       <p style={styles.registerPrompt}>
         Don't have an account?{' '}
         <Link to="/register" style={styles.registerLink}>Register here</Link>
+        <br /><br />
+        <Link to="/about" style={styles.registerLink}>Learn more about Checkmate</Link>
       </p>
     </form>
   );

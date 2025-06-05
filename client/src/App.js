@@ -14,6 +14,7 @@ import RegisterPage from './pages/RegisterPage';
 import EditExpense from './pages/EditExpense';
 import EditGroup from './pages/EditGroup';
 import ErrorPage from './pages/ErrorPage';
+import AboutPage from './pages/AboutPage';
 
 // Toastify imports
 import { ToastContainer } from 'react-toastify';
@@ -26,6 +27,7 @@ function App() {
       <main style={{ padding: '1.5rem' }}>
         <Routes>
           {/* Public Route */}
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage/>} />
 

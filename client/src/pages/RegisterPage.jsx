@@ -103,6 +103,8 @@ export default function RegisterPage() {
       <p style={styles.loginPrompt}>
         Already have an account?{' '}
         <Link to="/login" style={styles.loginLink}>Login here</Link>
+        <br /><br />
+        <Link to="/about" style={styles.registerLink}>Learn more about Checkmate</Link>
       </p>
     </form>
   );

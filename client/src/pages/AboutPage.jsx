@@ -8,7 +8,7 @@ function AboutPage(){
                     <div class="row gx-4 align-items-center justify-content-between">
                         <div class="col-md-5 order-2 order-md-1">
                             <div class="mt-5 mt-md-0">
-                                <h2 class="display-5 fw-bold">About Us</h2>
+                                <h1 class="display-5 fw-bold">About Us</h1>
                                 <p class="lead">Welcome to our expense management application! This app is designed to help you track your expenses, manage your groups, and keep your finances in check.</p>
                                 <p class="lead">Whether you're sharing expenses with friends, family, or colleagues, our app makes it easy to add, edit, and view expenses in a user-friendly interface.</p>
                                 <button type="submit" style={styles.button}>
@@ -21,25 +21,25 @@ function AboutPage(){
                                 <div class="col-6">
                                     <figure class="mb-2">
                                         <figcaption class="text-center mt-2 bg-light p-2 fw-bold">Easily view all of your groups</figcaption>
-                                        <img class="img-fluid rounded-3" src="/HomeView.png" alt="Home View" />
+                                        <img class="img-fluid rounded-3" src="/HomeView.png" alt="Dashboard displays groups user is a member of" />
                                     </figure>
                                 </div>
                                 <div class="col-6">
                                     <figure class="mb-2">
                                         <figcaption class="text-center mt-2 bg-light p-2 fw-bold">Check in on members, expenses, and balances for each group</figcaption>
-                                        <img class="img-fluid rounded-3" src="/GroupView.png" alt="Group View" />
+                                        <img class="img-fluid rounded-3" src="/GroupView.png" alt="Individual group views list expenses, their details, and how much the user owes" />
                                     </figure>
                                 </div>
                                 <div class="col-6">
                                     <figure class="mb-2">
                                         <figcaption class="text-center mt-2 bg-light p-2 fw-bold">Invite friends to new tabs</figcaption>
-                                        <img class="img-fluid rounded-3" src="/NewGroup.png" alt="New Group" />
+                                        <img class="img-fluid rounded-3" src="/NewGroup.png" alt="Group creation requests a group title and member emails" />
                                     </figure>
                                 </div>
                                 <div class="col-6">
                                     <figure class="mb-2">
                                         <figcaption class="text-center mt-2 bg-light p-2 fw-bold">Add new expenses to your groups</figcaption>
-                                        <img class="img-fluid rounded-3" src="/NewExpense.png" alt="New Expense" />
+                                        <img class="img-fluid rounded-3" src="/NewExpense.png" alt="Expense creation request a description, amount, date, and applicable group" />
                                     </figure>
                                 </div>
                             </div>

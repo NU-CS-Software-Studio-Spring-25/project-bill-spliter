@@ -104,7 +104,7 @@ export default function RegisterPage() {
         Already have an account?{' '}
         <Link to="/login" style={styles.loginLink}>Login here</Link>
         <br /><br />
-        <Link to="/about" style={styles.registerLink}>Learn more about Checkmate</Link>
+        <Link to="/about" style={styles.loginLink}>Learn more about Checkmate</Link>
       </p>
     </form>
   );
@@ -142,7 +142,7 @@ const styles = {
   },
   button: {
     padding: '0.75rem',
-    backgroundColor: '#3b82f6',
+    backgroundColor: '#1A6EF4',
     color: '#ffffff',
     fontSize: '1rem',
     fontWeight: '600',
@@ -157,7 +157,7 @@ const styles = {
     color: '#4b5563',
   },
   loginLink: {
-    color: '#3b82f6',
+    color: '#1A6EF4',
     textDecoration: 'underline',
     cursor: 'pointer',
   },

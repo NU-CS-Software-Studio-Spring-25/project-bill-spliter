@@ -81,7 +81,7 @@ const styles = {
     textDecoration: "none",
     fontSize: "0.95rem",
     fontWeight: "600",
-    color: "#3182ce",
+    color: "#2B73B6",
     backgroundColor: "#ebf8ff",
     padding: "0.6rem 1.2rem",
     borderRadius: "8px",
@@ -96,7 +96,7 @@ const styles = {
   },
   linkHover: {
     backgroundColor: '#cce5ff',
-    color: '#2b6cb0',
+    color: '#2966A8',
     transform: 'translateX(2px)',
   },
   arrowIcon: {

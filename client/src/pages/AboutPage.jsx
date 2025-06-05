@@ -47,9 +47,6 @@ function AboutPage(){
                     </div>
                 </div>
             </section>
-            <footer className="bg-light text-center py-4">
-                <p className="text-muted mb-0">© 2025 Bill Splitter -- Northwestern University</p>
-            </footer>
         </>
     )
 }

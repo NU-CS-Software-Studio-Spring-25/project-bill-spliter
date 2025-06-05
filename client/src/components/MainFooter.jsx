@@ -38,7 +38,9 @@ export default function MainFooter() {
                         </li>
                     </ul>
                 </nav>
-                <p className="text-center text-muted">© 2025 Bill Splitter -- Northwestern University</p>
+                <p className="text-center text-muted">© 2025 Bill Splitter -- Northwestern University |
+                    <Link to="/about" className="text-decoration-none"> Learn More</Link>
+                </p>
             </div>
         </footer>
     ) : <></>;

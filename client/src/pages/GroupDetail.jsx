@@ -5,6 +5,7 @@ import { fetchGroup, deleteExpense, deleteGroup, deleteGroupMember } from "../ap
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
+
 export default function GroupDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -125,6 +126,13 @@ export default function GroupDetail() {
       <header className="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
         <h1 className="h2 mb-0">{group.group_name}</h1>
         <div className="d-flex gap-2">
+          <Link
+            to={`/settlements/${group.id}`}
+            className="btn btn-success btn-sm d-flex align-items-center gap-1"
+          >
+            <i className="bi bi-arrow-left-right"></i>
+            Settlements
+          </Link>
           <button
             onClick={() => navigate(`/groups/${group.id}/edit`)}
             className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"

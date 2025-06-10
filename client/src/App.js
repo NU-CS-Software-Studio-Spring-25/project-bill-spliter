@@ -15,6 +15,8 @@ import EditExpense from './pages/EditExpense';
 import EditGroup from './pages/EditGroup';
 import ErrorPage from './pages/ErrorPage';
 import AboutPage from './pages/AboutPage';
+import SettlementsPage from './pages/SettlementsPage';
+
 
 // Toastify imports
 import { ToastContainer } from 'react-toastify';
@@ -88,7 +90,14 @@ function App() {
               </PrivateRoute>
             }
           />
-
+          <Route
+            path="/settlements/:groupId"
+            element={
+              <PrivateRoute>
+                <SettlementsPage />
+              </PrivateRoute>
+            }
+          />
           {/* Redirect unknown paths to error page */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>

@@ -170,3 +170,39 @@ async function parseJsonOrText(res) {
     return handleFetch(res);
   }
   
+  export async function fetchSettlements(groupId = null) {
+    const url = groupId ? `${BASE_URL}/settlements?group_id=${groupId}` : `${BASE_URL}/settlements`;
+    const res = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return handleFetch(res);
+  }
+  
+  export async function createSettlement(settlementData) {
+    const res = await fetch(`${BASE_URL}/settlements`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ settlement: settlementData }),
+    });
+    return handleFetch(res);
+  }
+  
+  export async function deleteSettlement(id) {
+    const res = await fetch(`${BASE_URL}/settlements/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    return handleFetch(res);
+  }
+  
+  export async function fetchGroupBalances(groupId) {
+    const res = await fetch(`${BASE_URL}/groups/${groupId}/balances`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return handleFetch(res);
+  }

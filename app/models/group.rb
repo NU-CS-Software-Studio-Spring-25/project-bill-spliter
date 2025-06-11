@@ -8,6 +8,7 @@ class Group < ApplicationRecord
   has_many :settlements, dependent: :destroy
   
   validates :group_name, presence: true
+  validates :group_name, length: { maximum: 100 }
   
   # Calculate balances for all members in the group
   def calculate_group_balances

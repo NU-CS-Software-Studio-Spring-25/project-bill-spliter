@@ -22,6 +22,10 @@ export default function CreateGroup() {
       toast.error("Please fill in all the fields");
       return;
     }
+    if (groupName.length > 100) {
+      toast.error("Group name cannot exceed 100 characters");
+      return;
+    }
     try {
       const emails = memberEmails
         .split(",")

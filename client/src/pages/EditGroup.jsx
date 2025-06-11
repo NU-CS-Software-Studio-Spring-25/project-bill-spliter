@@ -83,6 +83,10 @@ export default function EditGroup() {
             toast.error("Please fill in the group name field");
             return;
         }
+        if (groupName.length > 100) {
+            toast.error("Group name cannot exceed 100 characters");
+            return;
+        }
         try {
             const emails = newMemberEmails
                 .split(",")

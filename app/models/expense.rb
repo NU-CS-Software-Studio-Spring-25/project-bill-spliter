@@ -5,7 +5,7 @@ class Expense < ApplicationRecord
   has_many :expense_splits, dependent: :destroy
   
   validates :description, presence: true, length: { maximum: 255 }
-  validates :total_amount, presence: true, numericality: { greater_than: 0 }
+  validates :total_amount, presence: true, numericality: { greater_than: 0, less_than: 10_000 }
   validates :expense_date, presence: true
   validates :group, presence: true
   validates :payer, presence: true

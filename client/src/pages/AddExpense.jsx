@@ -44,8 +44,12 @@ export default function CreateExpense() {
       toast.error("Amount must be a positive number");
       return;
     }
-    if (parsedAmount > 10000000){
-      toast.error("Amount is too large");
+    if (parsedAmount > 100000){
+      toast.error("Amount is too large: has to be less than $10,000");
+      return;
+    }
+    if (description.length > 255) {
+      toast.error("Description cannot exceed 250 characters");
       return;
     }
     const today = new Date().toISOString().split("T")[0];

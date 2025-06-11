@@ -75,6 +75,14 @@ export default function SettlementsPage() {
       toast.error('You cannot create a settlement with yourself');
       return;
     }
+    if (parsedAmount > 100000) {
+      toast.error('Amount is too large: has to be less than $100,000');
+      return;
+    }
+    if (description.length > 255) {
+      toast.error('Description cannot exceed 255 characters');
+      return;
+    }
 
     try {
       const settlementData = {

@@ -4,7 +4,9 @@ class Settlement < ApplicationRecord
     belongs_to :payee, class_name: 'User'
     belongs_to :group
     
-    validates :amount, presence: true, numericality: { greater_than: 0 }
+    validates :amount, presence: true, numericality: { greater_than: 0, less_than: 100_000 }
+    validates :description, length: { maximum: 255 }
+    validates :group, presence: true
     validates :settlement_date, presence: true
     validate :different_users
     validate :both_users_in_group

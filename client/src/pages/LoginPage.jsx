@@ -32,7 +32,7 @@ export default function LoginPage() {
       const data = await login(email, password);
       const userObj = data.user || data;
       setUser(userObj);
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       console.error("Login error:", err);
       setError(err.message || 'Login failed. Please check your credentials and try again.');
@@ -66,7 +66,7 @@ export default function LoginPage() {
         Don't have an account?{' '}
         <Link to="/register" style={styles.registerLink}>Register here</Link>
         <br /><br />
-        <Link to="/about" style={styles.registerLink}>Learn more about Checkmate</Link>
+        <Link to="/" style={styles.registerLink}>Learn more about Checkmate</Link>
       </p>
     </form>
   );

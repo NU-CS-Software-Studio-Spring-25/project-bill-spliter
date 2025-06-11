@@ -25,7 +25,7 @@ export default function MainFooter() {
                 <nav> {/* Added nav for navigation links */}
                     <ul className="nav flex-column flex-md-row justify-content-center border-bottom pb-3 mb-3">
                         <li className="nav-item">
-                            <Link to="/" className="nav-link px-2 text-muted">Home</Link> {/* Changed <a> to Link */}
+                            <Link to="/home" className="nav-link px-2 text-muted">Home</Link> {/* Changed <a> to Link */}
                         </li>
                         <li className="nav-item">
                             <Link to="/groups/new" className="nav-link px-2 text-muted">Create A Group</Link> {/* Changed <a> to Link */}
@@ -39,7 +39,7 @@ export default function MainFooter() {
                     </ul>
                 </nav>
                 <p className="text-center text-muted">© 2025 Bill Splitter -- Northwestern University |
-                    <Link to="/about" className="text-decoration-none"> Learn More</Link>
+                    <Link to="/" className="text-decoration-none"> Learn More</Link>
                 </p>
             </div>
         </footer>

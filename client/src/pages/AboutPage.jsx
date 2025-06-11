@@ -12,7 +12,7 @@ function AboutPage(){
                                 <p class="lead">Welcome to our expense management application! This app is designed to help you track your expenses, manage your groups, and keep your finances in check.</p>
                                 <p class="lead">Whether you're sharing expenses with friends, family, or colleagues, our app makes it easy to add, edit, and view expenses in a user-friendly interface.</p>
                                 <button type="submit" style={styles.button}>
-                                    <Link to="/" style={styles.button} className="text-decoration-none">Get Started</Link>
+                                    <Link to="/home" style={styles.button} className="text-decoration-none">Get Started</Link>
                                 </button>
                             </div>
                         </div>

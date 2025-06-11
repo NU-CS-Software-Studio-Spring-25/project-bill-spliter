@@ -29,13 +29,13 @@ function App() {
       <main style={{ padding: '1.5rem' }}>
         <Routes>
           {/* Public Route */}
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage/>} />
 
           {/* Protected Routes */}
           <Route
-            path="/"
+            path="/home"
             element={
               <PrivateRoute>
                 <Home />

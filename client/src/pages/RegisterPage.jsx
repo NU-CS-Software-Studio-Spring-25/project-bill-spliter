@@ -52,7 +52,7 @@ export default function RegisterPage() {
       const data = await register({ name, email, password, password_confirmation: passwordConfirmation });
       const userObj = data.user || data;
       setUser(userObj);
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       console.error("Registration error:", err);
       setError(err.message || 'Registration failed. Please try again.');
@@ -104,7 +104,7 @@ export default function RegisterPage() {
         Already have an account?{' '}
         <Link to="/login" style={styles.loginLink}>Login here</Link>
         <br /><br />
-        <Link to="/about" style={styles.loginLink}>Learn more about Checkmate</Link>
+        <Link to="/" style={styles.loginLink}>Learn more about Checkmate</Link>
       </p>
     </form>
   );

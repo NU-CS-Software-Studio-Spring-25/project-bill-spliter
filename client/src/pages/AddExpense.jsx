@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchGroups, createExpense } from "../api";
+import { fetchGroups } from "../api";
 import { useUser } from "../lib/userContext";
 import { toast } from "react-toastify";
+import { createExpense } from "../api";
 
 export default function CreateExpense() {
   const { user } = useUser();
@@ -16,6 +17,7 @@ export default function CreateExpense() {
     const today = new Date().toISOString().split("T")[0];
     return today;
   });
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -35,92 +37,84 @@ export default function CreateExpense() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    const parsedAmount = parseFloat(amount);
+    const today = new Date().toISOString().split("T")[0];
+  
+    // Validation
     if (!description.trim() || !amount || !groupId || !expenseDate) {
       toast.error("Please fill in all the fields");
       return;
     }
-    const parsedAmount = parseFloat(amount);
     if (isNaN(parsedAmount) || parsedAmount <= 0) {
       toast.error("Amount must be a positive number");
       return;
     }
-    if (parsedAmount > 100000){
-      toast.error("Amount is too large: has to be less than $10,000");
+    if (parsedAmount > 100000) {
+      toast.error("Amount is too large: must be less than $100,000");
       return;
     }
     if (description.length > 255) {
       toast.error("Description cannot exceed 250 characters");
       return;
     }
-    const today = new Date().toISOString().split("T")[0];
     if (expenseDate > today) {
       toast.error("Expense date cannot be in the future.");
       return;
     }
+  
+    // Prepare data
+    const expenseData = {
+      description: description.trim(),
+      total_amount: parsedAmount,
+      group_id: groupId,
+      payer_id: user.id,
+      expense_date: expenseDate,
+      image, // Can be null or File
+    };
+  
     try {
-      const expenseData = {
-        description,
-        total_amount: parseFloat(amount),
-        group_id: parseInt(groupId, 10),
-        payer_id: user.id,
-        expense_date: expenseDate,
-      };
-
-      const response = await createExpense(expenseData);
-      if (!response.data) {
-        throw new Error(response.error || "Failed to create expense");
-      }
-      console.log("Expense created successfully:", response);
-      toast.success(response.message || "Expense created successfully");
+      const result = await createExpense(expenseData); // 🔁 Pass plain object
+      toast.success(result.message || "Expense created successfully");
       navigate("/home");
     } catch (err) {
       console.error(err);
       if (err.message.includes("Creator must exist")) {
         toast.error("Session expired. Please log in.");
         navigate("/login");
+      } else {
+        toast.error(err.message || "Failed to create expense. Please try again.");
       }
-      else {
-      toast.error(
-        err.message || "Failed to create expense. Please try again."
-      );
-    }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
+    <form onSubmit={handleSubmit} style={styles.form} encType="multipart/form-data">
       <h1 className="fs-2">Create New Expense</h1>
 
-      <label htmlFor="expense-description" className="visually-hidden">Expense description</label>
       <input
         type="text"
-        id="expense-description" // Added id
         placeholder="Expense description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
         style={styles.input}
-        aria-label="Expense description" // Added aria-label
       />
 
-      <label htmlFor="expense-amount" className="visually-hidden">Amount</label>
       <input
         type="number"
-        id="expense-amount" // Added id
         step="0.01"
         placeholder="Amount ($)"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         required
         style={styles.input}
-        aria-label="Amount in dollars" // Added aria-label
       />
 
-      <label htmlFor="expense-date" style={styles.label}>
+      <label style={styles.label}>
         Date:
         <input
           type="date"
-          id="expense-date" // Added id
           value={expenseDate}
           onChange={(e) => setExpenseDate(e.target.value)}
           required
@@ -128,14 +122,11 @@ export default function CreateExpense() {
         />
       </label>
 
-      <label htmlFor="group-select" className="visually-hidden">Select group to split expense with</label>
       <select
-        id="group-select" // Added id
         value={groupId}
         onChange={(e) => setGroupId(e.target.value)}
         required
         style={styles.input}
-        aria-label="Select group to split expense with" // Added aria-label
       >
         <option value="">Select group to split expense with</option>
         {groups.map((g) => (
@@ -144,6 +135,16 @@ export default function CreateExpense() {
           </option>
         ))}
       </select>
+
+      <label style={styles.label}>
+        Receipt (optional):
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+          style={styles.input}
+        />
+      </label>
 
       <button type="submit" style={styles.button}>
         Create

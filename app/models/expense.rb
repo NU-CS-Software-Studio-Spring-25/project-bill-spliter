@@ -3,6 +3,7 @@ class Expense < ApplicationRecord
   belongs_to :group
   belongs_to :payer, class_name: 'User'
   has_many :expense_splits, dependent: :destroy
+  has_one_attached :image
   
   validates :description, presence: true, length: { maximum: 255 }
   validates :total_amount, presence: true, numericality: { greater_than: 0, less_than: 10_000 }

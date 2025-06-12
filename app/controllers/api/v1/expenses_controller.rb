@@ -8,11 +8,10 @@ class Api::V1::ExpensesController < ApplicationController
                  Expense.includes(:payer, :expense_splits, :group)
                         .where(group_id: params[:group_id])
                elsif params[:user_id]
-                 # Get expenses where user is either the payer or involved in splits
                  user_expense_ids = ExpenseSplit.where(user_id: params[:user_id]).pluck(:expense_id)
                  payer_expense_ids = Expense.where(payer_id: params[:user_id]).pluck(:id)
                  all_expense_ids = (user_expense_ids + payer_expense_ids).uniq
-                 
+
                  Expense.includes(:payer, :expense_splits, :group)
                         .where(id: all_expense_ids)
                else
@@ -21,45 +20,23 @@ class Api::V1::ExpensesController < ApplicationController
 
     expenses = expenses.order(created_at: :desc)
 
-    render json: expenses.as_json(
-      include: {
-        payer: { only: [:id, :name] },
-        group: { only: [:id, :group_name] },
-        expense_splits: { 
-          include: { user: { only: [:id, :name] } },
-          only: [:id, :amount, :paid_amount, :is_settled]
-        }
-      }
-    )
+    render json: expenses.map { |e| expense_json(e) }
   end
 
   def show
-    render json: @expense.as_json(
-      include: {
-        payer: { only: [:id, :name] },
-        group: { only: [:id, :group_name] },
-        expense_splits: { 
-          include: { user: { only: [:id, :name] } },
-          only: [:id, :amount, :paid_amount, :is_settled]
-        }
-      }
-    )
+    render json: expense_json(@expense)
   end
 
   def create
     expense = Expense.new(expense_params)
 
+    if params[:image]
+      expense.image.attach(params[:image])
+    end
+
     if expense.save
       render json: {
-        data: expense.as_json(
-          include: {
-            payer: { only: [:id, :name] },
-            group: { only: [:id, :group_name] },
-            expense_splits: { 
-              include: { user: { only: [:id, :name] } }
-            }
-          }
-        ),
+        data: expense_json(expense),
         message: "Expense #{expense.description} created and split among #{expense.expense_splits.count} members"
       }, status: :created
     else
@@ -67,37 +44,33 @@ class Api::V1::ExpensesController < ApplicationController
     end
   end
 
-  def destroy
-    group_name = @expense.group.group_name
-    @expense.destroy
-    render json: { 
-      message: "Expense #{@expense.description} deleted successfully from group '#{group_name}'" 
-    }
-  end
-
   def update
     if @expense.update(expense_params)
+      if params[:image]
+        @expense.image.purge if @expense.image.attached?
+        @expense.image.attach(params[:image])
+      end
+
       render json: {
         message: "Expense #{@expense.description} updated successfully",
-        data: @expense.as_json(
-          include: {
-            payer: { only: [:id, :name] },
-            group: { only: [:id, :group_name] },
-            expense_splits: { 
-              include: { user: { only: [:id, :name] } }
-            }
-          }
-        )
+        data: expense_json(@expense)
       }, status: :ok
     else
       render json: { error: @expense.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  # Additional endpoint to get expense summary for a group
+  def destroy
+    group_name = @expense.group.group_name
+    @expense.destroy
+    render json: {
+      message: "Expense #{@expense.description} deleted successfully from group '#{group_name}'"
+    }
+  end
+
   def summary
     group_id = params[:group_id]
-    
+
     if group_id.blank?
       render json: { error: "Group ID is required" }, status: :bad_request
       return
@@ -112,16 +85,15 @@ class Api::V1::ExpensesController < ApplicationController
     expenses = group.expenses.includes(:payer, :expense_splits)
     total_amount = expenses.sum(:total_amount)
     expense_count = expenses.count
-    
-    # Get spending by member
+
     member_spending = {}
     group.members.each do |member|
       member_spending[member.id] = {
         name: member.name,
         paid: expenses.where(payer: member).sum(:total_amount),
         owes: ExpenseSplit.joins(:expense)
-                         .where(expenses: { group: group }, user: member)
-                         .sum(:amount)
+                          .where(expenses: { group: group }, user: member)
+                          .sum(:amount)
       }
     end
 
@@ -144,6 +116,38 @@ class Api::V1::ExpensesController < ApplicationController
   end
 
   def expense_params
-    params.require(:expense).permit(:description, :total_amount, :group_id, :payer_id, :expense_date)
+    params.require(:expense).permit(:description, :total_amount, :group_id, :payer_id, :expense_date, :image)
+  end
+  
+  def expense_json(expense)
+    {
+      id: expense.id,
+      description: expense.description,
+      total_amount: expense.total_amount,
+      group: {
+        id: expense.group.id,
+        group_name: expense.group.group_name
+      },
+      payer: {
+        id: expense.payer.id,
+        name: expense.payer.name
+      },
+      expense_date: expense.expense_date,
+      created_at: expense.created_at,
+      updated_at: expense.updated_at,
+      image_url: expense.image.attached? ? url_for(expense.image) : nil,
+      expense_splits: expense.expense_splits.map do |split|
+        {
+          id: split.id,
+          amount: split.amount,
+          paid_amount: split.paid_amount,
+          is_settled: split.is_settled,
+          user: {
+            id: split.user.id,
+            name: split.user.name
+          }
+        }
+      end
+    }
   end
 end

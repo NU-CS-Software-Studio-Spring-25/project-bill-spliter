@@ -105,15 +105,24 @@ async function parseJsonOrText(res) {
   }
   
   export async function createExpense(expenseData) {
+    const formData = new FormData();
+  
+    // Append fields under expense[...] as required by Rails strong params
+    for (const key in expenseData) {
+      formData.append(`expense[${key}]`, expenseData[key]);
+    }
+  
     const res = await fetch(`${BASE_URL}/expenses`, {
       method: 'POST',
       credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ expense: expenseData }),
+      headers: {
+        Accept: 'application/json', // Do NOT set Content-Type — let browser do it
+      },
+      body: formData,
     });
-    return handleFetch(res);
-  }
   
+    return handleFetch(res);
+  }  
   
   export async function deleteExpense(id) {
     const res = await fetch(`${BASE_URL}/expenses/${id}`, {

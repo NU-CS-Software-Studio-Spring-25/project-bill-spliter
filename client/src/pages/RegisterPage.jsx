@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { register } from '../api/index';
 import { useUser } from '../lib/userContext';
+import { toast } from "react-toastify";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -11,6 +12,31 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
+  const passwordChecks = [
+  {
+    label: "At least 8 characters",
+    test: (pw) => pw.length >= 8,
+  },
+  {
+    label: "At least one lowercase letter",
+    test: (pw) => /[a-z]/.test(pw),
+  },
+  {
+    label: "At least one uppercase letter",
+    test: (pw) => /[A-Z]/.test(pw),
+  },
+  {
+    label: "At least one digit",
+    test: (pw) => /\d/.test(pw),
+  },
+  {
+    label: "At least one special character",
+    test: (pw) => /[\W_]/.test(pw),
+  },
+];
+
+const isPasswordStrong = passwordChecks.every(check => check.test(password));
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -34,8 +60,9 @@ export default function RegisterPage() {
       setError('Password is required.');
       return;
     }
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+    const failedChecks = passwordChecks.filter((check) => !check.test(password));
+    if (failedChecks.length > 0) {
+      failedChecks.forEach((check) => setError(`Does not pass password requirement: ${check.label}`));
       return;
     }
 
@@ -62,7 +89,6 @@ export default function RegisterPage() {
   return (
     <form onSubmit={handleRegister} style={styles.form}>
       <h1 style={styles.heading}>Register</h1>
-      {error && <p id="register-error" style={styles.error}>{error}</p>}
       <input
         type="text"
         placeholder="Name"
@@ -90,6 +116,13 @@ export default function RegisterPage() {
         style={styles.input}
         aria-label="Password" // Added for accessibility
       />
+      <ul style={styles.checklist}>
+        {passwordChecks.map((check, i) => (
+          <li key={i} style={{ color: check.test(password) ? 'green' : 'red' }}>
+            {check.label}
+          </li>
+        ))}
+      </ul>
       <input
         type="password"
         placeholder="Confirm Password"
@@ -100,6 +133,7 @@ export default function RegisterPage() {
         aria-label="Confirm Password" // Added for accessibility
       />
       <button type="submit" style={styles.button}>Register</button>
+      {error && <p id="register-error" style={styles.error}>{error}</p>}
       <p style={styles.loginPrompt}>
         Already have an account?{' '}
         <Link to="/login" style={styles.loginLink}>Login here</Link>
@@ -161,4 +195,9 @@ const styles = {
     textDecoration: 'underline',
     cursor: 'pointer',
   },
+  checklist: {
+    listStyle: "none", 
+    padding: 0, 
+    marginBottom: '10px',
+  }
 };

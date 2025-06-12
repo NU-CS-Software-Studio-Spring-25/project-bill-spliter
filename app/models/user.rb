@@ -17,7 +17,8 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, 
             format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
+  validates :password, length: { minimum: 8 }, if: -> { new_record? || !password.nil? }
+  validate :password_complexity, if: -> { new_record? || !password.nil? }
   
   # Callbacks
   before_save :downcase_email
@@ -61,5 +62,14 @@ class User < ApplicationRecord
 
   def downcase_email
     self.email = email.downcase.strip if email.present?
+  end
+
+  private
+  def password_complexity
+    return if password.blank?
+
+    unless password.match?(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/)
+      errors.add(:password, "must include at least one lowercase letter, one uppercase letter, one digit, and one special character.")
+    end
   end
 end

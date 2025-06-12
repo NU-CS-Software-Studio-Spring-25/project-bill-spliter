@@ -32,6 +32,7 @@ gem "bcrypt", "~> 3.1.7"
 
 gem "solid_queue"
 gem "solid_cache"
+gem "ransack"
 
 gem 'cloudinary', '~> 1.25'
 gem 'dotenv-rails'
@@ -49,4 +50,4 @@ end
 
 group :test do
   gem "rspec-rails"
-end 
+end

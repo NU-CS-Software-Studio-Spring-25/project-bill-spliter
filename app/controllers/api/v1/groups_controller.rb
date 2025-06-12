@@ -3,7 +3,8 @@ class Api::V1::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :destroy, :balances, :expenses, :settlements]
 
   def index
-    groups = Group.includes(:members, :creator).page(params[:page]).per(12)
+    @q = Group.ransack(params[:q])
+    groups = @q.result.includes(:members, :creator).page(params[:page]).per(12)
     render json: {
       groups: groups.as_json(
         include: {
@@ -30,8 +31,7 @@ class Api::V1::GroupsController < ApplicationController
   end
 
   def my_groups
-    groups = current_user
-               .groups
+    groups = current_user.groups.ransack(params[:q]).result
                .includes(:members, :creator)
                .page(params[:page])
                .per(12)

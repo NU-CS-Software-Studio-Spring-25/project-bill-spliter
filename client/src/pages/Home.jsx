@@ -11,6 +11,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     if (!user) {
@@ -47,11 +48,50 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, [page, user, navigate]);
 
+  const handleSearch = async () => {
+    setLoading(true);
+    fetchGroups(page, query)
+      .then((data) => {
+        let rawGroups = [];
+        let pagesCount = 1;
+
+        if (data.groups) {
+          rawGroups = data.groups;
+          pagesCount = data.total_pages;
+        } else if (Array.isArray(data)) {
+          rawGroups = data;
+        }
+
+        const userGroups = rawGroups.filter((g) => {
+          if (g.member_ids) {
+            return g.member_ids.includes(user.id);
+          } else if (Array.isArray(g.members)) {
+            return g.members.some((m) => m.id === user.id);
+          }
+          return true;
+        });
+
+        setGroups(userGroups);
+        setTotalPages(pagesCount);
+      })
+      .catch((err) => console.error('Failed to load groups', err))
+      .finally(() => setLoading(false));
+  };
+
+
   return (
     <main style={{ padding: '1rem' }}>
       <h1 style={{ marginBottom: '1rem' }}>
         Welcome, {user?.name || 'Guest'}!
       </h1>
+      <input
+        className="form-control mb-3"
+        type="text"
+        placeholder="Search groups..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyUp={(e) => e.key === "Enter" && handleSearch()}
+      />
 
       {loading ? (
         <p>Loading groups...</p>

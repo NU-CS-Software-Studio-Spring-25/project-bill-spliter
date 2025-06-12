@@ -20,9 +20,9 @@ async function parseJsonOrText(res) {
     return data;
   }
   
-  export async function fetchGroups(page = 1) {
+  export async function fetchGroups(page = 1, query = '') {
     // Use the 'my_groups' endpoint for the authenticated user's groups
-    const res = await fetch(`${BASE_URL}/groups/my_groups?page=${page}`, {
+    const res = await fetch(`${BASE_URL}/groups/my_groups?q[group_name_cont]=${query}&page=${page}`, {
       method: 'GET',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },

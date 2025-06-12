@@ -20,6 +20,10 @@ class Group < ApplicationRecord
     
     balances
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["group_name"]
+  end
   
   # Get simplified debts (who owes whom and how much)
   def simplified_debts

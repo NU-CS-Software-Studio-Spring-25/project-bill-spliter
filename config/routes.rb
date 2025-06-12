@@ -33,7 +33,7 @@ Rails.application.routes.draw do
         get :balances     # GET /api/v1/groups/:id/balances - Get group balances and debts
         get :expenses     # GET /api/v1/groups/:id/expenses - Get all expenses for a group
         get :settlements  # GET /api/v1/groups/:id/settlements - Get all settlements for a group
-
+        get :download_pdf
         patch :update     # PATCH /api/v1/groups/:id
       end
       

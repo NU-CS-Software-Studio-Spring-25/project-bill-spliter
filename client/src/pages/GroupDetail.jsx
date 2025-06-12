@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUser } from "../lib/userContext";
-import { fetchGroup, deleteExpense, deleteGroup, deleteGroupMember } from "../api";
+import { fetchGroup, deleteExpense, deleteGroup, deleteGroupMember, BASE_URL } from "../api";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
@@ -125,6 +125,9 @@ export default function GroupDetail() {
     <main>
       <header className="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
         <h1 className="h2 mb-0">{group.group_name}</h1>
+        <a href={`${BASE_URL}/groups/${group.id}/download_pdf`} target="_blank">
+          Download PDF
+        </a>
         <div className="d-flex gap-2">
           <Link
             to={`/settlements/${group.id}`}

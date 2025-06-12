@@ -214,6 +214,28 @@ class Api::V1::GroupsController < ApplicationController
     )
   end
 
+  def download_pdf
+    group = Group.find(params[:id])
+    expenses = group.expenses.includes(:payer)
+  
+    pdf = Prawn::Document.new
+    pdf.text "Group: #{group.group_name}", size: 20, style: :bold
+    pdf.move_down 10
+  
+    expenses.each_with_index do |expense, idx|
+      pdf.text "#{idx + 1}. #{expense.description}"
+      pdf.text "   Amount: $#{expense.total_amount}"
+      pdf.text "   Paid by: #{expense.payer.name}"
+      pdf.text "   Date: #{expense.expense_date.strftime('%Y-%m-%d')}"
+      pdf.move_down 5
+    end
+  
+    send_data pdf.render,
+              filename: "group_#{group.id}_expenses.pdf",
+              type: "application/pdf",
+              disposition: "inline"
+  end
+
   private
 
   def set_group

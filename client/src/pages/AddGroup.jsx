@@ -45,7 +45,7 @@ export default function CreateGroup() {
       }
       console.log("Group created successfully:", response);
       toast.success(response.message || "Group created successfully");
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.error(err);
       if (err.message.includes("Creator must exist")) {

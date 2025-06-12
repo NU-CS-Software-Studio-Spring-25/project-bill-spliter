@@ -20,7 +20,7 @@ export default function NavBar() {
 
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-      <Link to="/" className='navbar-brand px-3'>
+      <Link to="/home" className='navbar-brand px-3'>
         <img
           src="/logo.png"
           alt="CheckMate logo" // Added alt text
@@ -35,22 +35,22 @@ export default function NavBar() {
           </button>
 
           <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item"> {/* Use li for list items */}
-                <Link to="/groups/new" className='nav-link btn btn-outline-primary text-white border-0 mx-1'> {/* Link is a button */}
-                  Add Group
-                </Link>
-              </li>
-              <li className="nav-item"> {/* Use li for list items */}
-                <Link to="/add-expense" className='nav-link btn btn-outline-success text-white border-0 mx-1'> {/* Link is a button */}
-                  Add Expense
-                </Link>
-              </li>
-              <li className="nav-item"> {/* Use li for list items */}
-                <button onClick={handleLogout} className='nav-link btn btn-outline-danger text-white border-0 border-danger mx-1'>Logout</button>
-              </li>
-            </ul>
-          </div>
+  <ul className="navbar-nav ms-auto text-center"> {/* Add text-center here */}
+    <li className="nav-item">
+      <Link to="/groups/new" className='nav-link btn btn-outline-primary text-white border-0 mx-1 w-100'> {/* Add w-100 */}
+        Add Group
+      </Link>
+    </li>
+    <li className="nav-item">
+      <Link to="/add-expense" className='nav-link btn btn-outline-success text-white border-0 mx-1 w-100'> {/* Add w-100 */}
+        Add Expense
+      </Link>
+    </li>
+    <li className="nav-item">
+      <button onClick={handleLogout} className='nav-link btn btn-outline-danger text-white border-0 border-danger mx-1 w-100'>Logout</button> {/* Add w-100 */}
+    </li>
+  </ul>
+</div>
         </>
       )}
       {/* The original `{!user}` had no meaningful content, so it's removed.

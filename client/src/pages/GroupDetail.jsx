@@ -64,7 +64,7 @@ export default function GroupDetail() {
         members: prev.members.filter((m) => m.id !== memberId),
       }));
       toast.success("Member removed successfully");
-      navigate(`/`);
+      navigate(`/home`);
     } catch (err) {
       console.error(err);
       if (err.message.includes("Creator must exist")) {

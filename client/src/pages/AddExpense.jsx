@@ -72,7 +72,7 @@ export default function CreateExpense() {
       }
       console.log("Expense created successfully:", response);
       toast.success(response.message || "Expense created successfully");
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.error(err);
       if (err.message.includes("Creator must exist")) {

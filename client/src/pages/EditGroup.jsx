@@ -46,7 +46,7 @@ export default function EditGroup() {
                 throw new Error(response.error || "Failed to delete group");
             }
             toast.success(response.message);
-            navigate("/");
+            navigate("/home");
         } catch (err) {
             console.error(err);
             if (err.message.includes("Creator must exist")) {

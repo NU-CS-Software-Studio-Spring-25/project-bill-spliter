@@ -137,7 +137,6 @@ export default function CreateExpense() {
       </select>
 
       <label style={styles.label}>
-        Receipt (optional):
         <input
           type="file"
           accept="image/*"
